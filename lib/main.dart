@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/pages/menuPage.dart';
+import 'package:flutter_tutorial/pages/loginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {   //The fact that it's a statless widget E
       theme: ThemeData(
         primarySwatch: Colors.blue    ,
       ),
-      home: const MenuPage(),
+      home: LoginPage(),
     );
   }
 }

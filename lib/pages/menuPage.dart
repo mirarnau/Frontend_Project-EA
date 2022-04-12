@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/pages/usersPage.dart';
 import 'package:flutter_tutorial/pages/dishesPage.dart';
+import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/widgets/menuButton.dart';
 
 
@@ -33,7 +33,7 @@ class _MenuPageState extends State<MenuPage> {
                   onTap: () {
                     Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const UsersPage()),
+                    MaterialPageRoute(builder: (context) =>  LoginPage()),
                 );
                   },
                   child: MenuButtonWidget(

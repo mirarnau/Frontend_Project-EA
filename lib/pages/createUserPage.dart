@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/pages/usersPage.dart';
-import 'package:flutter_tutorial/models/user.dart';
-import 'package:flutter_tutorial/services/userService.dart';
+import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/services/customerService.dart';
 
 
 class CreateUser extends StatefulWidget {
@@ -14,19 +13,17 @@ class CreateUser extends StatefulWidget {
 class _CreateUserPageState extends State<CreateUser> {
   final _formKey = GlobalKey<FormState>();
 
-  late String name;
-  late String age;
-  late String password;
-
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
+  final customernameController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    nameController.dispose();
-    ageController.dispose();
+    customernameController.dispose();
+    fullnameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -34,7 +31,7 @@ class _CreateUserPageState extends State<CreateUser> {
   @override
   Widget build (BuildContext context) {
     
-    UserService userService = UserService();
+    CustomerService customerService = CustomerService();
 
     return Scaffold(
       appBar: AppBar(
@@ -56,23 +53,31 @@ class _CreateUserPageState extends State<CreateUser> {
           children: <Widget>[ 
             const Padding(padding: EdgeInsets.only(left: 40)),
             TextField(  
-              controller: nameController,
+              controller: customernameController,
               decoration: const InputDecoration(  
                 icon: Icon(Icons.person),  
-                hintText: 'Enter your name',  
-                labelText: 'Name',  
+                hintText: 'Enter your username',  
+                labelText: 'Username',  
               ),
             ),
             TextField(  
-              controller: ageController,
+              controller: fullnameController,
               decoration: const InputDecoration(  
                 icon: Icon(Icons.calendar_month),  
-                hintText: 'Enter your age',  
-                labelText: 'Age',  
+                hintText: 'Enter your full name',  
+                labelText: 'Full name',  
               ),
             ),
             TextField(  
-              controller: passwordController,
+              controller: emailController,
+              decoration: const InputDecoration(  
+                icon: Icon(Icons.password),  
+                hintText: 'Enter your email',  
+                labelText: 'Email',  
+              ),
+            ),
+            TextField(  
+              controller: emailController,
               decoration: const InputDecoration(  
                 icon: Icon(Icons.password),  
                 hintText: 'Enter your password',  
@@ -84,13 +89,15 @@ class _CreateUserPageState extends State<CreateUser> {
               child: TextButton(  
                 child: const Text('Done'),  
                 onPressed: () async {  
-                  if ((nameController.text.isNotEmpty) && (ageController.text.isNotEmpty) && (passwordController.text.isNotEmpty)){
-                    User newUser = User(name: nameController.text, age: ageController.text, password: passwordController.text);
-                    await userService.addUser(newUser);
+                  if ((customernameController.text.isNotEmpty) && (fullnameController.text.isNotEmpty) && (emailController.text.isNotEmpty)  && (passwordController.text.isNotEmpty)){
+                    Customer newUser = Customer(customerName: customernameController.text, fullName: fullnameController.text, email: emailController.text, password: passwordController.text);
+                    await customerService.addCustomer(newUser);
+                    /*
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const UsersPage()),
+                      MaterialPageRoute(builder: (context) => const ()),
                     );
+                    */
                   }
                   else{
                     showDialog(

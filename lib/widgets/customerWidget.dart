@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/pages/usersPage.dart';
-import 'package:flutter_tutorial/services/userService.dart';
+import 'package:flutter_tutorial/pages/menuPage.dart';
+import 'package:flutter_tutorial/services/customerService.dart';
 
 class UserWidget extends StatelessWidget {
-  final String name;
-  final String age;
+  final String customerName;
+  final String fullName;
+  final String email;
   final String passsword;
 
   UserWidget({
-    required this.name, 
-    required this.age, 
+    required this.customerName, 
+    required this.fullName, 
+    required this.email,
     required this.passsword});
 
   @override
@@ -21,8 +23,14 @@ class UserWidget extends StatelessWidget {
           children: <Widget>[
              ListTile(
               leading: const Icon(Icons.person),
-              title: Text(name),
-              subtitle: Text(age + ' years old'),
+              title: Text(fullName),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(customerName),
+                  const SizedBox(width: 65),
+                  Text(email)
+                ]),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -43,10 +51,10 @@ class UserWidget extends StatelessWidget {
                     color: Colors.red
                   ),),
                   onPressed: () async {
-                    await UserService().deleteUser(name);
+                    //await UserService().deleteCustomer(name);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const UsersPage()),
+                      MaterialPageRoute(builder: (context) => const MenuPage()),
                     );
                   },
                 ),
