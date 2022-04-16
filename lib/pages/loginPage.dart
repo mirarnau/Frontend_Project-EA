@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/pages/menuPage.dart';
+import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
@@ -65,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     CustomerService customerService = CustomerService();
 
     return Scaffold(
+
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
@@ -143,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MenuPage()),
+                        MaterialPageRoute(builder: (context) => const MainPage()),
                       );
                     }
                 },
