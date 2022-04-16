@@ -3,7 +3,7 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:http/http.dart' as http;
 
 class CustomerService{
-  var baseUrl = "http://localhost:3000/api/customers";
+  var baseUrl = "http://10.0.2.2:3000/api/customers";
 
   //In Dart, promises are called Future.
 
