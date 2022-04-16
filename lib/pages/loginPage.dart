@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
           children: const [
           Icon(Icons.login), 
           SizedBox(width: 10), 
-          Text('Main menu') 
+          Text('Login') 
         ],),
       ),
       body: SingleChildScrollView(

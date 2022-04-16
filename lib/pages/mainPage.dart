@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
           SizedBox(width: 65), 
-          Icon(Icons.login), 
+          Icon(Icons.menu), 
           SizedBox(width: 10), 
           Text('Main page') 
         ],),
