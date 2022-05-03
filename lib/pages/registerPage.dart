@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
-
-import 'package:flutter_tutorial/pages/profilePage.dart';
-
-import 'package:flutter_tutorial/pages/registerPage.dart';
-
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final customernameController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordRepeatController = TextEditingController();
 
   bool buttonEnabled = false;
 
@@ -26,7 +23,10 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     customernameController.dispose();
+    fullnameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
+    passwordRepeatController.dispose();
 
     super.dispose();
   }
@@ -43,10 +43,10 @@ class _LoginPageState extends State<LoginPage> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text(
-        "Incorrect credentials",
+        "Error",
         style: TextStyle(color: Colors.red),
       ),
-      content: const Text("User not found or incorrect password."),
+      content: const Text("Passwords don't match"),
       actions: [
         okButton,
       ],
@@ -69,11 +69,12 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: const [
+            SizedBox(width: 80),
             Icon(Icons.login),
             SizedBox(width: 10),
-            Text('Login')
+            Text('Register')
           ],
         ),
       ),
@@ -81,13 +82,13 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.only(top: 60.0),
+              padding: EdgeInsets.only(top: 40.0),
               child: Center(
                 child: SizedBox(
                     width: 200,
-                    height: 150,
+                    height: 90,
                     child: Text(
-                      'LOGIN',
+                      'REGISTER',
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
@@ -110,6 +111,28 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
+                controller: fullnameController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Full name ',
+                    hintText: 'Enter your full name'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              child: TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Enter your email'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              child: TextField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
@@ -118,11 +141,16 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter your password'),
               ),
             ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 50),
+              child: TextField(
+                controller: passwordRepeatController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Repeat password',
+                    hintText: 'Enter your password again'),
               ),
             ),
             Container(
@@ -133,35 +161,32 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty)) {
+                      (fullnameController.text.isNotEmpty) &&
+                      (emailController.text.isNotEmpty) &&
+                      (passwordController.text.isNotEmpty) &&
+                      (passwordRepeatController.text.isNotEmpty)) {
                     setState(() {
                       buttonEnabled = true;
                     });
-                    Customer? customer = await customerService.login(
-                        customernameController.text, passwordController.text);
-                    if (customer == null) {
+                    if (passwordController.text ==
+                        passwordRepeatController.text) {
+                      Customer newCustomer = Customer(
+                          customerName: customernameController.text,
+                          fullName: fullnameController.text,
+                          email: emailController.text,
+                          password: passwordController.text);
+                      await customerService.addCustomer(newCustomer);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainPage()),
+                      );
+                    } else {
                       showAlertDialog(context);
-                      return;
                     }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainPage()),
-                    );
-
-                    /*
-                    save_data(customer.fullName, customer.email,
-                        customer.customerName);
-                    var route = MaterialPageRoute(
-                      builder: (BuildContext context) => ProfilePage(
-                          fullName: customer.fullName,
-                          email: customer.email,
-                          customerName: customer.customerName),
-                    );
-                    Navigator.of(context).push(route);*/
                   }
                 },
                 child: const Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
@@ -169,54 +194,9 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 130,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: TextButton(
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterPage()),
-                  );
-                },
-                child: const Text('New User? Create Account'),
-              ),
-            ),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> save_data(fullName, email, customerName) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fullName', fullName);
-    await prefs.setString('email', email);
-    await prefs.setString('customerName', customerName);
-  }
-
-  String fullName = '';
-  String email = '';
-  String customerName = '';
-
-  Future<void> navigate() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    fullName = (await prefs.getString('fullName'))!;
-    email = (await prefs.getString('email')!);
-    customerName = (await prefs.getString('customerName')!);
-    if (fullName != '') {
-      var route = MaterialPageRoute(
-        builder: (BuildContext context) => ProfilePage(
-            fullName: fullName, email: email, customerName: customerName),
-      );
-      Navigator.of(context).push(route);
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    navigate();
   }
 }

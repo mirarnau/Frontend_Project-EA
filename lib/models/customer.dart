@@ -8,15 +8,11 @@ class Customer {
   late final bool isDarkMode;
   late final String about;
 
-  Customer({
-    required this.customerName,
-    required this.fullName,
-    required this.email,
-    required this.password,
-    /*required this.imagePath,
-      required this.about,
-      required this.isDarkMode*/
-  });
+  Customer(
+      {required this.customerName,
+      required this.fullName,
+      required this.email,
+      required this.password});
 
   factory Customer.fromJSON(dynamic json) {
     Customer customer = Customer(

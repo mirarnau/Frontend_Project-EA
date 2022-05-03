@@ -3,32 +3,13 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 
 class MainPage extends StatefulWidget {
-  final String value;
-
-  MainPage({Key? key, required this.value}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  CustomerService costumerService = CustomerService();
-  late Customer customer;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    getCustomer();
-  }
-
-  Future<void> getCustomer() async {
-    customer = (await costumerService.login(widget.value, "1234"))!;
-    setState(() {
-      isLoading = false;
-    });
-  }
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
