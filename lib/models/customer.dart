@@ -9,7 +9,8 @@ class Customer {
     required this.customerName, 
     required this.fullName, 
     required this.email, 
-    required this.password});
+    required this.password
+  });
 
   factory Customer.fromJSON(dynamic json){
     Customer customer =  Customer(

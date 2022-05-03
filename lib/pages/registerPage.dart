@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
-import 'package:flutter_tutorial/pages/registerPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
 
   final customernameController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   bool buttonEnabled = false;
@@ -23,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     customernameController.dispose();
+    fullnameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
 
     super.dispose();
@@ -74,20 +77,20 @@ class _LoginPageState extends State<LoginPage> {
           children: const [
           Icon(Icons.login), 
           SizedBox(width: 10), 
-          Text('Login') 
+          Text('Register') 
         ],),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.only(top: 60.0),
+              padding: EdgeInsets.only(top: 40.0),
               child: Center(
                 child: SizedBox(
                     width: 200,
-                    height: 150,
+                    height: 100,
                     child:
-                      Text('LOGIN', 
+                      Text('REGISTER', 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 40,
@@ -108,9 +111,31 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter your user name'),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
+              child: TextField(
+                controller: fullnameController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Full name ',
+                    hintText: 'Enter your full name'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              child: TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Enter your email'),
+              ),
+            ),
+             Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 50),
               child: TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -120,13 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter your password'),
               ),
             ),
-            TextButton(
-              onPressed: () { },
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
-              ),
-            ),
             Container(
               height: 50,
               width: 250,
@@ -134,15 +152,13 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () async {
-                    if ((customernameController.text.isNotEmpty) && (passwordController.text.isNotEmpty)){
+                    if ((customernameController.text.isNotEmpty) && (fullnameController.text.isNotEmpty)
+                    && (emailController.text.isNotEmpty) && (passwordController.text.isNotEmpty)){
                       setState(() {
                         buttonEnabled = true;
                       });
-                      Customer? customer =  await customerService.login(customernameController.text, passwordController.text);
-                      if (customer == null){
-                        showAlertDialog(context);
-                        return;
-                      }
+                      Customer newCustomer = new Customer(customerName: customernameController.text, fullName: fullnameController.text, email: emailController.text, password: passwordController.text);
+                      await customerService.addCustomer(newCustomer);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const MainPage()),
@@ -150,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                 },
                 child: const Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
@@ -158,18 +174,6 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 130,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: TextButton(
-                onPressed: () async {
-                  Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
-                      );
-                },
-                child: const Text('New User? Create Account'),
-                ),
-              ),
           ],
         ),
       ),
