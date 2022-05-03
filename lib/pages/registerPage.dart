@@ -17,6 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final fullnameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordRepeatController = TextEditingController();
 
   bool buttonEnabled = false;
 
@@ -27,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
     fullnameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    passwordRepeatController.dispose();
 
     super.dispose();
   }
@@ -42,12 +44,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Incorrect credentials",
+      title: const Text("Error",
         style: TextStyle(
           color: Colors.red
         ),
       ),
-      content: const Text("User not found or incorrect password."),
+      content: const Text("Passwords don't match"),
       actions: [
         okButton,
       ],
@@ -73,8 +75,9 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: const [
+          SizedBox(width: 80),
           Icon(Icons.login), 
           SizedBox(width: 10), 
           Text('Register') 
@@ -88,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Center(
                 child: SizedBox(
                     width: 200,
-                    height: 100,
+                    height: 90,
                     child:
                       Text('REGISTER', 
                       textAlign: TextAlign.center,
@@ -135,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
              Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 50),
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -143,6 +146,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     border: OutlineInputBorder(),
                     labelText: 'Password',
                     hintText: 'Enter your password'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 50),
+              child: TextField(
+                controller: passwordRepeatController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Repeat password',
+                    hintText: 'Enter your password again'),
               ),
             ),
             Container(
@@ -153,16 +168,21 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextButton(
                 onPressed: () async {
                     if ((customernameController.text.isNotEmpty) && (fullnameController.text.isNotEmpty)
-                    && (emailController.text.isNotEmpty) && (passwordController.text.isNotEmpty)){
+                    && (emailController.text.isNotEmpty) && (passwordController.text.isNotEmpty) && (passwordRepeatController.text.isNotEmpty)){
                       setState(() {
                         buttonEnabled = true;
                       });
-                      Customer newCustomer = new Customer(customerName: customernameController.text, fullName: fullnameController.text, email: emailController.text, password: passwordController.text);
-                      await customerService.addCustomer(newCustomer);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MainPage()),
-                      );
+                      if (passwordController.text == passwordRepeatController.text){
+                        Customer newCustomer = Customer(customerName: customernameController.text, fullName: fullnameController.text, email: emailController.text, password: passwordController.text);
+                        await customerService.addCustomer(newCustomer);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MainPage()),
+                        );
+                      }
+                      else{
+                        showAlertDialog(context);
+                      }
                     }
                 },
                 child: const Text(
