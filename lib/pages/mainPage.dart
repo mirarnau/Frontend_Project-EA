@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/services/customerService.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Restaurants',
@@ -40,11 +41,12 @@ class _MainPageState extends State<MainPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
-          SizedBox(width: 65), 
-          Icon(Icons.menu), 
-          SizedBox(width: 10), 
-          Text('Main page') 
-        ],),
+            SizedBox(width: 65),
+            Icon(Icons.menu),
+            SizedBox(width: 10),
+            Text('Main page')
+          ],
+        ),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
