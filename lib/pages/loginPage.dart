@@ -143,19 +143,21 @@ class _LoginPageState extends State<LoginPage> {
                       showAlertDialog(context);
                       return;
                     }
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MainPage()),
-                    );
-
-                    /*
-                    save_data(customer.fullName, customer.email,
-                        customer.customerName);
+                    );*/
                     var route = MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MainPage(customer: customer),
+                    );
+                    Navigator.of(context).push(route);
+
+                    //save_data(customer);
+                    /*var route = MaterialPageRoute(
                       builder: (BuildContext context) => ProfilePage(
-                          fullName: customer.fullName,
-                          email: customer.email,
-                          customerName: customer.customerName),
+                        customer: customer,
+                      ),
                     );
                     Navigator.of(context).push(route);*/
                   }
@@ -188,16 +190,17 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> save_data(fullName, email, customerName) async {
+  /*Future<void> save_data(Customer customer) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fullName', fullName);
-    await prefs.setString('email', email);
-    await prefs.setString('customerName', customerName);
+    await prefs.setString('fullName', customer.fullName);
+    await prefs.setString('email', customer.email);
+    await prefs.setString('customerName', customer.customerName);
   }
 
   String fullName = '';
   String email = '';
   String customerName = '';
+  late Customer customer;
 
   Future<void> navigate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -207,16 +210,17 @@ class _LoginPageState extends State<LoginPage> {
     if (fullName != '') {
       var route = MaterialPageRoute(
         builder: (BuildContext context) => ProfilePage(
-            fullName: fullName, email: email, customerName: customerName),
+          customer: customer,
+        ),
       );
       Navigator.of(context).push(route);
     }
-  }
+  }*/
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    navigate();
+    //navigate();
   }
 }

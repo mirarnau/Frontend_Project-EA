@@ -178,7 +178,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       await customerService.addCustomer(newCustomer);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MainPage()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MainPage(customer: newCustomer)),
                       );
                     } else {
                       showAlertDialog(context);

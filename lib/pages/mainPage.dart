@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
+import 'package:flutter_tutorial/widgets/profileWidget.dart';
+import 'editProfilePage.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  final Customer customer;
+  MainPage({Key? key, required this.customer}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -11,7 +15,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
+  late Customer _customer = widget.customer;
+
+  /*static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
@@ -22,17 +28,24 @@ class _MainPageState extends State<MainPage> {
       'Index 1: Agenda',
       style: optionStyle,
     ),
+    //ProfilePage(customer: widget.customer),
     Text(
       'Index 2: Profile',
       style: optionStyle,
-    ),
-  ];
+    )
+  ];*/
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
+  late final screens = [
+    Center(child: Text('Restaurants', style: TextStyle(fontSize: 60))),
+    Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
+    ProfilePage(customer: _customer),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

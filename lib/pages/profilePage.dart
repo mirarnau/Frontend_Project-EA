@@ -4,17 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/widgets/profileWidget.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
+import 'package:flutter_tutorial/pages/editProfilePage.dart';
 
 class ProfilePage extends StatefulWidget {
-  final String fullName;
-  final String email;
-  final String customerName;
-  const ProfilePage(
-      {Key? key,
-      required this.fullName,
-      required this.email,
-      required this.customerName})
-      : super(key: key);
+  final Customer customer;
+  const ProfilePage({Key? key, required this.customer}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -31,10 +25,18 @@ class _ProfilePageState extends State<ProfilePage> {
           ProfileWidget(
             imagePath:
                 "https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png",
-            onClicked: () async {},
+            onClicked: () async {
+              var route = MaterialPageRoute(
+                builder: (BuildContext context) => editProfilePage(
+                  customer: widget.customer,
+                ),
+              );
+              Navigator.of(context).push(route);
+            },
           ),
           const SizedBox(height: 24),
-          buildName(widget.fullName, widget.email, widget.customerName),
+          buildName(widget.customer.fullName, widget.customer.email,
+              (widget.customer.customerName)),
         ],
       ),
     );
