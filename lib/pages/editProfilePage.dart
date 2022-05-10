@@ -80,14 +80,14 @@ class _editProfilePage extends State<editProfilePage> {
               onPressed: () async {
                 if ((customernameController.text.isNotEmpty) &&
                     (emailController.text.isNotEmpty)) {
+                  Customer? newcustomer;
+                  newcustomer?.customerName = customernameController.text;
+                  newcustomer?.email = emailController.text;
+                  Customer? customer = await customerService.update(
+                      newcustomer!, widget.customer.id);
                   setState(() {
                     buttonEnabled = true;
                   });
-                  Customer? newcustomer = widget.customer;
-                  newcustomer.customerName = customernameController.text;
-                  newcustomer.email = emailController.text;
-                  Customer? customer = await customerService.update(
-                      newcustomer, widget.customer.id);
                   if (customer == null) {
                     return;
                   }
@@ -98,12 +98,6 @@ class _editProfilePage extends State<editProfilePage> {
                               customer: customer,
                             )),
                   );
-                  var route = MaterialPageRoute(
-                    builder: (BuildContext context) => ProfilePage(
-                      customer: newcustomer,
-                    ),
-                  );
-                  Navigator.of(context).push(route);
                 }
               },
               child: const Text(

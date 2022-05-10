@@ -4,9 +4,6 @@ class Customer {
   late final String fullName;
   late final String email;
   late final String password;
-  late final String imagePath;
-  late final bool isDarkMode;
-  late final String about;
 
   Customer({
     required this.customerName,
