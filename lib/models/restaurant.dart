@@ -13,7 +13,7 @@ class Restaurant {
   late final List<Tag> listTags;
   late final List<Dish> listDishes;
   late final String creationDate;
-  
+
 
   Restaurant({
     required this.owner, 
@@ -39,8 +39,7 @@ class Restaurant {
       listTags: json ['listTags'],
       listDishes: json['listDishes']
       );
-    restaurant._id = json['_id'];
-    return restaurant;
+      return restaurant;
   }
 
    static Map<String, dynamic> toJson(Restaurant restaurant) {
@@ -63,8 +62,10 @@ class Restaurant {
       ]
     };
   }
+  
 }
 
 class Tag {
     late final String tagName;
 }
+

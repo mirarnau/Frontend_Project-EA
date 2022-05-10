@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CardRestaurant extends StatelessWidget {
+
   final String restaurantName;
   final String address;
   final String description;
@@ -14,7 +15,6 @@ class CardRestaurant extends StatelessWidget {
     required this.rating,
     required this.imagesUrl
   });
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +41,8 @@ class CardRestaurant extends StatelessWidget {
             BlendMode.multiply,
           ),
           image: NetworkImage(imagesUrl[0]),
+
+      
           fit: BoxFit.cover,
         ),
       ),
@@ -55,6 +57,7 @@ class CardRestaurant extends StatelessWidget {
                   fontSize: 19,
                   color: Colors.white
                 ),
+
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.center,
@@ -75,6 +78,7 @@ class CardRestaurant extends StatelessWidget {
                   ),
                   child: Row(
                     children:  [
+
                       const Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -86,6 +90,7 @@ class CardRestaurant extends StatelessWidget {
                         style: const TextStyle(
                           color: Colors.white
                         ),),
+
                     ],
                   ),
                 ),
@@ -98,14 +103,16 @@ class CardRestaurant extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
+                      const Icon(
+                        Icons.euro,
+                        color: Colors.yellow,
+                        size: 18,
+                      ),
                       const SizedBox(width: 7),
                       Text(
-                        address,
-                        style: const TextStyle(
-                          color: Colors.white
-                        ),
-                        
-                        ),
+                        description,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 )
@@ -118,3 +125,4 @@ class CardRestaurant extends StatelessWidget {
     );
   }
 }
+

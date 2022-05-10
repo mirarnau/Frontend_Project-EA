@@ -3,7 +3,6 @@ import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -12,7 +11,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final customernameController = TextEditingController();
   final fullnameController = TextEditingController();
   final emailController = TextEditingController();
@@ -39,15 +37,14 @@ class _RegisterPageState extends State<RegisterPage> {
       child: const Text("OK"),
       onPressed: () {
         Navigator.pop(context);
-       },
+      },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Error",
-        style: TextStyle(
-          color: Colors.red
-        ),
+      title: const Text(
+        "Error",
+        style: TextStyle(color: Colors.red),
       ),
       content: const Text("Passwords don't match"),
       actions: [
@@ -62,26 +59,24 @@ class _RegisterPageState extends State<RegisterPage> {
         return alert;
       },
     );
-}
-
+  }
 
   @override
   Widget build(BuildContext context) {
-
     CustomerService customerService = CustomerService();
 
     return Scaffold(
-
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
-          SizedBox(width: 80),
-          Icon(Icons.login), 
-          SizedBox(width: 10), 
-          Text('Register') 
-        ],),
+            SizedBox(width: 80),
+            Icon(Icons.login),
+            SizedBox(width: 10),
+            Text('Register')
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -92,19 +87,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: SizedBox(
                     width: 200,
                     height: 90,
-                    child:
-                      Text('REGISTER', 
+                    child: Text(
+                      'REGISTER',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ) 
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    )
                     //Image.asset('assets/images/like.png')),
-                ),
+                    ),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: customernameController,
@@ -136,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: 'Enter your email'),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
@@ -167,23 +160,32 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () async {
-                    if ((customernameController.text.isNotEmpty) && (fullnameController.text.isNotEmpty)
-                    && (emailController.text.isNotEmpty) && (passwordController.text.isNotEmpty) && (passwordRepeatController.text.isNotEmpty)){
-                      setState(() {
-                        buttonEnabled = true;
-                      });
-                      if (passwordController.text == passwordRepeatController.text){
-                        Customer newCustomer = Customer(customerName: customernameController.text, fullName: fullnameController.text, email: emailController.text, password: passwordController.text);
-                        await customerService.addCustomer(newCustomer);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MainPage()),
-                        );
-                      }
-                      else{
-                        showAlertDialog(context);
-                      }
+                  if ((customernameController.text.isNotEmpty) &&
+                      (fullnameController.text.isNotEmpty) &&
+                      (emailController.text.isNotEmpty) &&
+                      (passwordController.text.isNotEmpty) &&
+                      (passwordRepeatController.text.isNotEmpty)) {
+                    setState(() {
+                      buttonEnabled = true;
+                    });
+                    if (passwordController.text ==
+                        passwordRepeatController.text) {
+                      Customer newCustomer = Customer(
+                          customerName: customernameController.text,
+                          fullName: fullnameController.text,
+                          email: emailController.text,
+                          password: passwordController.text);
+                      await customerService.addCustomer(newCustomer);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MainPage(customer: newCustomer)),
+                      );
+                    } else {
+                      showAlertDialog(context);
                     }
+                  }
                 },
                 child: const Text(
                   'Register',
