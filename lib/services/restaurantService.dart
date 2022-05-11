@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,15 +8,17 @@ class RestaurantService{
 
    Future<List<Restaurant>?> filterRestaurants (List<String> listTags) async {
     var res = await http.post(Uri.parse(baseUrl + '/filters/tags'),
+      headers: {'content-type': 'application/json'},
       body: json.encode(Restaurant.tagsToJson(listTags)));
 
     if (res.statusCode == 404){
       return null;
     }
+
     List<Restaurant> listFiltered = [];
-    for (var i; i < res.body.length ; i++){
-      listFiltered[i] = Restaurant.fromJSON(jsonDecode(res.body));
-    }
+    var decoded = jsonDecode(res.body);
+    decoded.forEach((restaurant) => listFiltered.add(Restaurant.fromJSON(restaurant)));
+
     return listFiltered;
   }
 }

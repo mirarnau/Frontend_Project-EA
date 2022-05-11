@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 class CardRestaurant extends StatelessWidget {
 
   final String restaurantName;
-  final String address;
-  final String description;
+  final String city;
   final String rating;
-  final List<String> imagesUrl;
+  final List<dynamic> imagesUrl;
 
   CardRestaurant({
     required this.restaurantName,
-    required this.address,
-    required this.description,
+    required this.city,
     required this.rating,
     required this.imagesUrl
   });
@@ -26,7 +24,7 @@ class CardRestaurant extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withOpacity(0.4),
             offset: const Offset(
               0.0,
               10.0,
@@ -37,7 +35,7 @@ class CardRestaurant extends StatelessWidget {
         ],
         image: DecorationImage(
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.5),
+            Colors.black.withOpacity(0.25),
             BlendMode.multiply,
           ),
           image: NetworkImage(imagesUrl[0]),
@@ -73,12 +71,11 @@ class CardRestaurant extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
                     children:  [
-
                       const Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -98,19 +95,19 @@ class CardRestaurant extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
                     children: [
                       const Icon(
-                        Icons.euro,
+                        Icons.location_pin,
                         color: Colors.yellow,
                         size: 18,
                       ),
                       const SizedBox(width: 7),
                       Text(
-                        description,
+                        city,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
