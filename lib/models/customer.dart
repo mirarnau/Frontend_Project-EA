@@ -1,5 +1,5 @@
 class Customer {
-  late final String _id;
+  late final String id;
   late final String customerName;
   late final String fullName;
   late final String email;
@@ -20,7 +20,7 @@ class Customer {
         fullName: json['fullName'],
         email: json['email'],
         password: json['password']);
-    customer._id = json['_id'];
+    customer.id = json['_id'];
     return customer;
   }
 

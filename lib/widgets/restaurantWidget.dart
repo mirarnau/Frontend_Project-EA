@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CardRestaurant extends StatelessWidget {
-  final String title;
+
+  final String restaurantName;
+  final String city;
   final String rating;
-  final String thumbnailUrl;
-  final String description;
+  final List<dynamic> imagesUrl;
 
   CardRestaurant({
-    required this.title,
-    required this.description,
+    required this.restaurantName,
+    required this.city,
     required this.rating,
-    required this.thumbnailUrl,
+    required this.imagesUrl
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +24,7 @@ class CardRestaurant extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withOpacity(0.4),
             offset: const Offset(
               0.0,
               10.0,
@@ -35,10 +35,12 @@ class CardRestaurant extends StatelessWidget {
         ],
         image: DecorationImage(
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.5),
+            Colors.black.withOpacity(0.25),
             BlendMode.multiply,
           ),
-          image: NetworkImage(thumbnailUrl),
+          image: NetworkImage(imagesUrl[0]),
+
+      
           fit: BoxFit.cover,
         ),
       ),
@@ -48,8 +50,12 @@ class CardRestaurant extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(
-                title,
-                style: const TextStyle(fontSize: 19, color: Colors.white),
+                restaurantName,
+                style: const TextStyle(
+                  fontSize: 19,
+                  color: Colors.white
+                ),
+
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.center,
@@ -65,11 +71,11 @@ class CardRestaurant extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
-                    children: [
+                    children:  [
                       const Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -78,8 +84,10 @@ class CardRestaurant extends StatelessWidget {
                       const SizedBox(width: 7),
                       Text(
                         rating,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                        style: const TextStyle(
+                          color: Colors.white
+                        ),),
+
                     ],
                   ),
                 ),
@@ -87,19 +95,19 @@ class CardRestaurant extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
                     children: [
                       const Icon(
-                        Icons.euro,
+                        Icons.location_pin,
                         color: Colors.yellow,
                         size: 18,
                       ),
                       const SizedBox(width: 7),
                       Text(
-                        description,
+                        city,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
@@ -114,3 +122,4 @@ class CardRestaurant extends StatelessWidget {
     );
   }
 }
+
