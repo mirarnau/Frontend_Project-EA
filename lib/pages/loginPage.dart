@@ -147,13 +147,14 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(builder: (context) => MainPage()),
                     );*/
+                    save_data(
+                        customernameController.text, passwordController.text);
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
                           MainPage(customer: customer),
                     );
                     Navigator.of(context).push(route);
 
-                    //save_data(customer);
                     /*var route = MaterialPageRoute(
                       builder: (BuildContext context) => ProfilePage(
                         customer: customer,
@@ -190,35 +191,36 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /*Future<void> save_data(Customer customer) async {
+  Future<void> save_data(String customerName, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fullName', customer.fullName);
-    await prefs.setString('email', customer.email);
-    await prefs.setString('customerName', customer.customerName);
+    await prefs.setString('customerName', customerName);
+    await prefs.setString('password', password);
   }
-  String fullName = '';
-  String email = '';
+
   String customerName = '';
+  String password = '';
   late Customer customer;
   Future<void> navigate() async {
+    CustomerService customerService = CustomerService();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    fullName = (await prefs.getString('fullName'))!;
-    email = (await prefs.getString('email')!);
     customerName = (await prefs.getString('customerName')!);
-    if (fullName != '') {
+    password = (await prefs.getString('password')!);
+    if (customerName != '') {
+      Customer? sharedcustomer =
+          await customerService.login(customerName, password);
       var route = MaterialPageRoute(
-        builder: (BuildContext context) => ProfilePage(
-          customer: customer,
+        builder: (BuildContext context) => MainPage(
+          customer: (sharedcustomer)!,
         ),
       );
       Navigator.of(context).push(route);
     }
-  }*/
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    //navigate();
+    navigate();
   }
 }
