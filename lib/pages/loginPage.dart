@@ -137,27 +137,33 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       buttonEnabled = true;
                     });
-                    Customer? customer = await customerService.login(
+                    var res = await customerService.login(
                         customernameController.text, passwordController.text);
-                    if (customer == null) {
+                    if (res == "401") {
                       showAlertDialog(context);
                       return;
                     }
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainPage()),
-                    );*/
+                    Customer? customer = await customerService.getCustomerByName(customernameController.text);
+                    if (customer == null){
+                      showAlertDialog(context);
+                      return null;
+                    }
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: customer),
+                        MainPage(customer: customer)
                     );
                     Navigator.of(context).push(route);
+                    
+                   
 
-                    //save_data(customer);
-                    /*var route = MaterialPageRoute(
+                    /*
+                    save_data(customer.fullName, customer.email,
+                        customer.customerName);
+                    var route = MaterialPageRoute(
                       builder: (BuildContext context) => ProfilePage(
-                        customer: customer,
-                      ),
+                          fullName: customer.fullName,
+                          email: customer.email,
+                          customerName: customer.customerName),
                     );
                     Navigator.of(context).push(route);*/
                   }
@@ -189,17 +195,18 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  /*Future<void> save_data(Customer customer) async {
+/*
+  Future<void> save_data(fullName, email, customerName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fullName', customer.fullName);
-    await prefs.setString('email', customer.email);
-    await prefs.setString('customerName', customer.customerName);
+    await prefs.setString('fullName', fullName);
+    await prefs.setString('email', email);
+    await prefs.setString('customerName', customerName);
   }
+
   String fullName = '';
   String email = '';
   String customerName = '';
-  late Customer customer;
+
   Future<void> navigate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     fullName = (await prefs.getString('fullName'))!;
@@ -208,17 +215,17 @@ class _LoginPageState extends State<LoginPage> {
     if (fullName != '') {
       var route = MaterialPageRoute(
         builder: (BuildContext context) => ProfilePage(
-          customer: customer,
-        ),
+            fullName: fullName, email: email, customerName: customerName),
       );
       Navigator.of(context).push(route);
     }
-  }*/
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    //navigate();
+    navigate();
   }
+  */
 }
