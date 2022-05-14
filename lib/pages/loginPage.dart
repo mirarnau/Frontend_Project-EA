@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
+import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 
 import 'package:flutter_tutorial/pages/profilePage.dart';
 
 import 'package:flutter_tutorial/pages/registerPage.dart';
 
 import 'package:flutter_tutorial/services/customerService.dart';
+import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/models/owner.dart';
+import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final customernameController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isOwner = false;
 
   bool buttonEnabled = false;
 
@@ -64,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     CustomerService customerService = CustomerService();
+    LoginService loginService = LoginService();
+    OwnerService ownerService = OwnerService();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -133,11 +140,11 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty)) {
+                      (passwordController.text.isNotEmpty) && !isOwner) {
                     setState(() {
                       buttonEnabled = true;
                     });
-                    var res = await customerService.login(
+                    var res = await loginService.loginCustomer(
                         customernameController.text, passwordController.text);
                     if (res == "401") {
                       showAlertDialog(context);
@@ -167,6 +174,30 @@ class _LoginPageState extends State<LoginPage> {
                     );
                     Navigator.of(context).push(route);*/
                   }
+                  if ((customernameController.text.isNotEmpty) &&
+                      (passwordController.text.isNotEmpty) && isOwner){
+                        setState(() {
+                      buttonEnabled = true;
+                    });
+                    var res = await loginService.loginOwner(
+                        customernameController.text, passwordController.text);
+                    if (res == "401") {
+                      showAlertDialog(context);
+                      return;
+                    }
+                    Owner? owner = await ownerService.getOwnerByName(customernameController.text);
+                    if (owner == null){
+                      showAlertDialog(context);
+                      return null;
+                    }
+                    var routes = MaterialPageRoute(
+                      builder: (BuildContext context) => 
+                        OwnerMainPage(owner: owner)
+                    );
+                    Navigator.of(context).push(routes);
+                        
+
+                  }
                 },
                 child: const Text(
                   'Login',
@@ -190,12 +221,22 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('New User? Create Account'),
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 0),
+              child: TextButton(
+                onPressed: () async {
+                  isOwner = true;
+                },
+                child: const Text('I am a restaurant owner'),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-/*
+
   Future<void> save_data(fullName, email, customerName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('fullName', fullName);
@@ -206,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
   String fullName = '';
   String email = '';
   String customerName = '';
-
+  late Customer customer;
   Future<void> navigate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     fullName = (await prefs.getString('fullName'))!;
@@ -215,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
     if (fullName != '') {
       var route = MaterialPageRoute(
         builder: (BuildContext context) => ProfilePage(
-            fullName: fullName, email: email, customerName: customerName),
+            customer: customer,),
       );
       Navigator.of(context).push(route);
     }
@@ -227,5 +268,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     navigate();
   }
-  */
+
+  
+  
 }
