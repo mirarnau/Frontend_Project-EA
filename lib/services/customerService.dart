@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
 class CustomerService {
-  var baseUrl = "http://10.0.2.2:3000/api/customers";
+  var baseUrl = apiURL + "/api/customers";
 
   //In Dart, promises are called Future.
 
