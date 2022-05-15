@@ -9,7 +9,7 @@ class RestaurantService{
 
    Future<List<Restaurant>?> filterRestaurants (List<String> listTags) async {
     var res = await http.post(Uri.parse(baseUrl + '/filters/tags'),
-      headers: {'content-type': 'application/json', 'x-access-toekn': LocalStorage('key').getItem('token')},
+      headers: {'content-type': 'application/json', 'authorization': LocalStorage('key').getItem('token')},
       body: json.encode(Restaurant.tagsToJson(listTags)));
 
     if (res.statusCode == 404){

@@ -10,7 +10,7 @@ class CustomerService {
 
   Future<Customer?> getCustomerByName(String customerName) async {
     var res = await http.get(Uri.parse(baseUrl + '/name/' + customerName),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       Customer customer = Customer.fromJSON(jsonDecode(res.body));
       return customer;

@@ -11,7 +11,7 @@ class OwnerService {
 
   Future<Owner?> getOwnerByName(String ownerName) async {
     var res = await http.get(Uri.parse(baseUrl + '/name/' + ownerName),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       Owner owner = Owner.fromJSON(jsonDecode(res.body));
       return owner;
@@ -22,7 +22,7 @@ class OwnerService {
   Future<List<dynamic>?> getOwnerById(Owner owner) async {
     String id = owner.id;
     var res = await http.get(Uri.parse(baseUrl + '/' + id),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       var listRestaurants = owner.restaurants;
       return listRestaurants;
