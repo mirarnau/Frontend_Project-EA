@@ -8,15 +8,17 @@ import 'editProfilePage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer customer;
-  MainPage({Key? key, required this.customer}) : super(key: key);
+  late final int selectedIndex;
+  final List<String> transferRestaurantTags;
+  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-  late Customer _customer = widget.customer;
+  late final Customer _customer = widget.customer;
+  late int _selectedIndex = widget.selectedIndex;
 
   /*static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -43,8 +45,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    ListRestaurantsPage(),
-    Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
+    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
+    const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
 
@@ -66,6 +68,7 @@ class _MainPageState extends State<MainPage> {
         child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
@@ -81,7 +84,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
     );

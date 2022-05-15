@@ -5,7 +5,6 @@ void main() {
   runApp(const MyApp());
 }
 
-//Creació branca Develop
 //MyApp is the root widget
 class MyApp extends StatelessWidget {
   //The fact that it's a statless widget ENABLES HOT RELOAD

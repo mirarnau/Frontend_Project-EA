@@ -176,11 +176,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           email: emailController.text,
                           password: passwordController.text);
                       await customerService.addCustomer(newCustomer);
+
+                      List<String> voidListTags=[];
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                MainPage(customer: newCustomer)),
+                                MainPage(customer: newCustomer, selectedIndex: 2,transferRestaurantTags: voidListTags)),
                       );
                     } else {
                       showAlertDialog(context);

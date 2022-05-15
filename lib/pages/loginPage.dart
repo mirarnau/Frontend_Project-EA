@@ -147,9 +147,12 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(builder: (context) => MainPage()),
                     );*/
+
+                    List<String> voidListTags = [];
+
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: customer),
+                          MainPage(customer: customer, selectedIndex: 1, transferRestaurantTags: voidListTags,),
                     );
                     Navigator.of(context).push(route);
 
