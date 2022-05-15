@@ -3,7 +3,7 @@ import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
 class NavDrawer extends StatelessWidget {
-  final Customer customer;
+  final Customer? customer;
   final List<String> previousTags;
   const NavDrawer({Key? key, required this.customer, required this.previousTags}) : super(key: key);
 

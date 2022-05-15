@@ -8,7 +8,7 @@ import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
 class editProfilePage extends StatefulWidget {
-  final Customer customer;
+  final Customer? customer;
   const editProfilePage({Key? key, required this.customer}) : super(key: key);
 
   @override
@@ -84,7 +84,7 @@ class _editProfilePage extends State<editProfilePage> {
                   newcustomer?.customerName = customernameController.text;
                   newcustomer?.email = emailController.text;
                   Customer? customer = await customerService.update(
-                      newcustomer!, widget.customer.id);
+                      newcustomer!, widget.customer!.id);
                   setState(() {
                     buttonEnabled = true;
                   });

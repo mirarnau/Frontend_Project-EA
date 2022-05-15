@@ -9,7 +9,7 @@ import 'mainPage.dart';
 
 class ListRestaurantsPage extends StatefulWidget {
   final List<String> newTags;
-  final Customer customer;
+  final Customer? customer;
   const ListRestaurantsPage({Key? key, required this.newTags, required this.customer}) : super(key: key);
 
   @override

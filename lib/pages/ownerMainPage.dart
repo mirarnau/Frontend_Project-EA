@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
-import 'package:flutter_tutorial/services/customerService.dart';
-import 'package:flutter_tutorial/widgets/profileWidget.dart';
-import 'editProfilePage.dart';
+import 'package:flutter_tutorial/services/ownerService.dart';
 
-class MainPage extends StatefulWidget {
-  final Customer? customer;
-  late final int selectedIndex;
-  final List<String> transferRestaurantTags;
-  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags}) : super(key: key);
+class OwnerMainPage extends StatefulWidget {
+  final Owner owner;
+  OwnerMainPage({Key? key, required this.owner}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _OwnerMainPageState createState() => _OwnerMainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  late final Customer? _customer = widget.customer;
-  late int _selectedIndex = widget.selectedIndex;
+class _OwnerMainPageState extends State<OwnerMainPage> {
+  int _selectedIndex = 0;
+  late Owner _owner = widget.owner;
+
+  List<String> newTags = [];
 
   /*static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -31,7 +29,7 @@ class _MainPageState extends State<MainPage> {
       'Index 1: Agenda',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+    //ProfilePage(owner: widget.owner),
     Text(
       'Index 2: Profile',
       style: optionStyle,
@@ -45,9 +43,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
-    ProfilePage(customer: _customer),
+    //ListRestaurantsPage(newTags: newTags, customer: customer)
   ];
 
   @override
@@ -68,23 +64,14 @@ class _MainPageState extends State<MainPage> {
         child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: 'Restaurants',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.view_agenda_rounded),
-            label: 'Agenda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
+        selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
     );

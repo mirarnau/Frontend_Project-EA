@@ -3,7 +3,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0-182.2.beta <3.0.0"
+  sdk: ">=2.16.0-182.2.beta <3.0.0"
 
 
 
@@ -17,6 +17,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.13
+  localstorage: ^4.0.0+1
 
 dev_dependencies:
   flutter_test:

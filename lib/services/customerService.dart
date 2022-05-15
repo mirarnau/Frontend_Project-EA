@@ -1,22 +1,22 @@
 import 'dart:convert';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:http/http.dart' as http;
+import 'package:localstorage/localstorage.dart';
 
 class CustomerService {
   var baseUrl = "http://10.0.2.2:3000/api/customers";
 
   //In Dart, promises are called Future.
 
-  Future<Customer?> login(String customerName, String password) async {
-    var res = await http.get(Uri.parse(baseUrl + '/name/' + customerName));
-    if (res.statusCode == 404) {
-      return null;
-    }
-    Customer customer = Customer.fromJSON(jsonDecode(res.body));
-    if (customer.password == password) {
+  Future<Customer?> getCustomerByName(String customerName) async {
+    var res = await http.get(Uri.parse(baseUrl + '/name/' + customerName),
+      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+    if (res.statusCode == 200) {
+      Customer customer = Customer.fromJSON(jsonDecode(res.body));
       return customer;
     }
     return null;
+    
   }
 
   Future<Customer?> update(Customer customer, String id) async {

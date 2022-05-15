@@ -7,7 +7,7 @@ import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/pages/editProfilePage.dart';
 
 class ProfilePage extends StatefulWidget {
-  final Customer customer;
+  final Customer? customer;
   const ProfilePage({Key? key, required this.customer}) : super(key: key);
 
   @override
@@ -35,8 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           const SizedBox(height: 24),
-          buildName(widget.customer.fullName, widget.customer.email,
-              (widget.customer.customerName)),
+          buildName(widget.customer!.fullName, widget.customer!.email,
+              (widget.customer!.customerName)),
         ],
       ),
     );
