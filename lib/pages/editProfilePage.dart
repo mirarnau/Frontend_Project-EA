@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/dish.dart';
+import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter_tutorial/widgets/profileWidget.dart';
@@ -80,23 +83,30 @@ class _editProfilePage extends State<editProfilePage> {
               onPressed: () async {
                 if ((customernameController.text.isNotEmpty) &&
                     (emailController.text.isNotEmpty)) {
-                  Customer? newcustomer;
-                  newcustomer?.customerName = customernameController.text;
-                  newcustomer?.email = emailController.text;
-                  Customer? customer = await customerService.update(
-                      newcustomer!, widget.customer!.id);
+                  Customer? newcustomer = Customer(
+                    customerName: customernameController.text, 
+                    fullName: widget.customer!.fullName, 
+                    email: emailController.text,
+                    password: widget.customer!.password);
+
+                  bool res = await customerService.update(
+                      newcustomer, widget.customer!.id);
                   setState(() {
                     buttonEnabled = true;
                   });
-                  if (customer == null) {
+                  if (res == false) {
+                    //Codi de que hi ha hagut un error.
                     return;
                   }
+                  List<String> voidListTags = [];
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfilePage(
-                              customer: customer,
-                            )),
+                        builder: (context) => MainPage(
+                          customer: newcustomer, 
+                          selectedIndex: 1, 
+                          transferRestaurantTags: voidListTags)
+                        ),
                   );
                 }
               },

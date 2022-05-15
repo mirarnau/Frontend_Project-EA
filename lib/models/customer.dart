@@ -16,7 +16,7 @@ class Customer {
 
   factory Customer.fromJSON(dynamic json) {
     Customer customer = Customer(
-        customerName: json['customerName'],
+        customerName: json['customerName'] as String,
         fullName: json['fullName'],
         email: json['email'],
         password: json['password']);
