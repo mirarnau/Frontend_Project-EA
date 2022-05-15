@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:flutter_tutorial/models/dish.dart';
 
 class Restaurant {
