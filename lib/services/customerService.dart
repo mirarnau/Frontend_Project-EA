@@ -1,16 +1,17 @@
 import 'dart:convert';
+import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
 class CustomerService {
-  var baseUrl = "http://10.0.2.2:3000/api/customers";
+  var baseUrl = apiURL + "/api/customers";
 
   //In Dart, promises are called Future.
 
   Future<Customer?> getCustomerByName(String customerName) async {
     var res = await http.get(Uri.parse(baseUrl + '/name/' + customerName),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       Customer customer = Customer.fromJSON(jsonDecode(res.body));
       return customer;
@@ -21,7 +22,7 @@ class CustomerService {
 
   Future<bool> update(Customer customer, String id) async {
     var res = await http.put(Uri.parse(baseUrl + '/' + id),
-        headers: {'content-type': 'application/json'},
+        headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
         body: json.encode(Customer.toJson(customer)));
 
     if (res.statusCode == 201) {
@@ -31,7 +32,8 @@ class CustomerService {
   }
 
   Future<List<Customer>?> getAllCustomers() async {
-    var res = await http.get(Uri.parse(baseUrl));
+    var res = await http.get(Uri.parse(baseUrl),
+      headers: {'authorization': LocalStorage('key').getItem('token')});
 
     List<Customer> allCustomers = [];
     if (res.statusCode == 200) {
@@ -57,7 +59,9 @@ class CustomerService {
   }
 
   Future<bool> deleteCustomer(String _id) async {
-    var res = await http.delete(Uri.parse(baseUrl + '/' + _id));
+    var res = await http.delete(Uri.parse(baseUrl + '/' + _id),
+      headers: {'authorization': LocalStorage('key').getItem('token')});
+      
     int statusCode = res.statusCode;
     if (statusCode == 200) return true;
     return false;

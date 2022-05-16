@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
 class LoginService {
   final LocalStorage storage = LocalStorage('key');
-  var baseUrlCustomers = "http://10.0.2.2:3000/api/customers";
-  var baseUrlOwners = "http://10.0.2.2:3000/api/owners";
+  var baseUrlCustomers = apiURL + "/api/customers";
+  var baseUrlOwners = apiURL + "/api/owners";
 
   Future<String?> loginCustomer(String customerName, String password) async {
       final msg = jsonEncode({"customerName": customerName, "password": password});

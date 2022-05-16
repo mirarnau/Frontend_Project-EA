@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/dish.dart';
 import 'package:http/http.dart' as http;
 
 class DishApi{
-  var baseUrl = "http://10.0.2.2:3000/api/dishes";
+  var baseUrl = apiURL + "/api/dishes";
 
   //In Dart, promises are called Future.
 

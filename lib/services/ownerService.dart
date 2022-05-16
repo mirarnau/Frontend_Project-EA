@@ -1,17 +1,18 @@
 import 'dart:convert';
+import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
 class OwnerService {
-  var baseUrl = "http://10.0.2.2:3000/api/owners";
+  var baseUrl = apiURL + "/api/owners";
 
   //In Dart, promises are called Future.
 
   Future<Owner?> getOwnerByName(String ownerName) async {
     var res = await http.get(Uri.parse(baseUrl + '/name/' + ownerName),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       Owner owner = Owner.fromJSON(jsonDecode(res.body));
       return owner;
@@ -22,7 +23,7 @@ class OwnerService {
   Future<List<dynamic>?> getOwnerById(Owner owner) async {
     String id = owner.id;
     var res = await http.get(Uri.parse(baseUrl + '/' + id),
-      headers: {'x-access-token': LocalStorage('key').getItem('token')});
+      headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       var listRestaurants = owner.restaurants;
       return listRestaurants;
