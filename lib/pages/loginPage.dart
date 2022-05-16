@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
@@ -24,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   final customernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isOwner = false;
+  bool _switchValue=true;
+  var text = "Customer";
 
   bool buttonEnabled = false;
 
@@ -140,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty) && !isOwner) {
+                      (passwordController.text.isNotEmpty) && (_switchValue == true)) {
                     setState(() {
                       buttonEnabled = true;
                     });
@@ -182,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(route);*/
                   }
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty) && isOwner){
+                      (passwordController.text.isNotEmpty) && (_switchValue == false)){
                         setState(() {
                       buttonEnabled = true;
                     });
@@ -228,15 +231,25 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('New User? Create Account'),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(bottom: 0),
-              child: TextButton(
-                onPressed: () async {
-                  isOwner = true;
-                },
-                child: const Text('I am a restaurant owner'),
-              ),
+              child: CupertinoSwitch(
+              activeColor: Colors.blue, 
+              value: _switchValue,
+              onChanged: (value) {
+                if (value == true){
+                  print("Customer");
+                  text = 'Customer';
+                }
+                else{
+                  print("Owner");   
+                  text = 'Owner';           
+                }
+                setState(() {
+                  _switchValue = value;
+                }); 
+              },
+            ),
             ),
           ],
         ),
@@ -244,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /*
+  
   Future<void> save_data(fullName, email, customerName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('fullName', fullName);
@@ -276,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     navigate();
   }
-  */
+  
 
   
   
