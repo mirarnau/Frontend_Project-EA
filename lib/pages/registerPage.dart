@@ -22,6 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final passwordRepeatController = TextEditingController();
   bool _switchValue=true;
+  bool isOwner = false;
 
   bool buttonEnabled = false;
 
@@ -171,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       (fullnameController.text.isNotEmpty) &&
                       (emailController.text.isNotEmpty) &&
                       (passwordController.text.isNotEmpty) &&
-                      (passwordRepeatController.text.isNotEmpty) && (_switchValue == true)) {
+                      (passwordRepeatController.text.isNotEmpty) && (isOwner == false)) {
                     setState(() {
                       buttonEnabled = true;
                     });
@@ -200,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       (fullnameController.text.isNotEmpty) &&
                       (emailController.text.isNotEmpty) &&
                       (passwordController.text.isNotEmpty) &&
-                      (passwordRepeatController.text.isNotEmpty) && (_switchValue == false)){
+                      (passwordRepeatController.text.isNotEmpty) && (isOwner == true)){
                         setState(() {
                       buttonEnabled = true;
                     });
@@ -236,23 +237,37 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 130,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: CupertinoSwitch(
-              activeColor: Colors.blue, 
-              value: _switchValue,
-              onChanged: (value) {
-                if (value == true){
-                  print("Customer");
-                }
-                else{
-                  print("Owner");             
-                }
-                setState(() {
-                  _switchValue = value;
-                }); 
-              },
+            Container(
+              height: 50,
+              width: 250,
+              padding: const EdgeInsets.only(left: 0, bottom: 0),
+              decoration: BoxDecoration(
+                  color:  Colors.red, 
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
+                onPressed: () async {
+                    isOwner = true;
+                    print(isOwner);
+                },
+                child: const Text("Owner",style: TextStyle(color: Colors.black, fontSize: 25)),
+                
+              ),
             ),
+            Container(
+              height: 50,
+              width: 250,
+              padding: const EdgeInsets.only(right: 0, bottom: 0),
+              decoration: BoxDecoration(
+                  color:  Colors.blue, 
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
+                onPressed: () async {
+                    isOwner = false;
+                    print(isOwner);
+                },
+                child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
+                
+              ),
             ),
           ],
           

@@ -6,6 +6,7 @@ import 'package:flutter_tutorial/services/ownerService.dart';
 
 class OwnerMainPage extends StatefulWidget {
   final Owner owner;
+  
   OwnerMainPage({Key? key, required this.owner}) : super(key: key);
 
   @override

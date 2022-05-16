@@ -25,8 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   final customernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isOwner = false;
-  bool _switchValue=true;
   var text = "Customer";
+
 
   bool buttonEnabled = false;
 
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty) && (_switchValue == true)) {
+                      (passwordController.text.isNotEmpty) && (isOwner == false)) {
                     setState(() {
                       buttonEnabled = true;
                     });
@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(route);*/
                   }
                   if ((customernameController.text.isNotEmpty) &&
-                      (passwordController.text.isNotEmpty) && (_switchValue == false)){
+                      (passwordController.text.isNotEmpty) && (isOwner == true)){
                         setState(() {
                       buttonEnabled = true;
                     });
@@ -219,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 130,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 0),
+              padding: const EdgeInsets.only(bottom: 10),
               child: TextButton(
                 onPressed: () async {
                   Navigator.push(
@@ -231,26 +231,39 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('New User? Create Account'),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: CupertinoSwitch(
-              activeColor: Colors.blue, 
-              value: _switchValue,
-              onChanged: (value) {
-                if (value == true){
-                  print("Customer");
-                  text = 'Customer';
-                }
-                else{
-                  print("Owner");   
-                  text = 'Owner';           
-                }
-                setState(() {
-                  _switchValue = value;
-                }); 
-              },
+            Container(
+              height: 50,
+              width: 250,
+              padding: const EdgeInsets.only(left: 0, bottom: 0),
+              decoration: BoxDecoration(
+                  color:  Colors.red, 
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
+                onPressed: () async {
+                    isOwner = true;
+                    print(isOwner);
+                },
+                child: const Text("Owner",style: TextStyle(color: Colors.black, fontSize: 25)),
+                
+              ),
             ),
+            Container(
+              height: 50,
+              width: 250,
+              padding: const EdgeInsets.only(right: 0, bottom: 0),
+              decoration: BoxDecoration(
+                  color:  Colors.blue, 
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
+                onPressed: () async {
+                    isOwner = false;
+                    print(isOwner);
+                },
+                child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
+                
+              ),
             ),
+              
           ],
         ),
       ),
