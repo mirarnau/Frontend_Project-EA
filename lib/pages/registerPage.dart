@@ -237,6 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 130,
             ),
+            /*
             Container(
               height: 50,
               width: 250,
@@ -269,6 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 
               ),
             ),
+            */
           ],
           
         ),
