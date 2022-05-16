@@ -44,19 +44,20 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-        color: Colors.black,
-        all: 3,
-        child: Icon(
-          isEdit ? Icons.add_a_photo : Icons.edit,
-          color: Colors.white,
-          size: 20,
-        ),
-      );
+    color: Colors.black,
+    all: 3,
+    child: Icon(
+      isEdit ? Icons.add_a_photo : Icons.edit,
+      color: Colors.white,
+      size: 20,
+    ),
+  );
+
   Widget buildCircle({
     required Widget child,
     required double all,
     required Color color,
-  }) =>
+    }) =>
       ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
