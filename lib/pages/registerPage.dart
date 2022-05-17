@@ -1,7 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/services/ownerService.dart';
+
+import '../models/owner.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -16,6 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordRepeatController = TextEditingController();
+  bool _switchValue=true;
 
   bool buttonEnabled = false;
 
@@ -64,6 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     CustomerService customerService = CustomerService();
+    OwnerService ownerService = OwnerService();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -164,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       (fullnameController.text.isNotEmpty) &&
                       (emailController.text.isNotEmpty) &&
                       (passwordController.text.isNotEmpty) &&
-                      (passwordRepeatController.text.isNotEmpty)) {
+                      (passwordRepeatController.text.isNotEmpty) && (_switchValue == true)) {
                     setState(() {
                       buttonEnabled = true;
                     });
@@ -183,11 +190,41 @@ class _RegisterPageState extends State<RegisterPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                MainPage(customer: newCustomer, selectedIndex: 2,transferRestaurantTags: voidListTags)),
+                                LoginPage()),
                       );
                     } else {
                       showAlertDialog(context);
                     }
+                  }
+                  if ((customernameController.text.isNotEmpty) &&
+                      (fullnameController.text.isNotEmpty) &&
+                      (emailController.text.isNotEmpty) &&
+                      (passwordController.text.isNotEmpty) &&
+                      (passwordRepeatController.text.isNotEmpty) && (_switchValue == false)){
+                        setState(() {
+                      buttonEnabled = true;
+                    });
+                    if (passwordController.text ==
+                        passwordRepeatController.text) {
+                      Owner newOwner = Owner(
+                          ownerName: customernameController.text,
+                          fullName: fullnameController.text,
+                          email: emailController.text,
+                          password: passwordController.text);
+                      await ownerService.addOwner(newOwner);
+
+                      List<String> voidListTags=[];
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage()),
+                      );
+                    } else {
+                      showAlertDialog(context);
+                    }
+
                   }
                 },
                 child: const Text(
@@ -199,7 +236,26 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 130,
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 0),
+              child: CupertinoSwitch(
+              activeColor: Colors.blue, 
+              value: _switchValue,
+              onChanged: (value) {
+                if (value == true){
+                  print("Customer");
+                }
+                else{
+                  print("Owner");             
+                }
+                setState(() {
+                  _switchValue = value;
+                }); 
+              },
+            ),
+            ),
           ],
+          
         ),
       ),
     );
