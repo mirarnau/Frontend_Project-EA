@@ -170,13 +170,11 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     
                     Navigator.of(context).push(route);
-                    
-                   
-
+                
                     /*
                     save_data(customer.fullName, customer.email,
                         customer.customerName);
-                    var route = MaterialPageRoute(
+                    var route = MaterialPageRoute(f73af5b871
                       builder: (BuildContext context) => ProfilePage(
                           fullName: customer.fullName,
                           email: customer.email,
@@ -277,24 +275,25 @@ class _LoginPageState extends State<LoginPage> {
     await prefs.setString('email', email);
     await prefs.setString('customerName', customerName);
   }
-  String fullName = '';
-  String email = '';
+
   String customerName = '';
+  String password = '';
   late Customer customer;
   Future<void> navigate() async {
+    CustomerService customerService = CustomerService();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    fullName = (await prefs.getString('fullName'))!;
-    email = (await prefs.getString('email')!);
     customerName = (await prefs.getString('customerName')!);
-    if (fullName != '') {
+    password = (await prefs.getString('password')!);
+    if (customerName != '') {
+      Customer? sharedcustomer =
+          await customerService.login(customerName, password);
       var route = MaterialPageRoute(
         builder: (BuildContext context) => ProfilePage(
-            customer: customer,),
+            customer: customer,),877f3a52c3f6ee049581fa45f9f73af5b871
       );
       Navigator.of(context).push(route);
     }
   }
-  
 
   @override
   void initState() {
