@@ -46,6 +46,7 @@ class _MainPageState extends State<MainPage> {
 
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
+    const Center(child: Text('Chat', style: TextStyle(fontSize: 60))),
     const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
@@ -53,6 +54,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -64,15 +66,21 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
+      */
       body: Center(
         child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: 'Restaurants',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_agenda_rounded),
@@ -84,7 +92,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
+        unselectedItemColor: const Color.fromARGB(255, 101, 101, 101),
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );

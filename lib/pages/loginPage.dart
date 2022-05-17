@@ -132,14 +132,14 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {},
               child: const Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Colors.red, fontSize: 15),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: const Color.fromARGB(255, 43, 43, 43), borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
@@ -279,6 +279,7 @@ class _LoginPageState extends State<LoginPage> {
   String customerName = '';
   String password = '';
   late Customer customer;
+
   Future<void> navigate() async {
     CustomerService customerService = CustomerService();
     LoginService loginService = LoginService();
@@ -300,7 +301,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    navigate();
+    //navigate();
   }
   
 

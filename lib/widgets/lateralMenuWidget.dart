@@ -43,6 +43,7 @@ class NavDrawer extends StatelessWidget {
                 subtitle: Text('Select the style of food'),
                 trailing: Icon(Icons.more_vert),
               ),
+              
               DropdownButtonFormField(
                 value: selectedFoodStyle,
                 items: foodStylesTags, 

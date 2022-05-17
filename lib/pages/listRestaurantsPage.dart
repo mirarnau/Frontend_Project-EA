@@ -49,6 +49,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     if (listRestaurants == null){
       return  Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 76, 75, 75),
           title: const Text ("Filter your search"),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
