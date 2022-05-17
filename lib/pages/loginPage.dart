@@ -281,15 +281,16 @@ class _LoginPageState extends State<LoginPage> {
   late Customer customer;
   Future<void> navigate() async {
     CustomerService customerService = CustomerService();
+    LoginService loginService = LoginService();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     customerName = (await prefs.getString('customerName')!);
     password = (await prefs.getString('password')!);
     if (customerName != '') {
       Customer? sharedcustomer =
-          await customerService.login(customerName, password);
+          (await loginService.loginCustomer(customerName, password)) as Customer?;
       var route = MaterialPageRoute(
         builder: (BuildContext context) => ProfilePage(
-            customer: customer,),877f3a52c3f6ee049581fa45f9f73af5b871
+            customer: customer,),
       );
       Navigator.of(context).push(route);
     }
