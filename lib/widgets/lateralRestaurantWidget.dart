@@ -31,6 +31,7 @@ class NavDrawer extends StatelessWidget {
     String selectedFoodStyle = "Italian";
     String selectedExtras = "Live music";
     return Drawer(
+      backgroundColor: const Color.fromARGB(255, 48, 48, 48),
       child: ListView(
       children: <Widget>[
         Card(

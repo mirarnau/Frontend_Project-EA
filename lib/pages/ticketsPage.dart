@@ -4,8 +4,9 @@ import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:flutter_tutorial/widgets/lateralChatWidget.dart';
 import 'package:flutter_tutorial/widgets/ticketWidget.dart';
-import 'package:flutter_tutorial/widgets/lateralMenuWidget.dart';
+import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
 import 'package:flutter_tutorial/services/ticketsService.dart';
 import 'mainPage.dart';
 
@@ -67,15 +68,37 @@ class _TicketsPageState extends State<TicketsPage> {
   @override
   Widget build(BuildContext context) {
     if (listTickets == null){
-      return const Scaffold(
-        body: Text('No tickets'),
+      return  Scaffold(
+        body: const Text('No tickets'),
+        floatingActionButton: Container(
+          alignment: Alignment.bottomRight,
+          height: 200.0,
+          width: 100.0,
+          child: FittedBox(
+            child: FloatingActionButton.extended(
+              backgroundColor: Color.fromARGB(255, 60, 60, 60),
+              icon: const Icon(
+                Icons.add_comment,
+                color: Color.fromARGB(255, 213, 94, 85)),
+              label: const Text(
+                'Create',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 213, 94, 85)
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ) ,
       );
     }
     return Scaffold(
         appBar: AppBar(
         ),
-        //drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
-        body: Column (
+        drawer: NavDrawerChat(),
+        body: Container(
+          color: Color.fromARGB(255, 30, 30, 30),
+          child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             Expanded(
@@ -92,9 +115,30 @@ class _TicketsPageState extends State<TicketsPage> {
                       imageURL: listTickets![index].profilePicCreator,);
                 }
               )
-            )
+            ),
           ],
-        )
+        ),
+        ),
+        floatingActionButton: Container(
+          alignment: Alignment.bottomRight,
+          height: 200.0,
+          width: 100.0,
+          child: FittedBox(
+            child: FloatingActionButton.extended(
+              backgroundColor: Color.fromARGB(255, 60, 60, 60),
+              icon: const Icon(
+                Icons.add_comment,
+                color: Color.fromARGB(255, 213, 94, 85)),
+              label: const Text(
+                'Create',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 213, 94, 85)
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ) ,
     );
   }
 }

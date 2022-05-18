@@ -77,30 +77,24 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.login),
-            SizedBox(width: 10),
-            Text('Login')
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: const Color.fromARGB(255, 48, 48, 48),
+        child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.only(top: 60.0),
+              padding: EdgeInsets.only(top: 100.0),
               child: Center(
                 child: SizedBox(
                     width: 200,
                     height: 150,
                     child: Text(
-                      'LOGIN',
+                      'APPetite',
                       textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 213, 67, 67)),
                     )
                     //Image.asset('assets/images/like.png')),
                     ),
@@ -111,9 +105,14 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 controller: customernameController,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User name',
-                    hintText: 'Enter your user name'),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 57, 57, 57),
+                  border: OutlineInputBorder(),
+                  labelText: 'User name',
+                  labelStyle: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                  ),
+                  hintText: 'Enter your user name'),
               ),
             ),
             Padding(
@@ -123,24 +122,35 @@ class _LoginPageState extends State<LoginPage> {
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter your password'),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 57, 57, 57),
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                  ),
+                  hintText: 'Enter your password'),
               ),
             ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.red, fontSize: 15),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Forgot Password?',
+                  style: TextStyle(color: Colors.red, fontSize: 15),
+                ),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 43, 43, 43), borderRadius: BorderRadius.circular(20)),
+                  color: const Color.fromARGB(255, 213, 67, 67), borderRadius: BorderRadius.circular(20)),
               child: TextButton(
+                style: TextButton.styleFrom(
+                  primary: const Color.fromARGB(255, 213, 67, 67)
+                ),
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
                       (passwordController.text.isNotEmpty) && (isOwner == false)) {
@@ -160,13 +170,11 @@ class _LoginPageState extends State<LoginPage> {
 
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: customer, selectedIndex: 1, transferRestaurantTags: voidListTags,));
-
-        
+                          MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: voidListTags,));
 
                     if (customer == null){
                       showAlertDialog(context);
-                      return null;
+                      return;
                     }
                     
                     Navigator.of(context).push(route);
@@ -203,7 +211,6 @@ class _LoginPageState extends State<LoginPage> {
                         OwnerMainPage(owner: owner)
                     );
                     Navigator.of(context).push(routes);
-                        
 
                   }
                 },
@@ -213,20 +220,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 130,
-            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: TextButton(
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterPage()),
-                  );
-                },
-                child: const Text('New User? Create Account'),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                child: TextButton(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterPage()),
+                    );
+                  },
+                  child: const Text(
+                    'New User? Create Account',
+                    style: TextStyle(
+                      color: Colors.amber
+                    ),),
+                ),
               ),
             ),
             Container(
@@ -245,26 +256,31 @@ class _LoginPageState extends State<LoginPage> {
                 
               ),
             ),
-            Container(
-              height: 50,
-              width: 250,
-              padding: const EdgeInsets.only(right: 0, bottom: 0),
-              decoration: BoxDecoration(
-                  color:  Colors.blue, 
-                  borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () async {
-                    isOwner = false;
-                    print(isOwner);
-                },
-                child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
-                
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: 50,
+                width: 250,
+                padding: const EdgeInsets.only(right: 0, bottom: 0),
+                decoration: BoxDecoration(
+                    color:  Colors.blue, 
+                    borderRadius: BorderRadius.circular(20)),
+                child: TextButton(
+                  onPressed: () async {
+                      isOwner = false;
+                      print(isOwner);
+                  },
+                  child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
+                  
+                ),
               ),
             ),
               
           ],
         ),
       ),
+      )
+      
     );
   }
 

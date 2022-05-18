@@ -23,7 +23,7 @@ class TicketWidget extends StatelessWidget {
         height: 95.0,
         width: 350.0,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 124, 169, 207),
+          color: Color.fromARGB(255, 161, 90, 85),
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Padding(

@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
-import 'package:flutter_tutorial/widgets/lateralMenuWidget.dart';
+import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
 
 import 'mainPage.dart';
@@ -53,7 +55,11 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
           title: const Text ("Filter your search"),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
-        body: Column (
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: Color.fromARGB(255, 30, 30, 30),
+          child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             SizedBox(
@@ -67,7 +73,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                           padding: const EdgeInsets.fromLTRB(10, 1.5, 0, 2),
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
+                            color: const Color.fromARGB(255, 149, 67, 63),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: 
@@ -81,6 +87,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                               ),
                               IconButton(
                                 iconSize: 25,
+                                color: Color.fromARGB(255, 234, 233, 233),
                                 padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                                 alignment: Alignment.centerRight,
                                 onPressed: () {
@@ -98,9 +105,17 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                   }
                 )
             ),
-            const Text('Sorry, any restaurant matches your preferences')
+            const Text(
+              'Sorry, any restaurant matches your preferences',
+              style: TextStyle(
+                color: Colors.white
+              ),
+              )
           ],
+        ),
         )
+        
+        
       );
     }
     return Scaffold(
@@ -108,7 +123,9 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
           title: const Text ("Filter your search"),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
-        body: Column (
+        body: Container(
+          color: Color.fromARGB(255, 18, 18, 18),
+          child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             SizedBox(
@@ -122,7 +139,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                           padding: const EdgeInsets.fromLTRB(10, 1.5, 0, 2),
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
+                            color: const Color.fromARGB(255, 149, 67, 63),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: 
@@ -136,6 +153,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                               ),
                               IconButton(
                                 iconSize: 25,
+                                color: Color.fromARGB(255, 234, 233, 233),
                                 padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                                 alignment: Alignment.centerRight,
                                 onPressed: () {
@@ -168,7 +186,11 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
               )
             )
           ],
+        ) ,
         )
+        
+        
+        
     );
   }
 }

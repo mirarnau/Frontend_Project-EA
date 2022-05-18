@@ -19,13 +19,13 @@ class CardRestaurant extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       width: MediaQuery.of(context).size.width,
-      height: 180,
+      height: 150,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.4),
+            color: const Color.fromARGB(255, 18, 18, 18).withOpacity(0.4),
             offset: const Offset(
               0.0,
               10.0,
