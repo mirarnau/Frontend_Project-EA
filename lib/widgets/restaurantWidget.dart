@@ -13,6 +13,7 @@ class CardRestaurant extends StatelessWidget {
     required this.rating,
     required this.imagesUrl
   });
+  
   @override
   Widget build(BuildContext context) {
     return Container(
