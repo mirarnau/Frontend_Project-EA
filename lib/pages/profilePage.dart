@@ -1,3 +1,4 @@
+import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_tutorial/widgets/profileWidget.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/pages/editProfilePage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   final Customer? customer;
@@ -58,6 +60,24 @@ class _ProfilePageState extends State<ProfilePage> {
             fullName,
             style: TextStyle(color: Colors.grey),
           )
+        ],
+      );
+  Widget buildButton() => Column(
+        children: <Widget>[
+          ElevatedButton.icon(
+              onPressed: () {
+                widget.customer?.customerName = "";
+                widget.customer?.password = "";
+                widget.customer?.email = "";
+                widget.customer?.fullName = "";
+                widget.customer?.id = "";
+                widget.customer?.profilePic = "";
+                var route = MaterialPageRoute(
+                  builder: (BuildContext context) => const LoginPage(),
+                );
+              },
+              icon: Icon(Icons.send),
+              label: Text("Logout"))
         ],
       );
 }

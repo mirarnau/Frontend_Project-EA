@@ -11,7 +11,12 @@ class MainPage extends StatefulWidget {
   final Customer? customer;
   late final int selectedIndex;
   final List<String> transferRestaurantTags;
-  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags}) : super(key: key);
+  MainPage(
+      {Key? key,
+      required this.customer,
+      required this.selectedIndex,
+      required this.transferRestaurantTags})
+      : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -46,7 +51,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
+    ListRestaurantsPage(
+        newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName),
     const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),

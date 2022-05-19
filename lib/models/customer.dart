@@ -12,22 +12,22 @@ class Customer {
   late final bool isDarkMode;
   late final String about;
 
-  Customer(
-      {required this.customerName,
-      required this.fullName,
-      required this.email,
-      required this.password,
-      required this.profilePic});
+  Customer({
+    required this.customerName,
+    required this.fullName,
+    required this.email,
+    required this.password,
+    //required this.profilePic
+  });
 
   factory Customer.fromJSON(dynamic json) {
-
     Customer customer = Customer(
         customerName: json['customerName'] as String,
         fullName: json['fullName'],
         email: json['email'],
-        password: json['password'],
-        profilePic:json['profilePic']);
-        //profilePic: Image.memory(base64Decode(json['profilePic'])));
+        password: json['password']);
+    //profilePic:json['profilePic']);
+    //profilePic: Image.memory(base64Decode(json['profilePic'])));
     customer.id = json['_id'];
     return customer;
   }
@@ -36,7 +36,7 @@ class Customer {
     File imageFile = File("assets/images/userDefaultPic.png");
     List<int> imageBytes = imageFile.readAsBytesSync();
     var pic = base64Encode(imageBytes);
-    
+
     return {
       'customerName': customer.customerName,
       'fullName': customer.fullName,
