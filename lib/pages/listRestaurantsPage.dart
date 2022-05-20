@@ -58,7 +58,6 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          color: Color.fromARGB(255, 30, 30, 30),
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
@@ -124,7 +123,6 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
-          color: Color.fromARGB(255, 18, 18, 18),
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [

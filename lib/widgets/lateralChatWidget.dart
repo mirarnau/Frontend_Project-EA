@@ -65,7 +65,7 @@ class NavDrawerChat extends StatelessWidget {
           )
         ),
       ],
-)
+      )
     );
   }
 }
