@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
   late final Customer? _customer = widget.customer;
   late int _selectedIndex = widget.selectedIndex;
 
-  /*static const TextStyle optionStyle =
+  static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
       'Index 2: Profile',
       style: optionStyle,
     )
-  ];*/
+  ];
 
   void _onItemTapped(int index) {
     setState(() {

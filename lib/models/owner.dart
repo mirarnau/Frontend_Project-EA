@@ -16,7 +16,7 @@ class Owner {
 
   factory Owner.fromJSON(dynamic json) {
     Owner owner = Owner(
-        ownerName: json['ownerName'],
+        ownerName: json['ownerName'] as String,
         fullName: json['fullName'],
         email: json['email'],
         password: json['password']);

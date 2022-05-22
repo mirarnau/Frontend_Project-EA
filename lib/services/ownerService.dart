@@ -62,14 +62,13 @@ class OwnerService {
     var res = await http.post(Uri.parse(baseUrl),
         headers: {'content-type': 'application/json'},
         body: json.encode(Owner.toJson(owner)));
-
     if (res.statusCode == 201) {
       Owner newOwner = Owner.fromJSON(res.body);
       return newOwner;
     }
     return null;
   }
-
+  
   Future<bool> deleteOwner(String _id) async {
     var res = await http.delete(Uri.parse(baseUrl + '/' + _id));
     int statusCode = res.statusCode;
