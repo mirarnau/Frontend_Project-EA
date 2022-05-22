@@ -11,6 +11,7 @@ class Customer {
   late final String profilePic;
   late final bool isDarkMode;
   late final String about;
+  late final List<String> role;
 
   Customer(
       {required this.customerName,
@@ -28,6 +29,7 @@ class Customer {
         password: json['password'],
         profilePic:json['profilePic']);
         //profilePic: Image.memory(base64Decode(json['profilePic'])));
+    customer.role = json['role'].cast<String>();    
     customer.id = json['_id'];
     return customer;
   }

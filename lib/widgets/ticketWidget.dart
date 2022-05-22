@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 class TicketWidget extends StatelessWidget {
   final String creatorName;
   final String subject;
-  final String message;
   final String status;
-  final String imageURL;
 
   TicketWidget({
     required this.creatorName,
     required this.subject,
-    required this.message,
     required this.status,
-    required this.imageURL
   });
 
   @override
@@ -30,6 +26,7 @@ class TicketWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget> [
+              /*
               Container(
                 width: 60,
                 height: 60,
@@ -40,6 +37,7 @@ class TicketWidget extends StatelessWidget {
                     )
                   ),
                 ),
+                */
               Expanded(
                 flex: 2,
                 child: Padding(

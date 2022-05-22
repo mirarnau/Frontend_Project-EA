@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: 200,
                     height: 150,
                     child: Text(
-                      'APPetite',
+                      'APPétit',
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 213, 67, 67)),
@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: voidListTags,));
+                          MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
 
                     if (customer == null){
                       showAlertDialog(context);
@@ -235,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     'New User? Create Account',
                     style: TextStyle(
-                      color: Colors.amber
+                      color: Colors.red
                     ),),
                 ),
               ),
@@ -315,9 +315,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //navigate();
   }
   
 

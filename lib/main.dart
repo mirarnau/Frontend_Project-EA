@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 class Palette { 
   static const MaterialColor kToDark = const MaterialColor( 
-    0xff4C4B4B, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch. 
+    0xff2B2B2B,// 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch. 
     const <int, Color>{ 
       50: const Color(0xff4c4b4b),//10% 
       100: const Color(0x00444444),//20% 

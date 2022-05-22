@@ -62,7 +62,7 @@ class NavDrawer extends StatelessWidget {
                 ),
                 onPressed:() {
                   {Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context)=> MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: previousTags))
+                    builder: (BuildContext context)=> MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: previousTags, chatPage: "Inbox",))
                     );}
                  }
               )
@@ -96,9 +96,9 @@ class NavDrawer extends StatelessWidget {
                 ),
                 onPressed:() {
                   {Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context)=> MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: previousTags))
+                    builder: (BuildContext context)=> MainPage(customer: customer, selectedIndex: 0, transferRestaurantTags: previousTags, chatPage: "Inbox",))
                     );}
-                 }
+                }
               )
             ],
           )

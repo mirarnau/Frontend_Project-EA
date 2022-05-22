@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/models/message.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/pages/chatPage.dart';
+import 'package:flutter_tutorial/pages/createTicketPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/widgets/lateralChatWidget.dart';
 import 'package:flutter_tutorial/widgets/ticketWidget.dart';
-import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
 import 'package:flutter_tutorial/services/ticketsService.dart';
-import 'mainPage.dart';
 
 
 class TicketsPage extends StatefulWidget {
+  final Customer? myCustomer;
   final String userType; 
   final String myName;
-  const TicketsPage({Key? key, required this.userType, required this.myName}) : super(key: key);
+  final String page;
+  const TicketsPage({Key? key, required this.userType, required this.myName, required this.myCustomer, required this.page}) : super(key: key);
 
   @override
   State<TicketsPage> createState() => _TicketsPageState();
@@ -22,7 +25,8 @@ class TicketsPage extends StatefulWidget {
 
 class _TicketsPageState extends State<TicketsPage> {
   TicketService ticketService = TicketService();
-  List<Ticket>? listTickets;
+  List<Ticket>? listTicketsReceived;
+  List<Ticket>? listTicketsSent;
   bool isLoading = true;
 
   CustomerService customerService = CustomerService();
@@ -52,14 +56,14 @@ class _TicketsPageState extends State<TicketsPage> {
   } 
 
   Future<void> getTicketsByCreator() async {
-    listTickets = await ticketService.getTicketsByCreator(widget.myName);
+    listTicketsSent = await ticketService.getTicketsByCreator(widget.myName);
     setState(() {
       isLoading = false;
     });
   }
 
   Future<void> getTicketsByRecipient() async {
-    listTickets = await ticketService.getTicketsByRecipient(widget.myName);
+    listTicketsReceived = await ticketService.getTicketsByRecipient(widget.myName);
     setState(() {
       isLoading = false;
     });
@@ -67,79 +71,220 @@ class _TicketsPageState extends State<TicketsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (listTickets == null){
-      return  Scaffold(
-        body: const Text('No tickets'),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomRight,
-          height: 200.0,
-          width: 100.0,
-          child: FittedBox(
-            child: FloatingActionButton.extended(
-              backgroundColor: Color.fromARGB(255, 60, 60, 60),
-              icon: const Icon(
-                Icons.add_comment,
-                color: Color.fromARGB(255, 213, 94, 85)),
-              label: const Text(
-                'Create',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 213, 94, 85)
+
+    if (widget.page == "Sent"){
+      if (listTicketsSent == null){
+        return  Container(
+          color: const Color.fromARGB(255, 30, 30, 30),
+          child: Scaffold(
+            appBar: AppBar(),
+            drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
+            body: const Text('No tickets'),
+            floatingActionButton: Container(
+              alignment: Alignment.bottomRight,
+              height: 200.0,
+              width: 100.0,
+              child: FittedBox(
+                child: FloatingActionButton.extended(
+                  backgroundColor: const Color.fromARGB(255, 30, 30, 30),
+                  icon: const Icon(
+                    Icons.add_comment,
+                    color: Color.fromARGB(255, 213, 94, 85)),
+                  label: const Text(
+                    'Create',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 213, 94, 85)
+                    ),
+                  ),
+                  onPressed: () {
+                  var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          CreateTicketPage(myCustomer: widget.myCustomer)
+                      );
+                      Navigator.of(context).push(routes);
+                },
                 ),
               ),
-              onPressed: () {},
-            ),
+            ) ,
           ),
-        ) ,
+        );
+      }
+      return Scaffold(
+          appBar: AppBar(
+          ),
+          drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
+          body: Container(
+            color: Color.fromARGB(255, 30, 30, 30),
+            child: Column (
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget> [
+              Expanded(
+                child: 
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: listTicketsSent?.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        List<Message>? listMessagesTicket = await ticketService.getMessagesFromTicket(listTicketsSent![index]);
+                        
+                        var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsSent![index], listMessages: listMessagesTicket,)
+                      );
+                      Navigator.of(context).push(routes);
+                      },
+                      child: TicketWidget (
+                        creatorName: listTicketsSent![index].creatorName,
+                        subject: listTicketsSent![index].subject,
+                        status: listTicketsSent![index].status.toString()),
+                    );
+                  }
+                )
+              ),
+            ],
+          ),
+          ),
+          floatingActionButton: Container(
+            alignment: Alignment.bottomRight,
+            height: 200.0,
+            width: 100.0,
+            child: FittedBox(
+              child: FloatingActionButton.extended(
+                backgroundColor: const Color.fromARGB(255, 60, 60, 60),
+                icon: const Icon(
+                  Icons.add_comment,
+                  color: Color.fromARGB(255, 213, 94, 85)),
+                label: const Text(
+                  'Create',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 213, 94, 85)
+                  ),
+                ),
+                onPressed: () {
+                  var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          CreateTicketPage(myCustomer: widget.myCustomer)
+                      );
+                      Navigator.of(context).push(routes);
+                },
+              ),
+            ),
+          ) ,
       );
     }
-    return Scaffold(
-        appBar: AppBar(
-        ),
-        drawer: NavDrawerChat(),
-        body: Container(
-          color: Color.fromARGB(255, 30, 30, 30),
-          child: Column (
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget> [
-            Expanded(
-              child: 
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: listTickets?.length,
-                itemBuilder: (context, index) {
-                  return TicketWidget (
-                      creatorName: listTickets![index].creatorName,
-                      subject: listTickets![index].subject,
-                      message: listTickets![index].message,
-                      status: listTickets![index].status.toString(),
-                      imageURL: listTickets![index].profilePicCreator,);
-                }
-              )
-            ),
-          ],
-        ),
-        ),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomRight,
-          height: 200.0,
-          width: 100.0,
-          child: FittedBox(
-            child: FloatingActionButton.extended(
-              backgroundColor: Color.fromARGB(255, 60, 60, 60),
-              icon: const Icon(
-                Icons.add_comment,
-                color: Color.fromARGB(255, 213, 94, 85)),
-              label: const Text(
-                'Create',
+
+    //if(widget.page == "Inbox"){
+     else{ 
+      if (listTicketsReceived == null){
+        return  Scaffold(
+          appBar: AppBar(),
+          drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: const Color.fromARGB(255, 30, 30, 30),
+            child: const Padding(
+              padding: EdgeInsets.all(50),
+              child: Text(
+                'No tickets',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color.fromARGB(255, 213, 94, 85)
+                  color: Colors.white
+                ),),
+            )),
+            floatingActionButton: Container(
+            alignment: Alignment.bottomRight,
+            height: 200.0,
+            width: 100.0,
+            child: FittedBox(
+              child: FloatingActionButton.extended(
+                backgroundColor: const Color.fromARGB(255, 30, 30, 30),
+                icon: const Icon(
+                  Icons.add_comment,
+                  color: Color.fromARGB(255, 213, 94, 85)),
+                label: const Text(
+                  'Create',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 213, 94, 85)
+                  ),
                 ),
+                onPressed: () {
+                  var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          CreateTicketPage(myCustomer: widget.myCustomer)
+                      );
+                      Navigator.of(context).push(routes);
+                },
               ),
-              onPressed: () {},
             ),
+          ) ,
+        );
+      }
+      return Scaffold(
+          appBar: AppBar(
           ),
-        ) ,
-    );
+          drawer: NavDrawerChat(myCustomer: widget.myCustomer, currentPage: "Inbox",),
+          body: Container(
+            color: Color.fromARGB(255, 30, 30, 30),
+            child: Column (
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget> [
+              Expanded(
+                child: 
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: listTicketsReceived?.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        List<Message>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
+                        var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsReceived![index], listMessages: listMessages,)
+                      );
+                      Navigator.of(context).push(routes);
+                      },
+                      child: TicketWidget (
+                        creatorName: listTicketsReceived![index].creatorName,
+                        subject: listTicketsReceived![index].subject,
+                        status: listTicketsReceived![index].status.toString())
+                    );
+                  }
+                )
+              ),
+            ],
+          ),
+          ),
+          floatingActionButton: Container(
+            alignment: Alignment.bottomRight,
+            height: 200.0,
+            width: 100.0,
+            child: FittedBox(
+              child: FloatingActionButton.extended(
+                backgroundColor: const Color.fromARGB(255, 60, 60, 60),
+                icon: const Icon(
+                  Icons.add_comment,
+                  color: Color.fromARGB(255, 213, 94, 85)),
+                label: const Text(
+                  'Create',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 213, 94, 85)
+                  ),
+                ),
+                onPressed: () {
+                  var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          CreateTicketPage(myCustomer: widget.myCustomer)
+                      );
+                      Navigator.of(context).push(routes);
+                },
+              ),
+            ),
+          ) ,
+      );
+    }
+    
   }
 }
   

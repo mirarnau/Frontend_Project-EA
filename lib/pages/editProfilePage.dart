@@ -106,7 +106,8 @@ class _editProfilePage extends State<editProfilePage> {
                         builder: (context) => MainPage(
                           customer: newcustomer, 
                           selectedIndex: 1, 
-                          transferRestaurantTags: voidListTags)
+                          transferRestaurantTags: voidListTags,
+                          chatPage: "Inbox",)
                         ),
                   );
                 }

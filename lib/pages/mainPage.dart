@@ -10,8 +10,9 @@ import 'editProfilePage.dart';
 class MainPage extends StatefulWidget {
   final Customer? customer;
   late final int selectedIndex;
+  late final String chatPage;
   final List<String> transferRestaurantTags;
-  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags}) : super(key: key);
+  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags, required this.chatPage}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage> {
 
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    TicketsPage(userType: "Customer", myName: widget.customer!.customerName),
+    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer,page: widget.chatPage),
     const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
@@ -94,7 +95,7 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         unselectedItemColor: const Color.fromARGB(255, 101, 101, 101),
-        selectedItemColor: Color.fromARGB(255, 213, 94, 85),
+        selectedItemColor: const Color.fromARGB(255, 213, 94, 85),
         onTap: _onItemTapped,
       ),
     );

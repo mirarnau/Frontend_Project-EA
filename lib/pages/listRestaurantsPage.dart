@@ -94,7 +94,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags))
+                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
@@ -160,7 +160,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags))
+                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
