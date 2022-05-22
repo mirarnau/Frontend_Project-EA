@@ -179,7 +179,6 @@ class _ChatPageState extends State<ChatPage> {
                             
                         await ticketService.addMessageToTicket(newMessage, widget.selectedTicket);
                         widget.listMessages!.add(newMessage);
-
                         setState(() {});
                       },
                       child: Icon(Icons.send,color: Colors.white,size: 18,),
