@@ -76,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
     OwnerService ownerService = OwnerService();
 
     return Scaffold(
-        backgroundColor: Colors.white,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

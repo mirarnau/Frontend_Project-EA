@@ -55,6 +55,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    changeLocale(context, localizationDelegate.currentLocale.languageCode);
+    
     return Scaffold(
       /*
       appBar: AppBar(

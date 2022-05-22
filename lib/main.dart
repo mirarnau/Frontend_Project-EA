@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       child: ValueChangeObserver<bool>(
     //return ValueChangeObserver<bool>(
         cacheKey: ProfilePage.keyDarkMode,
-        defaultValue: true,
+        defaultValue: false,
         builder: (_, isDarkMode, __) => MaterialApp(
           title: 'Appétit',
           localizationsDelegates: [

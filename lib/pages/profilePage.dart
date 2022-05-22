@@ -1,6 +1,7 @@
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/accountSettings.dart';
+import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_tutorial/widgets/profileWidget.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/pages/editProfilePage.dart';
+
+import 'loginPage.dart';
 
 class ProfilePage extends StatefulWidget {
   final Customer? customer;
@@ -20,6 +23,46 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  showAlertDialog(BuildContext context) {
+    CustomerService customerService = CustomerService();
+    
+    Widget cancelButton = TextButton(
+      child: Text(translate('cancel').toUpperCase()),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+    Widget deleteButton = TextButton(
+      child: Text(translate('profile_page.delete').toUpperCase()),
+      onPressed:  () async {
+        await customerService.deleteCustomer(
+          widget.customer!.id);
+        Settings.clearCache(); 
+        Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(
+        translate('profile_page.delete'),
+        style: TextStyle(color: Colors.red)
+      ),
+      content: Text(translate('profile_page.delete_confirm')),
+      actions: [
+        cancelButton,
+        deleteButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +147,9 @@ class _ProfilePageState extends State<ProfilePage> {
     title: translate('profile_page.logout'),
     subtitle: '',
     onTap: () { 
-      //TODO: Add Logout method
       Settings.clearCache();
+      Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
     },
   );
 
@@ -130,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
     title: translate('profile_page.delete'),
     subtitle: '',
     onTap: () { 
-      //TODO: Add delete method
+      showAlertDialog(context);
     },
   );
 

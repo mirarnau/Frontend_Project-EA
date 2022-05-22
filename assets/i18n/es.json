@@ -4,6 +4,7 @@
     "done": "Hecho",
     "update": "Actualizar",
     "main_page": "Página principal",
+    "cancel": "Cancelar",
 
     "app_bar":
     {
@@ -40,7 +41,8 @@
         },
         "notifications": "Notificaciones",
         "logout": "Cerrar Sessión",
-        "delete": "Eliminar Cuenta"
+        "delete": "Eliminar Cuenta",
+        "delete_confirm": "Está usted seguro que desea eliminar su cuenta?"
     },
 
     "login_page":

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
@@ -27,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordRepeatController = TextEditingController();
   bool _switchValue = true;
   bool isOwner = false;
-
+  static const keyLanguage = 'key-language';
   bool buttonEnabled = false;
 
   @override
@@ -78,7 +79,6 @@ class _RegisterPageState extends State<RegisterPage> {
     OwnerService ownerService = OwnerService();
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -94,11 +94,11 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 40.0),
+              padding: EdgeInsets.only(top: 25.0),
               child: Center(
                 child: SizedBox(
-                    width: 200,
-                    height: 90,
+                    width: 300,
+                    height: 80,
                     child: Text(
                       translate('login_page.register').toUpperCase(),
                       textAlign: TextAlign.center,
@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(1.0),
               child: Text(
                 _errorMessagecustName,
                 style: TextStyle(color: Colors.red),
@@ -131,7 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 10, bottom: 0),
               child: TextField(
                 controller: fullnameController,
                 decoration: InputDecoration(
@@ -144,7 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(1.0),
               child: Text(
                 _errorMessagecustName,
                 style: TextStyle(color: Colors.red),
@@ -152,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 10, bottom: 0),
               child: TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -165,7 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(1.0),
               child: Text(
                 _errorMessage,
                 style: TextStyle(color: Colors.red),
@@ -173,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 10, bottom: 0),
               child: TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -185,7 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 50),
+                left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
                 controller: passwordRepeatController,
                 obscureText: true,
@@ -194,6 +194,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: translate('login_page.password_repeat'),
                     hintText: translate('login_page.password_again')),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 10.0, bottom: 40.0),
+              child: buildLanguage(context: context),
             ),
             Container(
               height: 50,
@@ -271,7 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 130,
             ),
-
+            
             /*
             Container(
               height: 50,
@@ -342,4 +347,20 @@ class _RegisterPageState extends State<RegisterPage> {
       });
     }
   }
+
+  Widget buildLanguage({required BuildContext context}) => DropDownSettingsTile(
+    settingKey: keyLanguage,
+    title: translate('language.title'),
+    selected: 1,
+    values: <int, String> {
+      1: translate('language.name.en'),
+      2: translate('language.name.es'),
+      3: translate('language.name.ca'),
+    },
+    onChange: (language) {
+      if(language == 1) changeLocale(context, 'en');
+      if(language == 2) changeLocale(context, 'es');
+      if(language == 3) changeLocale(context, 'ca');
+    },
+  );
 }

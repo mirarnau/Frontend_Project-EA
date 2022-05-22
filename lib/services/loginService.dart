@@ -10,22 +10,21 @@ class LoginService {
   var baseUrlOwners = apiURL + "/api/owners";
 
   Future<String?> loginCustomer(String customerName, String password) async {
-      final msg = jsonEncode({"customerName": customerName, "password": password});
-      var res = await http.post(Uri.parse(baseUrlCustomers + '/login'),
-        headers: {'content-type': 'application/json'},
-        body: msg
-      );
-      if (res.statusCode == 200) {
-        var token = JWTtoken.fromJson(await jsonDecode(res.body));
-        storage.setItem('token', token.toString());
-        print (token);
-        return "200";
-      }
-      else {
-        //return await jsonDecode(res.body);
-      }
-
+    final msg = jsonEncode({"customerName": customerName, "password": password});
+    var res = await http.post(Uri.parse(baseUrlCustomers + '/login'),
+      headers: {'content-type': 'application/json'},
+      body: msg
+    );
+    if (res.statusCode == 200) {
+      var token = JWTtoken.fromJson(await jsonDecode(res.body));
+      storage.setItem('token', token.toString());
+      print (token);
+      return "200";
     }
+    else {
+      //return await jsonDecode(res.body);
+    }
+  }
 
   Future<String?> loginOwner(String ownerName, String password) async {
     final msg = jsonEncode({"ownerName": ownerName, "password": password});
