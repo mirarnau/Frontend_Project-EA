@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
@@ -9,19 +10,19 @@ class NavDrawer extends StatelessWidget {
 
   List<DropdownMenuItem<String>> get foodStylesTags{
     List<DropdownMenuItem<String>> foodStylesItems = [
-      const DropdownMenuItem(child: Text("Italian"),value: "Italian"),
-      const DropdownMenuItem(child: Text("Asiatic"),value: "Asiatic"),
-      const DropdownMenuItem(child: Text("Vegan"),value: "Vegan"),
-      const DropdownMenuItem(child: Text("Mexican"),value: "Mexican"),
+      DropdownMenuItem(child: Text(translate('food_tags.italian')), value: "Italian"),
+      DropdownMenuItem(child: Text(translate('food_tags.asiatic')), value: "Asiatic"),
+      DropdownMenuItem(child: Text(translate('food_tags.vegan')), value: "Vegan"),
+      DropdownMenuItem(child: Text(translate('food_tags.mexican')), value: "Mexican"),
     ];
     return foodStylesItems;
   }
 
   List<DropdownMenuItem<String>> get extrasTags{
     List<DropdownMenuItem<String>> extrasTags = [
-      const DropdownMenuItem(child: Text("Pets allowed"),value: "Pets allowed"),
-      const DropdownMenuItem(child: Text("Live music"),value: "Live music"),
-      const DropdownMenuItem(child: Text("For kids"),value: "For kids")
+      DropdownMenuItem(child: Text(translate('food_tags.pets')), value: "Pets allowed"),
+      DropdownMenuItem(child: Text(translate('food_tags.live')), value: "Live music"),
+      DropdownMenuItem(child: Text(translate('food_tags.kids')), value: "For kids")
     ];
     return extrasTags;
   }
@@ -38,10 +39,10 @@ class NavDrawer extends StatelessWidget {
           child: 
           Column(
             children: [
-              const ListTile(
+              ListTile(
                 leading: Icon (Icons.restaurant),
-                title: Text('Filter by style'),
-                subtitle: Text('Select the style of food'),
+                title: Text(translate('restaurants_page.filter_style')),
+                subtitle: Text(translate('restaurants_page.select_style')),
                 trailing: Icon(Icons.more_vert),
               ),
               
@@ -54,8 +55,8 @@ class NavDrawer extends StatelessWidget {
                  },
               ),
               TextButton(
-                child: const Text(
-                  'ADD TAG',
+                child: Text(
+                  translate('food_tags.add').toUpperCase(),
                   style: TextStyle(
                     color: Colors.green
                   ),
@@ -73,10 +74,10 @@ class NavDrawer extends StatelessWidget {
           child: 
           Column(
             children: [
-              const ListTile(
+              ListTile(
                 leading: Icon (Icons.restaurant),
-                title: Text('Filter by preferences'),
-                subtitle: Text('Select your preferences'),
+                title: Text(translate('restaurants_page.filter_pref')),
+                subtitle: Text(translate('restaurants_page.select_pref')),
                 trailing: Icon(Icons.more_vert),
               ),
               DropdownButtonFormField(
@@ -88,8 +89,8 @@ class NavDrawer extends StatelessWidget {
                  },
               ),
               TextButton(
-                child: const Text(
-                  'ADD TAG',
+                child: Text(
+                  translate('food_tags.add').toUpperCase(),
                   style: TextStyle(
                     color: Colors.green
                   ),

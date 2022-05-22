@@ -43,6 +43,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/i18n/
+    - assets/i18n/en.json
+    - assets/i18n/es.json
+    - assets/i18n/ca.json
 
  

@@ -8,15 +8,14 @@ import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 
 void main() async {
-  /*var delegate = await LocalizationDelegate.create(
+  await Settings.init(cacheProvider: SharePreferenceCache());
+
+  var delegate = await LocalizationDelegate.create(
           fallbackLocale: 'en',
           supportedLocales: ['en', 'es', 'ca']);
 
-  runApp(LocalizedApp(delegate, MyApp()));*/
+  runApp(LocalizedApp(delegate, MyApp()));
 
-  await Settings.init(cacheProvider: SharePreferenceCache());
-
-  runApp(const MyApp());
 }
 
 
@@ -28,24 +27,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //var localizationDelegate = LocalizedApp.of(context).delegate;
+    var localizationDelegate = LocalizedApp.of(context).delegate;
 
-    //return LocalizationProvider(
+    return LocalizationProvider(
       //MaterialApp is another widget, and it allows us to make the designs, it acts as a wrapper for the other widgets.
-      //state: LocalizationProvider.of(context).state,
-      //child: ValueChangeObserver<bool>(
-    return ValueChangeObserver<bool>(
+      state: LocalizationProvider.of(context).state,
+      child: ValueChangeObserver<bool>(
+    //return ValueChangeObserver<bool>(
         cacheKey: ProfilePage.keyDarkMode,
         defaultValue: true,
         builder: (_, isDarkMode, __) => MaterialApp(
           title: 'Appétit',
-          /*localizationsDelegates: [
+          localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
             localizationDelegate
           ],
           supportedLocales: localizationDelegate.supportedLocales,
-          locale: localizationDelegate.currentLocale,*/
+          locale: localizationDelegate.currentLocale,
           theme: isDarkMode 
             ? ThemeData.dark().copyWith(
               primaryColor: Colors.teal,
@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
             ),
           home: LoginPage(),
         ),
-      );
-    //);
+      ),
+    );
   }
 }
 

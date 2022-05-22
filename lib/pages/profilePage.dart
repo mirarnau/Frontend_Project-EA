@@ -1,5 +1,6 @@
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:flutter_tutorial/widgets/accountSettingsWidget.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_tutorial/pages/accountSettings.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class ProfilePage extends StatefulWidget {
   final Customer? customer;
   static const keyDarkMode = 'key-dark-mode';
   const ProfilePage({Key? key, required this.customer}) : super(key: key);
-
+  
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -22,6 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    changeLocale(context, localizationDelegate.currentLocale.languageCode);
+
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
@@ -47,10 +51,10 @@ class _ProfilePageState extends State<ProfilePage> {
           buildDarkMode(),
 
           SettingsGroup(
-            title: 'CONFIGURATION', 
+            title: translate('profile_page.configuration'), 
             children: <Widget> [
               const SizedBox(height: 8),
-              AccountPage(),
+              buildSettings(),
               buildNotifications(),
               buildLogout(),
               buildDeleteAccount(),
@@ -84,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
       color: Colors.orangeAccent, 
       icon: Icons.notifications
     ),
-    title: 'Notifications',
+    title: translate('profile_page.notifications'),
     subtitle: '',
     child: Container(),
     onTap: () { 
@@ -97,11 +101,24 @@ class _ProfilePageState extends State<ProfilePage> {
       color: Colors.blueAccent, 
       icon: Icons.logout
     ),
-    title: 'Logout',
+    title: translate('profile_page.logout'),
     subtitle: '',
     onTap: () { 
       //TODO: Add Logout method
       Settings.clearCache();
+    },
+  );
+
+  Widget buildSettings() => SimpleSettingsTile(
+    leading: IconWidget(
+      color: Colors.green, 
+      icon: Icons.person
+    ),
+    title: translate('profile_page.account_settings.title'),
+    subtitle: translate('profile_page.account_settings.sub_title'),
+    onTap: () { 
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage()),
+  );
     },
   );
 
@@ -110,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
       color: Colors.redAccent, 
       icon: Icons.delete
     ),
-    title: 'Delete Account',
+    title: translate('profile_page.delete'),
     subtitle: '',
     onTap: () { 
       //TODO: Add delete method
@@ -123,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
       icon: Icons.dark_mode,
       color: Color(0xFF642ef3),
     ),
-    title: 'Dark Mode',
+    title: translate('profile_page.dark_mode'),
     onChange: (isDarkMode) { /* NOOP */}
   );
 }

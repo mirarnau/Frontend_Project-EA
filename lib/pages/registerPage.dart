@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
@@ -56,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
         "Error",
         style: TextStyle(color: Colors.red),
       ),
-      content: const Text("Passwords don't match"),
+      content: Text(translate('login_page.password_match')),
       actions: [
         okButton,
       ],
@@ -81,25 +82,25 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             SizedBox(width: 80),
             Icon(Icons.login),
             SizedBox(width: 10),
-            Text('Register')
+            Text(translate('login_page.register'))
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 40.0),
               child: Center(
                 child: SizedBox(
                     width: 200,
                     height: 90,
                     child: Text(
-                      'REGISTER',
+                      translate('login_page.register').toUpperCase(),
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
@@ -112,10 +113,10 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: customernameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User name',
-                    hintText: 'Enter your user name'),
+                    labelText: translate('login_page.username'),
+                    hintText: translate('login_page.enter_user')),
                 onChanged: (val) {
                   validation(val);
                 },
@@ -133,10 +134,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
                 controller: fullnameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Full name ',
-                    hintText: 'Enter your full name'),
+                    labelText: translate('login_page.fullname'),
+                    hintText: translate('login_page.enter_full')),
                 onChanged: (val) {
                   validation(val);
                 },
@@ -154,10 +155,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
                 controller: emailController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter your email'),
+                    labelText: translate('login_page.email'),
+                    hintText: translate('login_page.enter_email')),
                 onChanged: (val) {
                   validateEmail(val);
                 },
@@ -176,10 +177,10 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter your password'),
+                    labelText: translate('login_page.password'),
+                    hintText: translate('login_page.enter_pass')),
               ),
             ),
             Padding(
@@ -188,10 +189,10 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextField(
                 controller: passwordRepeatController,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Repeat password',
-                    hintText: 'Enter your password again'),
+                    labelText: translate('login_page.password_repeat'),
+                    hintText: translate('login_page.password_again')),
               ),
             ),
             Container(
@@ -261,8 +262,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   }
                 },
-                child: const Text(
-                  'Register',
+                child: Text(
+                  translate('login_page.register'),
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
@@ -327,12 +328,12 @@ class _RegisterPageState extends State<RegisterPage> {
   void validateEmail(String val) {
     if (val.isEmpty) {
       setState(() {
-        _errorMessage = "Email can not be empty";
+        _errorMessage = translate('login_page.email_empty');
         buttonEnabled = false;
       });
     } else if (!EmailValidator.validate(val, true)) {
       setState(() {
-        _errorMessage = "Invalid Email Address";
+        _errorMessage = translate('login_page.email_invalid');
         buttonEnabled = false;
       });
     } else {

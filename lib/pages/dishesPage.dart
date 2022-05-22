@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/services/dishService.dart';
 import 'package:flutter_tutorial/models/dish.dart';
 import 'package:flutter_tutorial/widgets/dishWidget.dart';
@@ -35,17 +36,17 @@ class _DishedPageState extends State<DishesPage> {
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
+            children: [
               SizedBox(width: 65),
               Icon(Icons.restaurant_menu), //Element at left
               SizedBox(
                   width:
                       10), //To add space between them, element in the middle.
-              Text('All dishes') //Element at right. Text is another widget.
+              Text(translate('dishes_page.all')) //Element at right. Text is another widget.
             ],
           ),
         ),
-        body: const Text ('There are no dishes yet',
+        body: Text (translate('dishes_page.no_dish'),
                   style: TextStyle(
                     fontSize: 20
                   ),
@@ -57,13 +58,13 @@ class _DishedPageState extends State<DishesPage> {
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
+            children: [
               SizedBox(width: 65),
               Icon(Icons.restaurant_menu), //Element at left
               SizedBox(
                   width:
                       10), //To add space between them, element in the middle.
-              Text('All dishes') //Element at right. Text is another widget.
+              Text(translate('dishes_page.all')) //Element at right. Text is another widget.
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:flutter_tutorial/models/customer.dart';
@@ -67,9 +68,9 @@ class _TicketsPageState extends State<TicketsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (listTickets == null){
-      return  Scaffold(
-        body: const Text('No tickets'),
+    if (listTickets!.isEmpty) {
+      return Scaffold(
+        body: Text(translate('tickets_page.no_tickets')),
         floatingActionButton: Container(
           alignment: Alignment.bottomRight,
           height: 200.0,
@@ -80,8 +81,8 @@ class _TicketsPageState extends State<TicketsPage> {
               icon: const Icon(
                 Icons.add_comment,
                 color: Color.fromARGB(255, 213, 94, 85)),
-              label: const Text(
-                'Create',
+              label: Text(
+                translate('tickets_page.create'),
                 style: TextStyle(
                   color: Color.fromARGB(255, 213, 94, 85)
                 ),
@@ -129,8 +130,8 @@ class _TicketsPageState extends State<TicketsPage> {
               icon: const Icon(
                 Icons.add_comment,
                 color: Color.fromARGB(255, 213, 94, 85)),
-              label: const Text(
-                'Create',
+              label: Text(
+                translate('tickets_page.create'),
                 style: TextStyle(
                   color: Color.fromARGB(255, 213, 94, 85)
                 ),

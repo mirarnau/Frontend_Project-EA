@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
@@ -53,11 +54,11 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             SizedBox(width: 65),
             Icon(Icons.menu),
             SizedBox(width: 10),
-            Text('Main page')
+            Text(translate('main_page'))
           ],
         ),
       ),
@@ -65,10 +66,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
         child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: 'Restaurants',
+            label: translate('nav_bar.restaurants'),
           ),
         ],
         currentIndex: _selectedIndex,

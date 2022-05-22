@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage> {
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName),
-    const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
+    Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
 
@@ -73,22 +74,22 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: 'Restaurants',
+            label: translate('nav_bar.restaurants'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: 'Chat',
+            label: translate('nav_bar.chat'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_agenda_rounded),
-            label: 'Agenda',
+            label: translate('nav_bar.agenda'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: translate('nav_bar.profile'),
           ),
         ],
         currentIndex: _selectedIndex,

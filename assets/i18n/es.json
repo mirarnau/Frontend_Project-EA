@@ -1,3 +1,108 @@
 {
-    
+	"customer": "Cliente/a",
+    "owner": "Propietario/a",
+    "done": "Hecho",
+    "update": "Actualizar",
+    "main_page": "Página principal",
+
+    "app_bar":
+    {
+        "title": "Ajustes de la Cuenta"
+    },
+
+    "nav_bar":
+    {
+        "restaurants": "Restaurantes",
+        "chat": "Chat",
+        "agenda": "Agenda",
+        "profile": "Perfil"
+    },
+
+    "language": 
+	{
+		"title": "Idioma",
+        "name": 
+		{
+			"en": "Inglés",
+			"es": "Castellano",
+            "ca": "Catalán"
+		}
+    },
+
+    "profile_page": 
+    {
+        "dark_mode": "Modo Oscuro",
+        "configuration": "CONFIGURACIÓN",
+        "account_settings": 
+        {
+            "title": "Ajustes de la Cuenta",
+            "sub_title": "Idioma"
+        },
+        "notifications": "Notificaciones",
+        "logout": "Cerrar Sessión",
+        "delete": "Eliminar Cuenta"
+    },
+
+    "login_page":
+    {
+        "credentials": "Credenciales Incorrectas",
+        "not_found": "Usuario no encontrado o contraseña incorrecta",
+        "username": "Nombre de Usuario",
+        "enter_user": "Introduzca su nombre de usuario",
+        "password": "Contraseña",
+        "enter_pass": "Introduzca su contraseña",
+        "fullname": "Nombre Completo",
+        "enter_full": "Introduzca su nombre completo",
+        "email": "Correo Electrónico",
+        "enter_email": "Introduzca su correo electrónico",
+        "forgot_pass": "No recuerda su contraseña?",
+        "login": "Entrar",
+        "register": "Registrarse",
+        "new_user": "Nuevo Usuario? Crear Cuenta",
+        "create_user": "Crear nuevo usuario",
+        "new_username": "Nuevo Usuario",
+        "new_email": "Nuevo Correo Electrónico",
+        "email_empty": "El campo del correo electrónico no puede estar vacío",
+        "email_invalid": "Correo Electrónico Inválido",
+        "password_match": "Las contraseñas no coinciden",
+        "password_repeat": "Repita la contraseña",
+        "password_again": "Introduzca su contraseña otra vez"
+    },
+
+    "dishes_page":
+    {
+        "all": "Todos los platos",
+        "no_dish": "No hay platos aún"
+    },
+
+    "restaurants_page":
+    {
+        "filter": "Filtre su búsqueda",
+        "no_match": "Lo lamentamos, ningún restaurante coincide con sus preferencias",
+        "no_rest": "Este usuario no tiene restaurantes",
+        "filter_style": "Filtrar por estilo",
+        "select_style": "Seleccione el estilo de la comida",
+        "filter_pref": "Filtrar por preferencias",
+        "select_pref": "Seleccione sus preferencias"
+    },
+
+    "tickets_page":
+    {
+        "no_tickets": "No hay tiquets aún",
+        "create": "Crear",
+        "inbox": "Bandeja de Entrada",
+        "sent": "Enviados"
+    },
+
+    "food_tags":
+    {
+        "add": "Añadir Tag",
+        "italian": "Italiano",
+        "asiatic": "Asiático",
+        "vegan": "Vegano",
+        "mexican": "Mexicano",
+        "pets": "Mascotas permitidas",
+        "live": "Música en directo",
+        "kids": "Para niños"
+    }
 }

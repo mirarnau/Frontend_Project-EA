@@ -1,3 +1,108 @@
 {
-    
+	"customer": "Customer",
+    "owner": "Owner",
+    "done": "Done",
+    "update": "Update",
+    "main_page": "Main Page",
+
+    "app_bar":
+    {
+        "title": "Account Settings"
+    },
+
+    "nav_bar":
+    {
+        "restaurants": "Restaurants",
+        "chat": "Chat",
+        "agenda": "Agenda",
+        "profile": "Profile"
+    },
+
+    "language": 
+	{
+		"title": "Language",
+        "name": 
+		{
+			"en": "English",
+			"es": "Spanish",
+            "ca": "Catalan"
+		}
+    },
+
+    "profile_page": 
+    {
+        "dark_mode": "Dark Mode",
+        "configuration": "CONFIGURATION",
+        "account_settings": 
+        {
+            "title": "Account Settings",
+            "sub_title": "Language"
+        },
+        "notifications": "Notifications",
+        "logout": "Logout",
+        "delete": "Delete Account"
+    },
+
+    "login_page":
+    {
+        "credentials": "Incorrect credentials",
+        "not_found": "User not found or incorrect password",
+        "username": "Username",
+        "enter_user": "Enter your user name",
+        "password": "Password",
+        "enter_pass": "Enter your password",
+        "fullname": "Full Name",
+        "enter_full": "Enter your full name",
+        "email": "Email",
+        "enter_email": "Enter you email",
+        "forgot_pass": "Forgot Password?",
+        "login": "Login",
+        "register": "Register",
+        "new_user": "New User? Create Account",
+        "create_user": "Create new user",
+        "new_username": "New Username",
+        "new_email": "New Email",
+        "email_empty": "Email cannot be empty",
+        "email_invalid": "Invalid Email Address",
+        "password_match": "Passwords do not match",
+        "password_repeat": "Repeat password",
+        "password_again": "Enter you password again"
+    },
+
+    "dishes_page":
+    {
+        "all": "All dishes",
+        "no_dish": "There are no dishes yet"
+    },
+
+    "restaurants_page":
+    {
+        "filter": "Filter your search",
+        "no_match": "Sorry, any restaurant matches your preferences",
+        "no_rest": "This user has no restaurants",
+        "filter_style": "Filter by style",
+        "select_style": "Select the style of food",
+        "filter_pref": "Filter by preferences",
+        "select_pref": "Select your preferences"
+    },
+
+    "tickets_page":
+    {
+        "no_tickets": "There are no tickets yet",
+        "create": "Create",
+        "inbox": "Inbox",
+        "sent": "Sent"
+    },
+
+    "food_tags":
+    {
+        "add": "Add Tag",
+        "italian": "Italian",
+        "asiatic": "Asiatic",
+        "vegan": "Vegan",
+        "mexican": "Mexican",
+        "pets": "Pets allowed",
+        "live": "Live music",
+        "kids": "For kids"
+    }
 }

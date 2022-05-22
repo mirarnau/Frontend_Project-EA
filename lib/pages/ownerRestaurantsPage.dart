@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
@@ -39,8 +40,8 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   @override
   Widget build(BuildContext context) {
     if (myRestaurants == null){
-      return const Scaffold(
-        body: Text ('This user has no restaurants',
+      return Scaffold(
+        body: Text (translate('restaurants_page.no_rest'),
                   style: TextStyle(
                     fontSize: 20
                   ),

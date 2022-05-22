@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final customernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isOwner = false;
-  var text = "Customer";
+  var text = translate('customer');
 
   bool buttonEnabled = false;
 
@@ -49,11 +50,11 @@ class _LoginPageState extends State<LoginPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Incorrect credentials",
+      title: Text(
+        translate('login_page.credentials'),
         style: TextStyle(color: Colors.red),
       ),
-      content: const Text("User not found or incorrect password."),
+      content: Text(translate('login_page.not_found')),
       actions: [
         okButton,
       ],
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: 200,
                         height: 150,
                         child: Text(
-                          'APPetite',
+                          'Appétit',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 40,
@@ -105,14 +106,14 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     controller: customernameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         filled: true,
                         fillColor: Color.fromARGB(255, 57, 57, 57),
                         border: OutlineInputBorder(),
-                        labelText: 'User name',
+                        labelText: translate('login_page.username'),
                         labelStyle:
                             TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: 'Enter your user name'),
+                        hintText: translate('login_page.enter_user')),
                   ),
                 ),
                 Padding(
@@ -121,22 +122,22 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextField(
                     controller: passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         filled: true,
                         fillColor: Color.fromARGB(255, 57, 57, 57),
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: translate('login_page.password'),
                         labelStyle:
                             TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: 'Enter your password'),
+                        hintText: translate('login_page.enter_pass')),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50),
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'Forgot Password?',
+                    child: Text(
+                      translate('login_page.forgot_pass'),
                       style: TextStyle(color: Colors.red, fontSize: 15),
                     ),
                   ),
@@ -220,8 +221,8 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.of(context).push(routes);
                       }
                     },
-                    child: const Text(
-                      'Login',
+                    child: Text(
+                      translate('login_page.login'),
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
@@ -238,8 +239,8 @@ class _LoginPageState extends State<LoginPage> {
                               builder: (context) => const RegisterPage()),
                         );
                       },
-                      child: const Text(
-                        'New User? Create Account',
+                      child: Text(
+                        translate('login_page.new_user'),
                         style: TextStyle(color: Colors.amber),
                       ),
                     ),
@@ -257,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                       isOwner = true;
                       print(isOwner);
                     },
-                    child: const Text("Owner",
+                    child: Text(translate('owner'),
                         style: TextStyle(color: Colors.black, fontSize: 25)),
                   ),
                 ),
@@ -275,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
                         isOwner = false;
                         print(isOwner);
                       },
-                      child: const Text("Customer",
+                      child: Text(translate('customer'),
                           style: TextStyle(color: Colors.black, fontSize: 25)),
                     ),
                   ),

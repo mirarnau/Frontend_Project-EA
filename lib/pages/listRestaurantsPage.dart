@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
@@ -52,7 +53,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
       return  Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 76, 75, 75),
-          title: const Text ("Filter your search"),
+          title: Text (translate('restaurants_page.filter')),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
@@ -104,8 +105,8 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                   }
                 )
             ),
-            const Text(
-              'Sorry, any restaurant matches your preferences',
+            Text(
+              translate('restaurants_page.no_match'),
               style: TextStyle(
                 color: Colors.white
               ),
@@ -119,7 +120,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text ("Filter your search"),
+          title: Text (translate('restaurants_page.filter')),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
