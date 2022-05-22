@@ -4,6 +4,8 @@ import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 
+import 'ownerRestaurantsPage.dart';
+
 class OwnerMainPage extends StatefulWidget {
   final Owner? owner;
   
@@ -42,7 +44,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    //ListRestaurantsPage(owner: _owner)
+    OwnerRestaurantPage(owner: _owner),
   ];
 
   @override
@@ -73,10 +75,6 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
             label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.view_agenda_rounded),
-            label: 'Agenda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

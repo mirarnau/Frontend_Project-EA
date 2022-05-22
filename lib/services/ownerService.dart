@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
@@ -25,7 +26,10 @@ class OwnerService {
     var res = await http.get(Uri.parse(baseUrl + '/' + id),
       headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
-      var listRestaurants = owner.restaurants;
+      var data = jsonDecode(res.body);
+      List<dynamic> listRestaurants = data['listRestaurants'];      
+      
+      print(listRestaurants);
       return listRestaurants;
     }
     return null;
