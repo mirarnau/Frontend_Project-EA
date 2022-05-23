@@ -76,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                   },
                   icon: Icon(Icons.arrow_back,color: Color.fromARGB(255, 197, 196, 196),),
                 ),
-                SizedBox(width: 2,),
+                SizedBox(width: 2),
                 SizedBox(width: 12,),
                 Expanded(
                   child: Column(

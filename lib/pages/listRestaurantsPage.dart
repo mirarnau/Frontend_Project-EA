@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/pages/infoRestaurantPage.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
 import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
@@ -177,11 +178,20 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                 shrinkWrap: true,
                 itemCount: listRestaurants?.length,
                 itemBuilder: (context, index) {
-                  return CardRestaurant(
+                  return GestureDetector(
+                    child: CardRestaurant(
                       restaurantName: listRestaurants![index].restaurantName,
                       city: listRestaurants![index].city,
                       rating: listRestaurants![index].rating.toString(),
-                      imagesUrl: listRestaurants![index].photos);
+                      imagesUrl: listRestaurants![index].photos),
+                    onTap: () {
+                      var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          InfoRestaurantPage(selectedRestaurant: listRestaurants?[index],)
+                      );
+                      Navigator.of(context).push(routes);
+                    },
+                  );
                 }
               )
             )

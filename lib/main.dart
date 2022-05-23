@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //MaterialApp is another widget, and it allows us to make the designs, it acts as a wrapper for the other widgets.
       title: 'Flutter Demo',
       theme: ThemeData(
         backgroundColor: Colors.black,
