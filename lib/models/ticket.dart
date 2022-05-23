@@ -1,4 +1,4 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 class Ticket {
   late final String id;
@@ -11,32 +11,29 @@ class Ticket {
   late final String creationDate;
 
   Ticket(
-    {
-      required this.id,
+      {required this.id,
       required this.creatorName,
       required this.recipientName,
       required this.subject,
       required this.message,
       required this.profilePicCreator,
       required this.status,
-      required this.creationDate
-    }
-  );
+      required this.creationDate});
 
   factory Ticket.fromJSON(dynamic json) {
     Ticket ticket = Ticket(
-      id: json['_id'],
-      creatorName: json['creatorName'] as String,
-      recipientName: json['recipientName'],
-      subject: json['subject'],
-      message: json['message'],
-      profilePicCreator: json['profilePicCreator'],
-      status: json['status'],
-      creationDate: json['creationDate']);
+        id: json['_id'],
+        creatorName: json['creatorName'] as String,
+        recipientName: json['recipientName'],
+        subject: json['subject'],
+        message: json['message'],
+        profilePicCreator: json['profilePicCreator'],
+        status: json['status'],
+        creationDate: json['creationDate']);
     return ticket;
   }
 
-  static Map<String, dynamic> toJson (Ticket ticket) {
+  static Map<String, dynamic> toJson(Ticket ticket) {
     return {
       '_id': ticket.id,
       'creatorName': ticket.creatorName,
