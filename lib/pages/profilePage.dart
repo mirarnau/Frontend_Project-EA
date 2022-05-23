@@ -1,9 +1,7 @@
-import 'package:flutter_tutorial/widgets/appbarWidget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter_tutorial/widgets/profileWidget.dart';
 import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/pages/editProfilePage.dart';
 
 class ProfilePage extends StatefulWidget {

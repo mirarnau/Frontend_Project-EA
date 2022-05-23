@@ -1,11 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
-import 'package:flutter_tutorial/services/customerService.dart';
-import 'package:flutter_tutorial/widgets/profileWidget.dart';
-import 'editProfilePage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -49,7 +48,7 @@ class _MainPageState extends State<MainPage> {
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer,page: widget.chatPage),
-    const Center(child: Text('Agenda', style: TextStyle(fontSize: 60))),
+    Center(child: Text('Agenda', style: const TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
 
