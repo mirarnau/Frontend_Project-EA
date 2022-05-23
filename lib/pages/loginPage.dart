@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 
@@ -25,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   final customernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isOwner = false;
-  var text = "Customer";
+  var text = translate('customer');
 
   bool buttonEnabled = false;
 
@@ -49,11 +52,11 @@ class _LoginPageState extends State<LoginPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Incorrect credentials",
+      title: Text(
+        translate('login_page.credentials'),
         style: TextStyle(color: Colors.red),
       ),
-      content: const Text("User not found or incorrect password."),
+      content: Text(translate('login_page.not_found')),
       actions: [
         okButton,
       ],
@@ -74,57 +77,43 @@ class _LoginPageState extends State<LoginPage> {
     LoginService loginService = LoginService();
     OwnerService ownerService = OwnerService();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
+  return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: const Color.fromARGB(255, 48, 48, 48),
         child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(top: 100.0),
-              child: Center(
-                child: SizedBox(
-                    width: 200,
-                    height: 150,
-                    child: Text(
-                      'APPétit',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 213, 67, 67)),
-                    )
-                    //Image.asset('assets/images/like.png')),
-                    ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                controller: customernameController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 57, 57, 57),
-                  border: OutlineInputBorder(),
-                  labelText: 'User name',
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0)
+          child: Column(
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(top: 100.0),
+                child: Center(
+                  child: SizedBox(
+                      width: 200,
+                      height: 150,
+                      child: Text(
+                        'Appétit',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 213, 67, 67)),
+                      )
                   ),
-                )
-              )),
+                ),
+              ),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     controller: customernameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         filled: true,
                         fillColor: Color.fromARGB(255, 57, 57, 57),
                         border: OutlineInputBorder(),
-                        labelText: 'User name',
+                        labelText: translate('login_page.username'),
                         labelStyle:
                             TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: 'Enter your user name'),
+                        hintText: translate('login_page.enter_user')),
                   ),
                 ),
                 Padding(
@@ -133,22 +122,22 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextField(
                     controller: passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         filled: true,
                         fillColor: Color.fromARGB(255, 57, 57, 57),
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: translate('login_page.password'),
                         labelStyle:
                             TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: 'Enter your password'),
+                        hintText: translate('login_page.enter_pass')),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50),
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'Forgot Password?',
+                    child: Text(
+                      translate('login_page.forgot_pass'),
                       style: TextStyle(color: Colors.red, fontSize: 15),
                     ),
                   ),
@@ -229,32 +218,31 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.of(context).push(routes);
                       }
                     },
-                    child: const Text(
-                      'Login',
+                    child: Text(
+                      translate('login_page.login'),
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
-              ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
-                child: TextButton(
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPage()),
-                    );
-                  },
-                  child: const Text(
-                    'New User? Create Account',
-                    style: TextStyle(
-                      color: Colors.red
-                    ),),
                 ),
-              ),
-            ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                    child: TextButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterPage()),
+                        );
+                      },
+                      child: Text(
+                        translate('login_page.new_user'),
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   height: 50,
                   width: 250,
@@ -267,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                       isOwner = true;
                       print(isOwner);
                     },
-                    child: const Text("Owner",
+                    child: Text(translate('owner'),
                         style: TextStyle(color: Colors.black, fontSize: 25)),
                   ),
                 ),
@@ -285,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
                         isOwner = false;
                         print(isOwner);
                       },
-                      child: const Text("Customer",
+                      child: Text(translate('customer'),
                           style: TextStyle(color: Colors.black, fontSize: 25)),
                     ),
                   ),

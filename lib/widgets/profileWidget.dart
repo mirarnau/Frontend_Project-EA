@@ -8,7 +8,7 @@ class ProfileWidget extends StatelessWidget {
   ProfileWidget({
     required this.imagePath,
     required this.onClicked,
-    this.isEdit = false,
+    this.isEdit = false
   });
 
   @override
@@ -44,12 +44,16 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.black,
+    color: Colors.white,
     all: 3,
-    child: Icon(
-      isEdit ? Icons.add_a_photo : Icons.edit,
-      color: Colors.white,
-      size: 20,
+    child: buildCircle(
+      color: color,
+      all: 8,
+      child: Icon(
+        isEdit ? Icons.add_a_photo : Icons.edit,
+        color: Colors.white,
+        size: 18,
+      ),
     ),
   );
 

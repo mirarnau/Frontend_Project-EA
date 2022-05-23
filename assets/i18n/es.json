@@ -1,0 +1,143 @@
+{
+	"customer": "Cliente/a",
+    "owner": "Propietario/a",
+    "done": "Hecho",
+    "update": "Actualizar",
+    "main_page": "Página principal",
+    "cancel": "Cancelar",
+    "help": "Ayuda",
+    "skip": "Omitir",
+    "empty": "Uno de los campos está vacío",
+
+    "app_bar":
+    {
+        "title": "Ajustes de la Cuenta"
+    },
+
+    "nav_bar":
+    {
+        "restaurants": "Restaurantes",
+        "chat": "Chat",
+        "agenda": "Agenda",
+        "profile": "Perfil"
+    },
+
+    "language": 
+	{
+		"title": "Idioma",
+        "name": 
+		{
+			"en": "Inglés",
+			"es": "Castellano",
+            "ca": "Catalán"
+		}
+    },
+
+    "profile_page": 
+    {
+        "dark_mode": "Modo Oscuro",
+        "configuration": "CONFIGURACIÓN",
+        "account_settings": 
+        {
+            "title": "Ajustes de la Cuenta",
+            "sub_title": "Idioma"
+        },
+        "notifications": "Notificaciones",
+        "logout": "Cerrar Sessión",
+        "delete": "Eliminar Cuenta",
+        "contact": 
+        {
+            "title": "Contáctenos",
+            "sub_title": "Envíanos un mensaje"
+        },
+        "delete_confirm": "Está usted seguro que desea eliminar su cuenta?",
+        "help": 
+        {
+            "picture": "Edite su perfil: Si quiere cambiar su correo electrónico o su foto de perfil pulse aquí",
+            "username": "Aquí puede observar su nombre de usuario, correo electrónico y el nombre de su cuenta",
+            "dark_mode": "Cambie entre Modo Claro y Modo Oscuro, puede cambiar tantas veces como quiera",
+            "account_settings": "Aquí puede cambiar las preferencias de la cuenta",
+            "notifications":  "Configure los ajustes de las notificaciones",
+            "logout": "Si quiere cerrar la sessión pulse aquí",
+            "delete": "En caso no este satisfecho con la aplicación o ya no le ve un uso, puede eliminar su información personal",
+            "contact": "Tiene alguna pregunta, problema u opinión? Déjenosla saber enviando un correo"
+        }
+    },
+
+    "login_page":
+    {
+        "credentials": "Credenciales Incorrectas",
+        "not_found": "Usuario no encontrado o contraseña incorrecta",
+        "username": "Nombre de Usuario",
+        "enter_user": "Introduzca su nombre de usuario",
+        "password": "Contraseña",
+        "enter_pass": "Introduzca su contraseña",
+        "fullname": "Nombre Completo",
+        "enter_full": "Introduzca su nombre completo",
+        "email": "Correo Electrónico",
+        "enter_email": "Introduzca su correo electrónico",
+        "forgot_pass": "No recuerda su contraseña?",
+        "login": "Entrar",
+        "register": "Registrarse",
+        "new_user": "Nuevo Usuario? Crear Cuenta",
+        "create_user": "Crear nuevo usuario",
+        "new_username": "Nuevo Usuario",
+        "new_email": "Nuevo Correo Electrónico",
+        "email_empty": "El campo del correo electrónico no puede estar vacío",
+        "email_invalid": "Correo Electrónico Inválido",
+        "password_match": "Las contraseñas no coinciden",
+        "password_repeat": "Repita la contraseña",
+        "password_again": "Introduzca su contraseña otra vez"
+    },
+
+    "dishes_page":
+    {
+        "all": "Todos los platos",
+        "no_dish": "No hay platos aún"
+    },
+
+    "restaurants_page":
+    {
+        "filter": "Filtre su búsqueda",
+        "no_match": "Lo lamentamos, ningún restaurante coincide con sus preferencias",
+        "no_rest": "Este usuario no tiene restaurantes",
+        "filter_style": "Filtrar por estilo",
+        "select_style": "Seleccione el estilo de la comida",
+        "filter_pref": "Filtrar por preferencias",
+        "select_pref": "Seleccione sus preferencias"
+    },
+
+    "tickets_page":
+    {
+        "no_tickets": "No hay tiquets aún",
+        "create": "Crear",
+        "inbox": "Bandeja de Entrada",
+        "sent": "Enviados"
+    },
+
+    "email_page":
+    {
+        "title": "Enviar Correo",
+        "write": "Escríbenos tu opinión/duda",
+        "to": "Para",
+        "subject": "Asunto",
+        "my_subject": "Mi Asunto",
+        "message": "Mensaje",
+        "my_message": "Mi Mensaje",
+        "send": "Enviar",
+        "open": "Abriendo aplicación de correo",
+        "failed": "Parece ser que no tiene ninguna aplicación de correo instalada"
+    },
+
+    "food_tags":
+    {
+        "add": "Añadir Tag",
+        "italian": "Italiano",
+        "asiatic": "Asiático",
+        "vegan": "Vegano",
+        "mexican": "Mexicano",
+        "pets": "Mascotas permitidas",
+        "live": "Música en directo",
+        "kids": "Para niños"
+    }
+}

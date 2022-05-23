@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/dish.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
@@ -54,10 +55,10 @@ class _editProfilePage extends State<editProfilePage> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: TextField(
               controller: customernameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'User name',
-                  hintText: 'New User Name'),
+                  labelText: translate('login_page.username'),
+                  hintText: translate('login_page.new_username')),
             ),
           ),
           /*TextFieldWidget(
@@ -70,10 +71,10 @@ class _editProfilePage extends State<editProfilePage> {
                 left: 15.0, right: 15.0, top: 15.0, bottom: 0),
             child: TextField(
               controller: emailController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Email',
-                  hintText: 'New email'),
+                  labelText: translate('login_page.email'),
+                  hintText: translate('login_page.new_email')),
               onChanged: (val) {
                 validateEmail(val);
               },
@@ -127,8 +128,8 @@ class _editProfilePage extends State<editProfilePage> {
                   );
                 }
               },
-              child: const Text(
-                'Update',
+              child: Text(
+                translate('update'),
                 style: TextStyle(color: Colors.white, fontSize: 25),
               ),
             ),
@@ -147,12 +148,12 @@ class _editProfilePage extends State<editProfilePage> {
   void validateEmail(String val) {
     if (val.isEmpty) {
       setState(() {
-        _errorMessage = "Email can not be empty";
+        _errorMessage = translate('login_page.email_empty');
         buttonEnabled = false;
       });
     } else if (!EmailValidator.validate(val, true)) {
       setState(() {
-        _errorMessage = "Invalid Email Address";
+        _errorMessage = translate('login_page.email');
         buttonEnabled = false;
       });
     } else {

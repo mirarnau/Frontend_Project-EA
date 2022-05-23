@@ -1,0 +1,143 @@
+{
+	"customer": "Customer",
+    "owner": "Owner",
+    "done": "Done",
+    "update": "Update",
+    "main_page": "Main Page",
+    "cancel": "Cancel",
+    "help": "Help",
+    "skip": "Skip",
+    "empty": "One of the fields is empty",
+
+    "app_bar":
+    {
+        "title": "Account Settings"
+    },
+
+    "nav_bar":
+    {
+        "restaurants": "Restaurants",
+        "chat": "Chat",
+        "agenda": "Agenda",
+        "profile": "Profile"
+    },
+
+    "language": 
+	{
+		"title": "Language",
+        "name": 
+		{
+			"en": "English",
+			"es": "Spanish",
+            "ca": "Catalan"
+		}
+    },
+
+    "profile_page": 
+    {
+        "dark_mode": "Dark Mode",
+        "configuration": "CONFIGURATION",
+        "account_settings": 
+        {
+            "title": "Account Settings",
+            "sub_title": "Language"
+        },
+        "notifications": "Notifications",
+        "logout": "Logout",
+        "delete": "Delete Account",
+        "contact": 
+        {
+            "title": "Contact Us",
+            "sub_title": "Send us a message"
+        },
+        "delete_confirm": "Are you sure you want to delete your account?",
+        "help": 
+        {
+            "picture": "Edit your profile: If you want to change your email or your profile picture click here",
+            "username": "Here you can see your username, email and fullname of your account",
+            "dark_mode": "Switch between Light Mode and Dark Mode, you can change it as many times as you want",
+            "account_settings": "Here you can change your account preferences",
+            "notifications":  "Configure notification settings",
+            "logout": "If you want to logout from your account click here",
+            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information",
+            "contact": "Do you have any question, problem or opinion? Let us know it by sending a message"
+        }
+    },
+
+    "login_page":
+    {
+        "credentials": "Incorrect credentials",
+        "not_found": "User not found or incorrect password",
+        "username": "Username",
+        "enter_user": "Enter your user name",
+        "password": "Password",
+        "enter_pass": "Enter your password",
+        "fullname": "Full Name",
+        "enter_full": "Enter your full name",
+        "email": "Email",
+        "enter_email": "Enter you email",
+        "forgot_pass": "Forgot Password?",
+        "login": "Login",
+        "register": "Register",
+        "new_user": "New User? Create Account",
+        "create_user": "Create new user",
+        "new_username": "New Username",
+        "new_email": "New Email",
+        "email_empty": "Email cannot be empty",
+        "email_invalid": "Invalid Email Address",
+        "password_match": "Passwords do not match",
+        "password_repeat": "Repeat password",
+        "password_again": "Enter you password again"
+    },
+
+    "dishes_page":
+    {
+        "all": "All dishes",
+        "no_dish": "There are no dishes yet"
+    },
+
+    "restaurants_page":
+    {
+        "filter": "Filter your search",
+        "no_match": "Sorry, any restaurant matches your preferences",
+        "no_rest": "This user has no restaurants",
+        "filter_style": "Filter by style",
+        "select_style": "Select the style of food",
+        "filter_pref": "Filter by preferences",
+        "select_pref": "Select your preferences"
+    },
+
+    "tickets_page":
+    {
+        "no_tickets": "There are no tickets yet",
+        "create": "Create",
+        "inbox": "Inbox",
+        "sent": "Sent"
+    },
+
+    "email_page":
+    {
+        "title": "Send Email",
+        "write": "Write us your opinion/question",
+        "to": "To",
+        "subject": "Subject",
+        "my_subject": "My Subject",
+        "message": "Message",
+        "my_message": "My Message",
+        "send": "Send",
+        "open": "Opening mail application",
+        "failed": "It seems you do not have any mail application installed"
+    },
+
+    "food_tags":
+    {
+        "add": "Add Tag",
+        "italian": "Italian",
+        "asiatic": "Asiatic",
+        "vegan": "Vegan",
+        "mexican": "Mexican",
+        "pets": "Pets allowed",
+        "live": "Live music",
+        "kids": "For kids"
+    }
+}

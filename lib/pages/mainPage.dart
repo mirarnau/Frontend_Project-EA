@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
@@ -21,23 +22,6 @@ class _MainPageState extends State<MainPage> {
   late final Customer? _customer = widget.customer;
   late int _selectedIndex = widget.selectedIndex;
 
-  /*static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Restaurants',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Agenda',
-      style: optionStyle,
-    ),
-    //ProfilePage(customer: widget.customer),
-    Text(
-      'Index 2: Profile',
-      style: optionStyle,
-    )
-  ];*/
 
   void _onItemTapped(int index) {
     setState(() {
@@ -47,49 +31,38 @@ class _MainPageState extends State<MainPage> {
 
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer,page: widget.chatPage),
-    Center(child: Text('Agenda', style: const TextStyle(fontSize: 60))),
+    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
+    Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    changeLocale(context, localizationDelegate.currentLocale.languageCode);
+    
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            SizedBox(width: 65),
-            Icon(Icons.menu),
-            SizedBox(width: 10),
-            Text('Main page')
-          ],
-        ),
-      ),
-      */
       body: Center(
         child: screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: 'Restaurants',
+            label: translate('nav_bar.restaurants'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: 'Chat',
+            label: translate('nav_bar.chat'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_agenda_rounded),
-            label: 'Agenda',
+            label: translate('nav_bar.agenda'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: translate('nav_bar.profile'),
           ),
         ],
         currentIndex: _selectedIndex,

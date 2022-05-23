@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/message.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:flutter_tutorial/models/customer.dart';
@@ -79,7 +80,7 @@ class _TicketsPageState extends State<TicketsPage> {
           child: Scaffold(
             appBar: AppBar(),
             drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
-            body: const Text('No tickets'),
+            body: Text(translate('tickets_page.no_tickets')),
             floatingActionButton: Container(
               alignment: Alignment.bottomRight,
               height: 200.0,
@@ -90,8 +91,8 @@ class _TicketsPageState extends State<TicketsPage> {
                   icon: const Icon(
                     Icons.add_comment,
                     color: Color.fromARGB(255, 213, 94, 85)),
-                  label: const Text(
-                    'Create',
+                  label: Text(
+                    translate('tickets_page.create'),
                     style: TextStyle(
                       color: Color.fromARGB(255, 213, 94, 85)
                     ),
@@ -155,8 +156,8 @@ class _TicketsPageState extends State<TicketsPage> {
                 icon: const Icon(
                   Icons.add_comment,
                   color: Color.fromARGB(255, 213, 94, 85)),
-                label: const Text(
-                  'Create',
+                label: Text(
+                  translate('tickets_page.create'),
                   style: TextStyle(
                     color: Color.fromARGB(255, 213, 94, 85)
                   ),
@@ -173,9 +174,7 @@ class _TicketsPageState extends State<TicketsPage> {
           ) ,
       );
     }
-
-    //if(widget.page == "Inbox"){
-     else{ 
+    else{ 
       if (listTicketsReceived == null){
         return  Scaffold(
           appBar: AppBar(),
@@ -184,10 +183,10 @@ class _TicketsPageState extends State<TicketsPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             color: const Color.fromARGB(255, 30, 30, 30),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(50),
               child: Text(
-                'No tickets',
+                translate('tickets_page.no_tickets'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white
@@ -203,8 +202,8 @@ class _TicketsPageState extends State<TicketsPage> {
                 icon: const Icon(
                   Icons.add_comment,
                   color: Color.fromARGB(255, 213, 94, 85)),
-                label: const Text(
-                  'Create',
+                label: Text(
+                  translate('tickets_page.create'),
                   style: TextStyle(
                     color: Color.fromARGB(255, 213, 94, 85)
                   ),

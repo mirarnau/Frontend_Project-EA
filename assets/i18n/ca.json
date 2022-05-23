@@ -1,0 +1,143 @@
+{
+	"customer": "Client/a",
+    "owner": "Propietari/a",
+    "done": "Fet",
+    "update": "Actualitzar",
+    "main_page": "Pàgina principal",
+    "cancel": "Cancelar",
+    "help": "Ajuda",
+    "skip": "Ometre",
+    "empty": "Un dels camps és buit",
+
+    "app_bar":
+    {
+        "title": "Ajusts del Compte"
+    },
+
+    "nav_bar":
+    {
+        "restaurants": "Restaurants",
+        "chat": "Xat",
+        "agenda": "Agenda",
+        "profile": "Perfil"
+    },
+
+    "language":
+	{
+		"title": "Idioma",
+        "name": 
+		{
+			"en": "Anglés",
+			"es": "Castellà",
+            "ca": "Català"
+		}
+    },
+
+    "profile_page": 
+    {
+        "dark_mode": "Mode Fosc",
+        "configuration": "CONFIGURACIÓ",
+        "account_settings": 
+        {
+            "title": "Ajusts del Compte",
+            "sub_title": "Idioma"
+        },
+        "notifications": "Notificacions",
+        "logout": "Tancar Sessió",
+        "delete": "Eliminar Compte",
+        "contact": 
+        {
+            "title": "Contacta'ns",
+            "sub_title": "Envia'ns un missatge"
+        },
+        "delete_confirm": "Està vosté segur que desitja eliminar el seu compte?",
+        "help": 
+        {
+            "picture": "Editi el seu perfil: Si vol canviar el seu correu electrònic o la seva foto de perfil premi aquí",
+            "username": "Aquí pot observar el seu nom d'usuari, correu electrònic i el nom del seu compte",
+            "dark_mode": "Canviï entre Mode Clar i Mode Fosc, pot canviar tants cops com vulgui",
+            "account_settings": "Aquí pot canviar les preferències del compte",
+            "notifications":  "Configuri els ajusts de les notificacions",
+            "logout": "Si desitja tancar la sessió pulsi aquí",
+            "delete": "En cas de no estar satisfet amb l'aplicació o si ja no li veu cap ús, pot eliminar la seva informació personal",
+            "contact": "Té algun dubte, problema o opinió? Deixi'ns-ho saber enviant un correu"
+        }
+    },
+
+    "login_page":
+    {
+        "credentials": "Credencials Incorrectes",
+        "not_found": "Usuari no trobat o contrasenya incorrecta",
+        "username": "Nom d'Usuari",
+        "enter_user": "Introdueixi el seu nom d'usuari",
+        "password": "Contrasenya",
+        "enter_pass": "Introdueixi la seva contrasenya",
+        "fullname": "Nom Complert",
+        "enter_full": "Introdueixi el seu nom complert",
+        "email": "Correu Electrònic",
+        "enter_email": "Introdueixi el seu correu electrònic",
+        "forgot_pass": "No recuerda la seva contrasenya?",
+        "login": "Entrar",
+        "register": "Registrar-se",
+        "new_user": "Nou Usuari? Crear Compte",
+        "create_user": "Crear nou usuari",
+        "new_username": "Nou Usuari",
+        "new_email": "Nou Correu Electrònic",
+        "email_empty": "El camp del correu electrònic no pot estar buit",
+        "email_invalid": "Correu Electrònic Invàlid",
+        "password_match": "Les contrasenyes no coincideixen",
+        "password_repeat": "Repeteixi la contrasenya",
+        "password_again": "Introdueixi la seva contrasenya un altre cop"
+    },
+
+    "dishes_page":
+    {
+        "all": "Tots els plats",
+        "no_dish": "No hi ha plats encara"
+    },
+
+    "restaurants_page":
+    {
+        "filter": "Filtri la seva cerca",
+        "no_match": "Ho setntim, cap restaurant coincideix amb les seves preferències",
+        "no_rest": "Aquest usuari no té restaurants",
+        "filter_style": "Filtrar per estil",
+        "select_style": "Seleccioni l'estil del menjar",
+        "filter_pref": "Filtrar per preferencies",
+        "select_pref": "Seleccioni les seves preferencies"
+    },
+
+    "tickets_page":
+    {
+        "no_tickets": "No hi ha tiquets encara",
+        "create": "Crear",
+        "inbox": "Safata d'Entrada",
+        "sent": "Enviats"
+    },
+
+    "email_page":
+    {
+        "title": "Enviar Correu",
+        "write": "Escriu-nos la teva opinió/dubte",
+        "to": "Per a",
+        "subject": "Assumpte",
+        "my_subject": "El Meu Assumpte",
+        "message": "Missatge",
+        "my_message": "El Meu Missatge",
+        "send": "Enviar",
+        "open": "Obrint aplicació de correu",
+        "failed": "Sembla que no té cap aplicació de correu instal·lada"
+    },
+
+    "food_tags":
+    {
+        "add": "Afegir Tag",
+        "italian": "Italià",
+        "asiatic": "Asiàtic",
+        "vegan": "Vegà",
+        "mexican": "Mexicà",
+        "pets": "Mascotes permeses",
+        "live": "Música en directe",
+        "kids": "Per a nens"
+    }
+}

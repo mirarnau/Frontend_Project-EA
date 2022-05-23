@@ -1,25 +1,67 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/loginPage.dart';
+import 'package:flutter_tutorial/pages/profilePage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await Settings.init(cacheProvider: SharePreferenceCache());
+
+  var delegate = await LocalizationDelegate.create(
+          fallbackLocale: 'en',
+          supportedLocales: ['en', 'es', 'ca']);
+
+  runApp(LocalizedApp(delegate, MyApp()));
+
 }
+
 
 //MyApp is the root widget
 class MyApp extends StatelessWidget {
   //The fact that it's a statless widget ENABLES HOT RELOAD
   const MyApp({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        backgroundColor: Colors.black,
-        primarySwatch: Palette.kToDark,
+
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+
+    return LocalizationProvider(
+      //MaterialApp is another widget, and it allows us to make the designs, it acts as a wrapper for the other widgets.
+      state: LocalizationProvider.of(context).state,
+      child: ValueChangeObserver<bool>(
+    //return ValueChangeObserver<bool>(
+        cacheKey: ProfilePage.keyDarkMode,
+        defaultValue: false,
+        builder: (_, isDarkMode, __) => MaterialApp(
+          title: 'Appétit',
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            localizationDelegate
+          ],
+          supportedLocales: localizationDelegate.supportedLocales,
+          locale: localizationDelegate.currentLocale,
+          theme: isDarkMode 
+            ? ThemeData.dark().copyWith(
+              primaryColor: Color.fromARGB(255, 213, 94, 85),
+              scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
+              canvasColor: Color.fromARGB(255, 30, 30, 30),
+              backgroundColor: Color.fromARGB(255, 60, 60, 60),
+            )
+            : ThemeData.light().copyWith(
+              primaryColor: Color.fromARGB(255, 255, 255, 255),
+              scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
+              canvasColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: Colors.blue,
+            ),
+          home: LoginPage(),
+        ),
       ),
-      home: LoginPage(),
     );
   }
 }
