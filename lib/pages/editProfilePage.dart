@@ -151,7 +151,7 @@ class _editProfilePage extends State<editProfilePage> {
       });
     } else if (!EmailValidator.validate(val, true)) {
       setState(() {
-        _errorMessage = translate('login_page.email_invalid');
+        _errorMessage = translate('login_page.email');
         buttonEnabled = false;
       });
     } else {

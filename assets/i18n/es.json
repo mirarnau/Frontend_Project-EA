@@ -5,6 +5,8 @@
     "update": "Actualizar",
     "main_page": "Página principal",
     "cancel": "Cancelar",
+    "help": "Ayuda",
+    "skip": "Omitir",
 
     "app_bar":
     {
@@ -42,7 +44,19 @@
         "notifications": "Notificaciones",
         "logout": "Cerrar Sessión",
         "delete": "Eliminar Cuenta",
-        "delete_confirm": "Está usted seguro que desea eliminar su cuenta?"
+        "contact": "Contáctanos",
+        "delete_confirm": "Está usted seguro que desea eliminar su cuenta?",
+        "help": 
+        {
+            "picture": "Edite su perfil: Si quiere cambiar su correo electrónico o su foto de perfil pulse aquí",
+            "username": "Aquí puede observar su nombre de usuario, correo electrónico y el nombre de su cuenta",
+            "dark_mode": "Cambie entre Modo Claro y Modo Oscuro, puede cambiar tantas veces como quiera",
+            "account_settings": "Here you can change your account preferences",
+            "notifications":  "",
+            "logout": "If you want to logout from your account click here",
+            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information"
+            
+        }
     },
 
     "login_page":

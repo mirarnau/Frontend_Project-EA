@@ -5,6 +5,8 @@
     "update": "Update",
     "main_page": "Main Page",
     "cancel": "Cancel",
+    "help": "Help",
+    "skip": "Skip",
 
     "app_bar":
     {
@@ -42,7 +44,22 @@
         "notifications": "Notifications",
         "logout": "Logout",
         "delete": "Delete Account",
-        "delete_confirm": "Are you sure you want to delete your account?"
+        "contact": 
+        {
+            "title": "Contact Us",
+            "sub_title": "Send us a message"
+        },
+        "delete_confirm": "Are you sure you want to delete your account?",
+        "help": 
+        {
+            "picture": "Edit your profile: If you want to change your email or your profile picture click here",
+            "username": "Here you can see your username, email and fullname of your account",
+            "dark_mode": "Switch between Light Mode and Dark Mode, you can change it as many times as you want",
+            "account_settings": "Here you can change your account preferences",
+            "notifications":  "",
+            "logout": "If you want to logout from your account click here",
+            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information"
+        }
     },
 
     "login_page":
@@ -94,6 +111,18 @@
         "create": "Create",
         "inbox": "Inbox",
         "sent": "Sent"
+    },
+
+    "email_page":
+    {
+        "title": "Send Email",
+        "write": "Write us your opinion/question",
+        "to": "To",
+        "subject": "Subject",
+        "my_subject": "My Subject",
+        "message": "Message",
+        "my_message": "My Message",
+        "send": "Send"
     },
 
     "food_tags":

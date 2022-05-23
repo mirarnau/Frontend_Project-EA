@@ -8,7 +8,7 @@ class ProfileWidget extends StatelessWidget {
   ProfileWidget({
     required this.imagePath,
     required this.onClicked,
-    this.isEdit = false,
+    this.isEdit = false
   });
 
   @override

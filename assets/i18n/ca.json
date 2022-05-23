@@ -5,6 +5,8 @@
     "update": "Actualitzar",
     "main_page": "Pàgina principal",
     "cancel": "Cancelar",
+    "help": "Ajuda",
+    "skip": "Ometre",
 
     "app_bar":
     {
@@ -42,7 +44,18 @@
         "notifications": "Notificacions",
         "logout": "Tancar Sessió",
         "delete": "Eliminar Compte",
-        "delete_confirm": "Està vosté segur que desitja eliminar el seu compte?"
+        "contact": "Contacta'ns",
+        "delete_confirm": "Està vosté segur que desitja eliminar el seu compte?",
+        "help": 
+        {
+            "picture": "Editi el seu perfil: Si vol canviar el seu correu electrònic o la seva foto de perfil premi aquí",
+            "username": "Aquí pot observar el seu nom d'usuari, correu electrònic i el nom del seu compte",
+            "dark_mode": "Canviï entre Mode Clar i Mode Fosc, pot canviar tants cops com vulgui",
+            "account_settings": "Here you can change your account preferences",
+            "notifications":  "",
+            "logout": "If you want to logout from your account click here",
+            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information"
+        }
     },
 
     "login_page":

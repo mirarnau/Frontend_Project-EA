@@ -48,13 +48,16 @@ class MyApp extends StatelessWidget {
           locale: localizationDelegate.currentLocale,
           theme: isDarkMode 
             ? ThemeData.dark().copyWith(
-              primaryColor: Colors.teal,
+              primaryColor: Color.fromARGB(255, 213, 94, 85),
               scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
               canvasColor: Color.fromARGB(255, 30, 30, 30),
+              backgroundColor: Color.fromARGB(255, 60, 60, 60),
             )
             : ThemeData.light().copyWith(
+              primaryColor: Color.fromARGB(255, 255, 255, 255),
               scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
               canvasColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: Colors.blue,
             ),
           home: LoginPage(),
         ),
