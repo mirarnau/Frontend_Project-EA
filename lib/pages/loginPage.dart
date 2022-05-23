@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
-
+import 'package:flutter_tutorial/pages/spashPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 
 import 'package:flutter_tutorial/pages/registerPage.dart';
@@ -238,6 +238,25 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         translate('login_page.new_user'),
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                    child: TextButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SplashScreen()),
+                        );
+                      },
+                      child: const Text(
+                        'Sign In with Google',
                         style: TextStyle(color: Colors.amber),
                       ),
                     ),

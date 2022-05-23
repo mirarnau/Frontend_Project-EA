@@ -10,18 +10,15 @@ class Ticket {
   late final String creationDate;
 
   Ticket(
-    {
-      required this.creatorName,
+      {required this.creatorName,
       required this.recipientName,
-      required this.subject
-    }
-  );
+      required this.subject});
 
   factory Ticket.fromJSON(dynamic json) {
     Ticket ticket = Ticket(
-      creatorName: json['creatorName'],
-      recipientName: json['recipientName'],
-      subject: json['subject']);
+        creatorName: json['creatorName'],
+        recipientName: json['recipientName'],
+        subject: json['subject']);
 
     ticket.id = json['_id'];
     ticket.messages = json['messages'].cast<Message>();
@@ -30,7 +27,7 @@ class Ticket {
     return ticket;
   }
 
-  static Map<String, dynamic> toJson (Ticket ticket) {
+  static Map<String, dynamic> toJson(Ticket ticket) {
     return {
       'creatorName': ticket.creatorName,
       'recipientName': ticket.recipientName,
