@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/owner.dart';
-import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:flutter_tutorial/pages/listRestaurantsOwnerPage.dart';
 
+import '../models/customer.dart';
+import 'listRestaurantsOwnerPage.dart';
 import 'ownerRestaurantsPage.dart';
 
 class OwnerMainPage extends StatefulWidget {
   final Owner? owner;
-  
-  OwnerMainPage({Key? key, required this.owner}) : super(key: key);
+  late final int selectedIndex;
+  final List<String> transferRestaurantTags;
+  OwnerMainPage({Key? key, required this.owner, required this.selectedIndex, required this.transferRestaurantTags}) : super(key: key);
 
   @override
   _OwnerMainPageState createState() => _OwnerMainPageState();
@@ -44,7 +47,8 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    OwnerRestaurantPage(owner: _owner),
+    ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
+    OwnerRestaurantPage(owner: _owner)
   ];
 
   @override
@@ -73,6 +77,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
             label: 'Restaurants',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
             label: 'Chat',
           ),
@@ -88,4 +96,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       ),
     );
   }
+
+  
 }
+

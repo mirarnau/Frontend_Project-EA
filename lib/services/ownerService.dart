@@ -27,10 +27,15 @@ class OwnerService {
       headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
-      List<dynamic> listRestaurants = data['listRestaurants'];      
-      
+      List<dynamic> listRestaurants = data['listRestaurants'];   
       print(listRestaurants);
-      return listRestaurants;
+      List<Restaurant> listRestaurantsParsed = [];
+      listRestaurants.forEach((restaurant) => listRestaurantsParsed.add(Restaurant.fromJSON(restaurant)));
+      
+      print(listRestaurantsParsed.length);
+      print(listRestaurantsParsed);
+
+      return listRestaurantsParsed;
     }
     return null;
     }

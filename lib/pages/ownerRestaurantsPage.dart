@@ -64,14 +64,6 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
         )
     );
   }
-/*
-  Future<void> getRestaurantIDs(List<dynamic> list) async {
-    for (var _id in list) {
-        list.add(_id);
-    }
-
-  }
-  */
 
   Future<void> getRestaurants() async {
     Owner? owner = this._owner;
