@@ -7,10 +7,11 @@
     "cancel": "Cancelar",
     "help": "Ajuda",
     "skip": "Ometre",
+    "empty": "Un dels camps és buit",
 
     "app_bar":
     {
-        "title": "Ajustaments del Compte"
+        "title": "Ajusts del Compte"
     },
 
     "nav_bar":
@@ -38,23 +39,28 @@
         "configuration": "CONFIGURACIÓ",
         "account_settings": 
         {
-            "title": "Ajustaments del Compte",
+            "title": "Ajusts del Compte",
             "sub_title": "Idioma"
         },
         "notifications": "Notificacions",
         "logout": "Tancar Sessió",
         "delete": "Eliminar Compte",
-        "contact": "Contacta'ns",
+        "contact": 
+        {
+            "title": "Contacta'ns",
+            "sub_title": "Envia'ns un missatge"
+        },
         "delete_confirm": "Està vosté segur que desitja eliminar el seu compte?",
         "help": 
         {
             "picture": "Editi el seu perfil: Si vol canviar el seu correu electrònic o la seva foto de perfil premi aquí",
             "username": "Aquí pot observar el seu nom d'usuari, correu electrònic i el nom del seu compte",
             "dark_mode": "Canviï entre Mode Clar i Mode Fosc, pot canviar tants cops com vulgui",
-            "account_settings": "Here you can change your account preferences",
-            "notifications":  "",
-            "logout": "If you want to logout from your account click here",
-            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information"
+            "account_settings": "Aquí pot canviar les preferències del compte",
+            "notifications":  "Configuri els ajusts de les notificacions",
+            "logout": "Si desitja tancar la sessió pulsi aquí",
+            "delete": "En cas de no estar satisfet amb l'aplicació o si ja no li veu cap ús, pot eliminar la seva informació personal",
+            "contact": "Té algun dubte, problema o opinió? Deixi'ns-ho saber enviant un correu"
         }
     },
 
@@ -107,6 +113,20 @@
         "create": "Crear",
         "inbox": "Safata d'Entrada",
         "sent": "Enviats"
+    },
+
+    "email_page":
+    {
+        "title": "Enviar Correu",
+        "write": "Escriu-nos la teva opinió/dubte",
+        "to": "Per a",
+        "subject": "Assumpte",
+        "my_subject": "El Meu Assumpte",
+        "message": "Missatge",
+        "my_message": "El Meu Missatge",
+        "send": "Enviar",
+        "open": "Obrint aplicació de correu",
+        "failed": "Sembla que no té cap aplicació de correu instal·lada"
     },
 
     "food_tags":

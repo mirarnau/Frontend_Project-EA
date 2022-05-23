@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/accountSettings.dart';
@@ -37,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
   GlobalKey key5 = GlobalKey();
   GlobalKey key6 = GlobalKey();
   GlobalKey key7 = GlobalKey();
-  GlobalKey key8 = GlobalKey();
 
   void initTargets() {
     targets.clear();
@@ -278,6 +278,40 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+    targets.add(
+      TargetFocus(
+        identify: "key7",
+        keyTarget: key7,
+        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        shape: ShapeLightFocus.RRect,
+        radius: 3,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            padding: EdgeInsets.only(bottom: 240),
+            builder: (context, controller) {
+              return Container(
+                margin: EdgeInsets.only(left: 20, right: 15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      translate('profile_page.help.contact'),
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void showTutorial() {
@@ -289,20 +323,30 @@ class _ProfilePageState extends State<ProfilePage> {
       textSkip: translate('skip').toUpperCase(),
       opacityShadow: 0.95,
       onFinish: () {
-        print("finish");
+        if (kDebugMode) {
+          print("finish");
+        }
       },
       onClickTarget: (target) {
-        print('onClickTarget: $target');
+        if (kDebugMode) {
+          print('onClickTarget: $target');
+        }
       },
       onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print("clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+        if (kDebugMode) {
+          print("target: $target");
+          print("clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+        }
       },
       onClickOverlay: (target) {
-        print('onClickOverlay: $target');
+        if (kDebugMode) {
+          print('onClickOverlay: $target');
+        }
       },
       onSkip: () {
-        print("skip");
+        if (kDebugMode) {
+          print("skip");
+        }
       },
     )..show();
   }
@@ -323,7 +367,7 @@ class _ProfilePageState extends State<ProfilePage> {
           widget.customer!.id);
         Settings.clearCache(); 
         Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
       },
     );
 
@@ -471,10 +515,9 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
     title: translate('profile_page.account_settings.title'),
     subtitle: translate('profile_page.account_settings.sub_title'),
-    child: Container(),
+    //child: Container(),
     onTap: () { 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage()),
-  );
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage()));
     },
   );
 
@@ -485,7 +528,7 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
     title: translate('profile_page.notifications'),
     subtitle: '',
-    child: Container(),
+    //child: Container(),
     onTap: () { 
       //
     },

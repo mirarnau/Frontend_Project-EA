@@ -15,6 +15,38 @@ class _EmailPageState extends State<EmailPage> {
   final controllerTo = TextEditingController();
   final controllerSubject = TextEditingController();
   final controllerMessage = TextEditingController();
+  String _errorMessage = '';
+  bool buttonEnabled = false;
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text(
+        "Error",
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text(translate('empty')),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +99,29 @@ class _EmailPageState extends State<EmailPage> {
     required String subject,
     required String message,
   }) async {
-    final url = 
-        'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}';
+    if (buttonEnabled) {
+      final Uri params = Uri(
+        scheme: 'mailto',
+        path: toEmail,
+        query: 'subject=$subject&body=$message',
+      );
 
-    // ignore: deprecated_member_use
-    if (await canLaunch(url)) {
-      await launch(url);
+      if (await canLaunchUrl(params)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(translate('email_page.sent')),
+          backgroundColor: Colors.green,
+        ));
+        await launchUrl(params);
+      }
+      else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(translate('email_page.failed')),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
+    else {
+      showAlertDialog(context);
     }
   }
 
@@ -92,7 +141,32 @@ class _EmailPageState extends State<EmailPage> {
             hintText: hintText,
             labelText: labelText,
           ),
+          onChanged: (val) {
+            validation(val);
+          },
         )
       ],
     );
+
+  void validation(String val) {
+    if((controllerTo.text.isNotEmpty) && 
+       (controllerSubject.text.isNotEmpty) && 
+       (controllerMessage.text.isNotEmpty)) {
+        setState(() {
+          buttonEnabled = true;
+        });
+    }
+
+    if (val.isEmpty) {
+      setState(() {
+        _errorMessage = translate('empty');
+        buttonEnabled = false;
+        print(buttonEnabled);
+      });
+    } else {
+      setState(() {
+        _errorMessage = "";
+      });
+    }
+  }
 }

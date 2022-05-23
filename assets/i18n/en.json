@@ -7,6 +7,7 @@
     "cancel": "Cancel",
     "help": "Help",
     "skip": "Skip",
+    "empty": "One of the fields is empty",
 
     "app_bar":
     {
@@ -56,9 +57,10 @@
             "username": "Here you can see your username, email and fullname of your account",
             "dark_mode": "Switch between Light Mode and Dark Mode, you can change it as many times as you want",
             "account_settings": "Here you can change your account preferences",
-            "notifications":  "",
+            "notifications":  "Configure notification settings",
             "logout": "If you want to logout from your account click here",
-            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information"
+            "delete": "If you are not satisfied with the app or you are bored of using it, you can always delete your personal information",
+            "contact": "Do you have any question, problem or opinion? Let us know it by sending a message"
         }
     },
 
@@ -122,7 +124,9 @@
         "my_subject": "My Subject",
         "message": "Message",
         "my_message": "My Message",
-        "send": "Send"
+        "send": "Send",
+        "open": "Opening mail application",
+        "failed": "It seems you do not have any mail application installed"
     },
 
     "food_tags":
