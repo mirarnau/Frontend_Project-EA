@@ -206,6 +206,8 @@ class _LoginPageState extends State<LoginPage> {
                           showAlertDialog(context);
                           return;
                         }
+                         List<String> voidListTags = [];
+
                         Owner? owner = await ownerService
                             .getOwnerByName(customernameController.text);
                         if (owner == null) {
@@ -214,7 +216,10 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         var routes = MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                OwnerMainPage(owner: owner));
+                                OwnerMainPage(owner: owner,
+                                selectedIndex: 0,
+                                  transferRestaurantTags: voidListTags,
+                                ));
                         Navigator.of(context).push(routes);
                       }
                     },

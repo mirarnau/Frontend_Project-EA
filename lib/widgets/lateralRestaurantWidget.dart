@@ -102,7 +102,7 @@ class NavDrawer extends StatefulWidget {
                           ),
                           iconDisabledColor: const Color.fromARGB(255, 48, 48, 48),
                           dropdownColor: Color.fromARGB(255, 167, 108, 108),
-                          borderRadius: BorderRadius.circular(20),
+                          //borderRadius: BorderRadius.circular(20),
                     value: selectedFoodStyle,
                     items: foodStylesTags, 
                     onChanged: (String? newValue) { 
@@ -177,7 +177,7 @@ class NavDrawer extends StatefulWidget {
                           style: TextStyle(
                             color:Color.fromARGB(255, 197, 196, 196), 
                           ),
-                          borderRadius: BorderRadius.circular(20),
+                          //borderRadius: BorderRadius.circular(20),
                           iconDisabledColor: const Color.fromARGB(255, 48, 48, 48),
                           dropdownColor: Color.fromARGB(255, 167, 108, 108),
                     value: selectedExtras,
