@@ -76,9 +76,11 @@ class _TicketsPageState extends State<TicketsPage> {
     if (widget.page == "Sent"){
       if (listTicketsSent == null){
         return  Container(
-          color: const Color.fromARGB(255, 30, 30, 30),
+          color: Theme.of(context).canvasColor,
           child: Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
             drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
             body: Text(translate('tickets_page.no_tickets')),
             floatingActionButton: Container(
@@ -110,6 +112,7 @@ class _TicketsPageState extends State<TicketsPage> {
           ),
         );
       }
+      else{
       return Scaffold(
           appBar: AppBar(
           ),
@@ -173,6 +176,7 @@ class _TicketsPageState extends State<TicketsPage> {
             ),
           ) ,
       );
+    }
     }
     else{ 
       if (listTicketsReceived == null){

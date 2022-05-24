@@ -125,7 +125,7 @@
         "message": "Missatge",
         "my_message": "El Meu Missatge",
         "send": "Enviar",
-        "open": "Obrint aplicació de correu",
+        "open": "Obrint aplicació de correu...",
         "failed": "Sembla que no té cap aplicació de correu instal·lada"
     },
 

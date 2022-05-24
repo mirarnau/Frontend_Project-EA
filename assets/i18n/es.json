@@ -125,7 +125,7 @@
         "message": "Mensaje",
         "my_message": "Mi Mensaje",
         "send": "Enviar",
-        "open": "Abriendo aplicación de correo",
+        "open": "Abriendo aplicación de correo...",
         "failed": "Parece ser que no tiene ninguna aplicación de correo instalada"
     },
 

@@ -55,9 +55,10 @@ class MyApp extends StatelessWidget {
             )
             : ThemeData.light().copyWith(
               primaryColor: Color.fromARGB(255, 255, 255, 255),
+              secondaryHeaderColor: Color.fromARGB(255, 73, 73, 73),
               scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
               canvasColor: Color.fromARGB(255, 255, 255, 255),
-              backgroundColor: Colors.blue,
+              backgroundColor: Color.fromARGB(255, 242, 172, 66),
             ),
           home: LoginPage(),
         ),

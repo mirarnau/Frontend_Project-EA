@@ -125,7 +125,7 @@
         "message": "Message",
         "my_message": "My Message",
         "send": "Send",
-        "open": "Opening mail application",
+        "open": "Opening mail application...",
         "failed": "It seems you do not have any mail application installed"
     },
 

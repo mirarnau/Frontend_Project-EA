@@ -12,7 +12,7 @@ class EmailPage extends StatefulWidget {
 }
 
 class _EmailPageState extends State<EmailPage> {
-  final controllerTo = TextEditingController();
+  //final controllerTo = TextEditingController();
   final controllerSubject = TextEditingController();
   final controllerMessage = TextEditingController();
   String _errorMessage = '';
@@ -60,12 +60,12 @@ class _EmailPageState extends State<EmailPage> {
         child: Column(
           children: [
             Text(translate('email_page.write')),
-            const SizedBox(height: 20),
-            buildTextField(
-              labelText: translate('email_page.to'), 
-              hintText: "example@mail.com",
-              controller: controllerTo,
-            ),
+            //const SizedBox(height: 20),
+            //buildTextField(
+            //  labelText: translate('email_page.to'), 
+            //   hintText: "example@mail.com",
+            //   controller: controllerTo,
+            // ),
             const SizedBox(height: 20),
             buildTextField(
               labelText: translate('email_page.subject'), 
@@ -83,7 +83,6 @@ class _EmailPageState extends State<EmailPage> {
             ElevatedButton(
               child: Text(translate('email_page.send').toUpperCase()),
               onPressed: () => launchEmail(
-                toEmail: controllerTo.text,
                 subject: controllerSubject.text,
                 message: controllerMessage.text,
               ),
@@ -95,7 +94,7 @@ class _EmailPageState extends State<EmailPage> {
   }
 
   Future launchEmail({
-    required String toEmail,
+    String toEmail = "appetit.soon.it@gmail.com",
     required String subject,
     required String message,
   }) async {
@@ -108,7 +107,7 @@ class _EmailPageState extends State<EmailPage> {
 
       if (await canLaunchUrl(params)) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(translate('email_page.sent')),
+          content: Text(translate('email_page.open')),
           backgroundColor: Colors.green,
         ));
         await launchUrl(params);
@@ -149,8 +148,7 @@ class _EmailPageState extends State<EmailPage> {
     );
 
   void validation(String val) {
-    if((controllerTo.text.isNotEmpty) && 
-       (controllerSubject.text.isNotEmpty) && 
+    if((controllerSubject.text.isNotEmpty) && 
        (controllerMessage.text.isNotEmpty)) {
         setState(() {
           buttonEnabled = true;
