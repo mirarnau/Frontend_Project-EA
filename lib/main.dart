@@ -1,4 +1,5 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_const, prefer_const_constructors
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -49,16 +50,23 @@ class MyApp extends StatelessWidget {
           theme: isDarkMode 
             ? ThemeData.dark().copyWith(
               primaryColor: Color.fromARGB(255, 213, 94, 85),
-              scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
+              scaffoldBackgroundColor: Color.fromARGB(255, 23, 23, 23),
               canvasColor: Color.fromARGB(255, 30, 30, 30),
-              backgroundColor: Color.fromARGB(255, 60, 60, 60),
+              backgroundColor: const Color.fromARGB(255, 48, 48, 48),
+              cardColor:Color.fromARGB(255, 56, 55, 55),
+              focusColor: Color.fromARGB(255, 213, 94, 85),
+              indicatorColor: Colors.white,
+              shadowColor: Color.fromARGB(255, 104, 104, 104)
             )
             : ThemeData.light().copyWith(
-              primaryColor: Color.fromARGB(255, 255, 255, 255),
-              secondaryHeaderColor: Color.fromARGB(255, 73, 73, 73),
+              primaryColor: Color.fromARGB(255, 233, 166, 66),
               scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
               canvasColor: Color.fromARGB(255, 255, 255, 255),
-              backgroundColor: Color.fromARGB(255, 242, 172, 66),
+              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              cardColor:Color.fromARGB(255, 233, 166, 66),
+              focusColor: Color.fromARGB(255, 255, 255, 255),
+              indicatorColor: Color.fromARGB(255, 217, 105, 105),
+              shadowColor: Color.fromARGB(255, 170, 170, 170)
             ),
           home: LoginPage(),
         ),
