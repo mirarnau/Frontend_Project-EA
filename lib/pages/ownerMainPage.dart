@@ -22,6 +22,7 @@ class OwnerMainPage extends StatefulWidget {
 class _OwnerMainPageState extends State<OwnerMainPage> {
   int _selectedIndex = 0;
   late final Owner? _owner = widget.owner;
+  late final String nameRestaurant = '';
 
   static const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -49,7 +50,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
 
   late final screens = [
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
-    OwnerRestaurantPage(owner: _owner)
+    OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
   ];
 
   @override
@@ -73,15 +74,14 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
         backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          /*
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: translate('nav_bar.restaurants'),
+            label: 'Restaurants',
           ),
-          */
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
-            label: 'Dashboard',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
@@ -102,4 +102,3 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
 
   
 }
-

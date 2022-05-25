@@ -7,6 +7,18 @@ import 'package:localstorage/localstorage.dart';
 class RestaurantService{
   var baseUrl = apiURL + "/api/restaurants";
 
+  Future <Restaurant?> getRestaurantByName (String restaurantName) async {
+    var res = await http.get(Uri.parse(baseUrl + '/name/' + restaurantName),
+      headers: {'content-type': 'application/json', 'authorization': LocalStorage('key').getItem('token')});
+    
+    if (res.statusCode == 200){
+      Restaurant rest = Restaurant.fromJSON(jsonDecode(res.body));
+      print('searched rest');
+      print (rest);
+      return rest;
+    }
+    return null;
+    }
 
    Future<List<Restaurant>?> filterRestaurants (List<String> listTags) async {
     var res = await http.post(Uri.parse(baseUrl + '/filters/tags'),

@@ -43,7 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
-<<<<<<< HEAD
   crypto:
     dependency: transitive
     description:
@@ -51,8 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-=======
->>>>>>> MA-Owner
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -441,8 +438,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "0.4.9"
+    version: "0.4.8"
   tutorial_coach_mark:
     dependency: "direct main"
     description:
@@ -450,9 +446,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.3"
-=======
-    version: "0.4.8"
->>>>>>> MA-Owner
   typed_data:
     dependency: transitive
     description:
@@ -546,8 +539,4 @@ packages:
     version: "0.2.0+1"
 sdks:
   dart: ">=2.16.0-182.2.beta <3.0.0"
-<<<<<<< HEAD
   flutter: ">=2.10.0"
-=======
-  flutter: ">=2.8.1"
->>>>>>> MA-Owner

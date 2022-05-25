@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
-class CardRestaurant extends StatelessWidget {
+class OwnerCardRestaurant extends StatelessWidget {
 
   final String restaurantName;
   final String city;
   final String rating;
+  final String address;
   final List<dynamic> imagesUrl;
 
-  CardRestaurant({
-    required this.restaurantName,
-    required this.city,
-    required this.rating,
-    required this.imagesUrl
-  });
-  
-  @override
+  OwnerCardRestaurant({
+      required this.restaurantName,
+      required this.city,
+      required this.rating,
+      required this.address,
+      required this.imagesUrl
+    });
+
+ @override
   Widget build(BuildContext context) {
     return Container  (
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       width: MediaQuery.of(context).size.width,
-      height: 150,
+      height: 200,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(15),
@@ -36,33 +38,57 @@ class CardRestaurant extends StatelessWidget {
         ],
         image: DecorationImage(
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.25),
+            Colors.black.withOpacity(0.7),
             BlendMode.multiply,
           ),
-          image: NetworkImage(imagesUrl[0]),
-
-      
-          fit: BoxFit.cover,
+          image: NetworkImage(imagesUrl[0]),     
+          fit: BoxFit.fill,
         ),
       ),
       child: Stack(
         children: [
           Align(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(
-                restaurantName,
-                style: const TextStyle(
-                  fontSize: 19,
-                  color: Colors.white
-                ),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(color: Color.fromARGB(255, 88, 88, 88)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      restaurantName,
+                      style: const TextStyle(
+                        fontSize: 19,
+                        color: Colors.white
+                      ),
 
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top:10),
+                  decoration: BoxDecoration(color: Color.fromARGB(255, 88, 88, 88)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      address,
+                      style: const TextStyle(
+                        fontSize: 19,
+                        color: Colors.white
+                      ),
+
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+
+                )
+              ],
             ),
-            alignment: Alignment.center,
+            alignment: Alignment.bottomLeft,
           ),
           Align(
             child: Row(
@@ -116,7 +142,7 @@ class CardRestaurant extends StatelessWidget {
                 )
               ],
             ),
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomRight,
           ),
         ],
       ),
