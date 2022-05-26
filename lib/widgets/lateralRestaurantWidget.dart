@@ -180,26 +180,26 @@ class NavDrawer extends StatefulWidget {
                           borderRadius: BorderRadius.circular(20),
                           iconDisabledColor: Theme.of(context).backgroundColor,
                           dropdownColor: Theme.of(context).backgroundColor,
-                    value: selectedExtras,
-                    items: extrasTags, 
-                    onChanged: (String? newValue) { 
-                      selectedExtras = newValue!;
-                     },
-              ),
-              TextButton(
-                    child: Text(
-                      translate('food_tags.add').toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.green
-                      ),
-                    ),
-                    onPressed:() {
-                      widget.previousTags.add(selectedExtras);
-                      {Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
-                        );}
-                    }
-              )
+                          value: selectedExtras,
+                          items: extrasTags, 
+                          onChanged: (String? newValue) { 
+                            selectedExtras = newValue!;
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            translate('food_tags.add').toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.green
+                            ),
+                          ),
+                          onPressed:() {
+                            widget.previousTags.add(selectedExtras);
+                            {Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                              );}
+                          }
+                        ), 
                       ],
                     ),
                   ),
