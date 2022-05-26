@@ -53,6 +53,7 @@ class _EmailPageState extends State<EmailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(translate('email_page.title')),
+        backgroundColor: Theme.of(context).cardColor,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -85,6 +86,9 @@ class _EmailPageState extends State<EmailPage> {
               onPressed: () => launchEmail(
                 subject: controllerSubject.text,
                 message: controllerMessage.text,
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).cardColor,
               ),
             ),
           ],

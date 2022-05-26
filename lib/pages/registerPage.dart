@@ -80,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -103,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       translate('login_page.register').toUpperCase(),
                       textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                          TextStyle(color: Theme.of(context).highlightColor, fontSize: 40, fontWeight: FontWeight.bold),
                     )
                     //Image.asset('assets/images/like.png')),
                     ),
@@ -114,9 +115,13 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextField(
                 controller: customernameController,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: translate('login_page.username'),
-                    hintText: translate('login_page.enter_user')),
+                  filled: true,
+                  fillColor: Theme.of(context).hintColor, 
+                  border: OutlineInputBorder(),
+                  labelText: translate('login_page.username'),
+                  hintText: translate('login_page.enter_user'),
+                  labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                  hintStyle: TextStyle(color: Theme.of(context).highlightColor)),
                 onChanged: (val) {
                   validation(val);
                 },
@@ -135,9 +140,13 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextField(
                 controller: fullnameController,
                 decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).hintColor, 
                     border: OutlineInputBorder(),
                     labelText: translate('login_page.fullname'),
-                    hintText: translate('login_page.enter_full')),
+                    hintText: translate('login_page.enter_full'),
+                    labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                    hintStyle: TextStyle(color: Theme.of(context).highlightColor)),
                 onChanged: (val) {
                   validation(val);
                 },
@@ -158,7 +167,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: translate('login_page.email'),
-                    hintText: translate('login_page.enter_email')),
+                    hintText: translate('login_page.enter_email'),
+                    filled: true,
+                    fillColor: Theme.of(context).hintColor, 
+                    labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                    hintStyle: TextStyle(color: Theme.of(context).highlightColor)),
                 onChanged: (val) {
                   validateEmail(val);
                 },
@@ -180,7 +193,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: translate('login_page.password'),
-                    hintText: translate('login_page.enter_pass')),
+                    hintText: translate('login_page.enter_pass'),
+                    filled: true,
+                    fillColor: Theme.of(context).hintColor, 
+                    labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                    hintStyle: TextStyle(color: Theme.of(context).highlightColor)),
               ),
             ),
             Padding(
@@ -192,7 +209,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: translate('login_page.password_repeat'),
-                    hintText: translate('login_page.password_again')),
+                    hintText: translate('login_page.password_again'),
+                    filled: true,
+                    fillColor: Theme.of(context).hintColor, 
+                    labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                    hintStyle: TextStyle(color: Theme.of(context).highlightColor)),
               ),
             ),
             Padding(
@@ -204,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () async {
                   if ((customernameController.text.isNotEmpty) &&
@@ -269,7 +290,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
                 child: Text(
                   translate('login_page.register'),
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: Theme.of(context).highlightColor, fontSize: 25),
                 ),
               ),
             ),

@@ -22,6 +22,7 @@ class _AccountPage extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(translate('app_bar.title')),
+        backgroundColor: Theme.of(context).cardColor,
         ),
       body: Center(
         child: Column(

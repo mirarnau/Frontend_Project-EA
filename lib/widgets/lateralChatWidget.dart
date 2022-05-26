@@ -23,20 +23,20 @@ class NavDrawerChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color tileColorInbox = Color.fromARGB(255, 48, 48, 48);
-    Color tileColorSent = Color.fromARGB(255, 48, 48, 48);
+    Color tileColorInbox = Theme.of(context).backgroundColor;
+    Color tileColorSent = Theme.of(context).backgroundColor;
 
     if (currentPage == "Inbox"){
-      tileColorInbox = Color.fromARGB(255, 96, 66, 64);
-      tileColorSent = Color.fromARGB(255, 48, 48, 48);
+      tileColorInbox = Theme.of(context).hoverColor;
+      tileColorSent = Theme.of(context).backgroundColor;
     }
     if (currentPage == "Sent"){
-      tileColorInbox = Color.fromARGB(255, 48, 48, 48);
-      tileColorSent = Color.fromARGB(255, 96, 66, 64);
+      tileColorInbox = Theme.of(context).backgroundColor;
+      tileColorSent = Theme.of(context).hoverColor;
       
     }
     return Drawer(
-      backgroundColor: Color.fromARGB(255, 48, 48, 48),
+      backgroundColor: Theme.of(context).backgroundColor,
       child: ListView(
       children: <Widget>[
         Card(
@@ -46,18 +46,18 @@ class NavDrawerChat extends StatelessWidget {
               ListTile(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                    color: Color.fromARGB(255, 48, 48, 48)
+                    color: Theme.of(context).backgroundColor
                   )
                 ),
                 tileColor: tileColorInbox,
-                iconColor: Color.fromARGB(255, 213, 94, 85),
-                textColor: Colors.grey,
+                iconColor: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).shadowColor,
                 leading: Icon (Icons.inbox),
                 title: Text(translate('tickets_page.inbox')),
                 trailing: Text(
                   '+12',
                   style: TextStyle(
-                    color: Colors.grey 
+                    color: Theme.of(context).shadowColor
                   ),),
                   onTap:() {
                     List<String> voidListTags = [];
@@ -78,12 +78,12 @@ class NavDrawerChat extends StatelessWidget {
               ListTile(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                    color: Color.fromARGB(255, 48, 48, 48)
+                    color: Theme.of(context).backgroundColor
                   )
                 ),
                 tileColor: tileColorSent,
-                iconColor: Color.fromARGB(255, 213, 94, 85),
-                textColor: Colors.grey,
+                iconColor: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).shadowColor,
                 leading: Icon (Icons.send),
                 title: Text(translate('tickets_page.sent')),
                 onTap:() {

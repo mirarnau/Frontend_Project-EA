@@ -66,8 +66,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
-        selectedItemColor: Theme.of(context).backgroundColor,
+        unselectedItemColor: Theme.of(context).shadowColor,
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );
