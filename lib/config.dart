@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 String get apiURL {
-  return "http://10.0.2.2:3000";
-  /*bool isProd = const bool.fromEnvironment('dart.vm.product');
+  bool isProd = const bool.fromEnvironment('dart.vm.product');
   if (isProd) {
     return 'https://ea2api.soon.it';
   }
@@ -14,5 +13,4 @@ String get apiURL {
       return "http://10.0.2.2:3000";
     }
   }
-  */
 }
