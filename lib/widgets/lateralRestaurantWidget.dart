@@ -53,7 +53,7 @@ class NavDrawer extends StatefulWidget {
     
 
     return Drawer(
-      backgroundColor: const Color.fromARGB(255, 48, 48, 48),
+      backgroundColor: Theme.of(context).backgroundColor,
       child: ListView(
       children: <Widget>[
         Card(
@@ -61,23 +61,23 @@ class NavDrawer extends StatefulWidget {
           Column(
             children: [
                ListTile(
-                 tileColor: const Color.fromARGB(255, 48, 48, 48),
+                 tileColor: Theme.of(context).backgroundColor,
                 leading: Icon (
                   Icons.restaurant,
-                  color: Color.fromARGB(255, 213, 94, 85),),
+                  color: Theme.of(context).primaryColor),
                 title: Text(
                   translate('restaurants_page.filter_style'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 197, 196, 196),
+                    color: Theme.of(context).shadowColor,
                   ),),
                 subtitle: Text(
                   translate('restaurants_page.select_style'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 118, 117, 117)
+                    color: Theme.of(context).shadowColor
                   ),),
                 trailing: Icon(
                   Icons.more_vert,
-                  color: Color.fromARGB(255, 213, 94, 85)),
+                  color: Theme.of(context).primaryColor),
                 onTap: (){
                   if (foodStyleVisible == false){
                     foodStyleVisible = true;
@@ -91,17 +91,17 @@ class NavDrawer extends StatefulWidget {
               Visibility(
                 visible: foodStyleVisible == true ? true:false ,
                 child: Container(
-                  color: const Color.fromARGB(255, 48, 48, 48),
+                  color: Theme.of(context).backgroundColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         DropdownButtonFormField(
                           style: TextStyle(
-                            color:Color.fromARGB(255, 197, 196, 196), 
+                            color:Theme.of(context).shadowColor, 
                           ),
-                          iconDisabledColor: const Color.fromARGB(255, 48, 48, 48),
-                          dropdownColor: Color.fromARGB(255, 167, 108, 108),
+                          iconDisabledColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).backgroundColor,
                           borderRadius: BorderRadius.circular(20),
                     value: selectedFoodStyle,
                     items: foodStylesTags, 
@@ -138,23 +138,23 @@ class NavDrawer extends StatefulWidget {
           Column(
             children: [
               ListTile(
-                tileColor: const Color.fromARGB(255, 48, 48, 48),
+                tileColor: Theme.of(context).backgroundColor,
                 leading: Icon (
                   Icons.family_restroom,
-                  color: Color.fromARGB(255, 213, 94, 85),),
+                  color: Theme.of(context).primaryColor),
                 title: Text(
                   translate('restaurants_page.filter_pref'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 197, 196, 196),
+                    color: Theme.of(context).shadowColor,
                   ),),
                 subtitle: Text(
                   translate('restaurants_page.select_pref'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 118, 117, 117),
+                    color: Theme.of(context).shadowColor,
                   ),),
                 trailing: Icon(
                   Icons.more_vert,
-                  color: Color.fromARGB(255, 213, 94, 85)),
+                  color: Theme.of(context).primaryColor),
                 onTap: () {
                   if (extrasVisible == false){
                     extrasVisible = true;
@@ -168,38 +168,38 @@ class NavDrawer extends StatefulWidget {
               Visibility(
                 visible: extrasVisible == true ? true:false ,
                 child: Container(
-                  color: const Color.fromARGB(255, 48, 48, 48),
+                  color: Theme.of(context).backgroundColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         DropdownButtonFormField(
                           style: TextStyle(
-                            color:Color.fromARGB(255, 197, 196, 196), 
+                            color:Theme.of(context).shadowColor, 
                           ),
                           borderRadius: BorderRadius.circular(20),
-                          iconDisabledColor: const Color.fromARGB(255, 48, 48, 48),
-                          dropdownColor: Color.fromARGB(255, 167, 108, 108),
-                    value: selectedExtras,
-                    items: extrasTags, 
-                    onChanged: (String? newValue) { 
-                      selectedExtras = newValue!;
-                     },
-              ),
-              TextButton(
-                    child: Text(
-                      translate('food_tags.add').toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.green
-                      ),
-                    ),
-                    onPressed:() {
-                      widget.previousTags.add(selectedExtras);
-                      {Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
-                        );}
-                    }
-              )
+                          iconDisabledColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).backgroundColor,
+                          value: selectedExtras,
+                          items: extrasTags, 
+                          onChanged: (String? newValue) { 
+                            selectedExtras = newValue!;
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            translate('food_tags.add').toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.green
+                            ),
+                          ),
+                          onPressed:() {
+                            widget.previousTags.add(selectedExtras);
+                            {Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                              );}
+                          }
+                        ), 
                       ],
                     ),
                   ),

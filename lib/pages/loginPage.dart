@@ -81,11 +81,11 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: const Color.fromARGB(255, 48, 48, 48),
+        color: Theme.of(context).canvasColor,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 100.0),
                 child: Center(
                   child: SizedBox(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 213, 67, 67)),
+                            color: Theme.of(context).primaryColor),
                       )
                   ),
                 ),
@@ -108,12 +108,15 @@ class _LoginPageState extends State<LoginPage> {
                     controller: customernameController,
                     decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color.fromARGB(255, 57, 57, 57),
+                        fillColor: Theme.of(context).hintColor,
                         border: OutlineInputBorder(),
                         labelText: translate('login_page.username'),
                         labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: translate('login_page.enter_user')),
+                            TextStyle(color: Theme.of(context).highlightColor),
+                        hintText: translate('login_page.enter_user'),
+                        hintStyle: 
+                            TextStyle(color: Theme.of(context).highlightColor)),
+                        
                   ),
                 ),
                 Padding(
@@ -124,12 +127,14 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                     decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color.fromARGB(255, 57, 57, 57),
+                        fillColor: Theme.of(context).hintColor,
                         border: OutlineInputBorder(),
                         labelText: translate('login_page.password'),
                         labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        hintText: translate('login_page.enter_pass')),
+                            TextStyle(color: Theme.of(context).highlightColor),
+                        hintText: translate('login_page.enter_pass'),
+                        hintStyle: 
+                            TextStyle(color: Theme.of(context).highlightColor)),
                   ),
                 ),
                 Padding(
@@ -146,11 +151,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   width: 250,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 213, 67, 67),
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(20)),
                   child: TextButton(
                     style: TextButton.styleFrom(
-                        primary: const Color.fromARGB(255, 213, 67, 67)),
+                        primary: Theme.of(context).primaryColor),
                     onPressed: () async {
                       if ((customernameController.text.isNotEmpty) &&
                           (passwordController.text.isNotEmpty) &&
@@ -206,6 +211,8 @@ class _LoginPageState extends State<LoginPage> {
                           showAlertDialog(context);
                           return;
                         }
+                         List<String> voidListTags = [];
+
                         Owner? owner = await ownerService
                             .getOwnerByName(customernameController.text);
                         if (owner == null) {
@@ -214,13 +221,16 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         var routes = MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                OwnerMainPage(owner: owner));
+                                OwnerMainPage(owner: owner,
+                                selectedIndex: 0,
+                                  transferRestaurantTags: voidListTags,
+                                ));
                         Navigator.of(context).push(routes);
                       }
                     },
                     child: Text(
                       translate('login_page.login'),
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                      style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 25),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
@@ -25,8 +26,16 @@ class OwnerService {
     var res = await http.get(Uri.parse(baseUrl + '/' + id),
       headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
-      var listRestaurants = owner.restaurants;
-      return listRestaurants;
+      var data = jsonDecode(res.body);
+      List<dynamic> listRestaurants = data['listRestaurants'];   
+      print(listRestaurants);
+      List<Restaurant> listRestaurantsParsed = [];
+      listRestaurants.forEach((restaurant) => listRestaurantsParsed.add(Restaurant.fromJSON(restaurant)));
+      
+      print(listRestaurantsParsed.length);
+      print(listRestaurantsParsed);
+
+      return listRestaurantsParsed;
     }
     return null;
     }
@@ -62,14 +71,13 @@ class OwnerService {
     var res = await http.post(Uri.parse(baseUrl),
         headers: {'content-type': 'application/json'},
         body: json.encode(Owner.toJson(owner)));
-
     if (res.statusCode == 201) {
       Owner newOwner = Owner.fromJSON(res.body);
       return newOwner;
     }
     return null;
   }
-
+  
   Future<bool> deleteOwner(String _id) async {
     var res = await http.delete(Uri.parse(baseUrl + '/' + _id));
     int statusCode = res.statusCode;

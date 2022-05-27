@@ -22,6 +22,23 @@ class _MainPageState extends State<MainPage> {
   late final Customer? _customer = widget.customer;
   late int _selectedIndex = widget.selectedIndex;
 
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Restaurants',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Agenda',
+      style: optionStyle,
+    ),
+    //ProfilePage(customer: widget.customer),
+    Text(
+      'Index 2: Profile',
+      style: optionStyle,
+    )
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -66,8 +83,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
-        selectedItemColor: Theme.of(context).backgroundColor,
+        unselectedItemColor: Theme.of(context).shadowColor,
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );

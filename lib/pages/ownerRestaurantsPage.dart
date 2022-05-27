@@ -8,7 +8,7 @@ import 'package:flutter_tutorial/services/ownerService.dart';
 import '../models/owner.dart';
 
 class OwnerRestaurantPage extends StatefulWidget {
-    final Owner owner;
+    final Owner? owner;
 
   const OwnerRestaurantPage({Key? key,  required this.owner}) : super(key: key);
 
@@ -17,7 +17,7 @@ class OwnerRestaurantPage extends StatefulWidget {
 }
 
 class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
-  late Owner _owner = widget.owner; 
+  late Owner? _owner = widget.owner; 
   OwnerService ownerService = OwnerService();
   List<dynamic>? myRestaurants;
   bool isLoading = true;
@@ -25,16 +25,10 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   
 
   @override
-  void initState() {   
+  void initState() { 
+    getRestaurants();  
+    //getRestaurantIDs(myRestaurants!);
     super.initState();
-  }
-
-  Future<void> filterDishes() async {
-    Owner owner = this._owner;
-    myRestaurants = await ownerService.getOwnerById(owner);
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -71,4 +65,14 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
         )
     );
   }
+
+  Future<void> getRestaurants() async {
+    Owner? owner = this._owner;
+    myRestaurants = await ownerService.getOwnerById(owner!) ;
+    print(myRestaurants);
+    setState(() {
+      isLoading = false;
+    });
+  }
+  
 }

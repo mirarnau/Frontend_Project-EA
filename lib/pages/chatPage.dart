@@ -65,6 +65,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).cardColor,
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.only(right: 16),

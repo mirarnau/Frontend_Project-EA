@@ -1,26 +1,25 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/pages/infoRestaurantPage.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
-import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
+import 'package:flutter_tutorial/widgets/lateralRestaurantOwnerWidget.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
 
 import 'mainPage.dart';
+import 'ownerMainPage.dart';
 
-class ListRestaurantsPage extends StatefulWidget {
+class ListRestaurantsOwnerPage extends StatefulWidget {
   final List<String> newTags;
-  final Customer? customer;
-  const ListRestaurantsPage({Key? key, required this.newTags, required this.customer}) : super(key: key);
+  final Owner? owner;
+  const ListRestaurantsOwnerPage({Key? key, required this.newTags, required this.owner}) : super(key: key);
 
   @override
-  State<ListRestaurantsPage> createState() => _RestaurantsPageState();
+  State<ListRestaurantsOwnerPage> createState() => _RestaurantsOwnerPageState();
 }
 
-class _RestaurantsPageState extends State<ListRestaurantsPage> {
+class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
   RestaurantService restaurantService = RestaurantService();
   List<Restaurant>? listRestaurants;
   bool isLoading = true;
@@ -53,13 +52,14 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     if (listRestaurants == null){
       return  Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).cardColor,
-          title: Text (translate('restaurants_page.filter')),
+          backgroundColor: const Color.fromARGB(255, 76, 75, 75),
+          title: const Text ("Filter your search"),
         ),
-        drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
+        drawer: NavDrawer(owner: widget.owner, previousTags: widget.newTags),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
+          color: Color.fromARGB(255, 30, 30, 30),
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
@@ -95,7 +95,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
+                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
@@ -106,8 +106,8 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                   }
                 )
             ),
-            Text(
-              translate('restaurants_page.no_match'),
+            const Text(
+              'Sorry, any restaurant matches your preferences',
               style: TextStyle(
                 color: Colors.white
               ),
@@ -121,11 +121,11 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: Text (translate('restaurants_page.filter')),
-          backgroundColor: Theme.of(context).cardColor,
+          title: const Text ("Filter your search"),
         ),
-        drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
+        drawer: NavDrawer(owner: widget.owner, previousTags: widget.newTags),
         body: Container(
+          color: Color.fromARGB(255, 18, 18, 18),
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
@@ -161,7 +161,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
+                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
@@ -178,20 +178,11 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                 shrinkWrap: true,
                 itemCount: listRestaurants?.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    child: CardRestaurant(
+                  return CardRestaurant(
                       restaurantName: listRestaurants![index].restaurantName,
                       city: listRestaurants![index].city,
                       rating: listRestaurants![index].rating.toString(),
-                      imagesUrl: listRestaurants![index].photos),
-                    onTap: () {
-                      var routes = MaterialPageRoute(
-                        builder: (BuildContext context) => 
-                          InfoRestaurantPage(selectedRestaurant: listRestaurants?[index],)
-                      );
-                      Navigator.of(context).push(routes);
-                    },
-                  );
+                      imagesUrl: listRestaurants![index].photos);
                 }
               )
             )

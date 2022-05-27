@@ -54,26 +54,27 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 43, 43, 43)
+        backgroundColor: Theme.of(context).cardColor,
       ),
       body: Container(
-        color: const Color.fromARGB(255, 30, 30, 30),
+        color: Theme.of(context).canvasColor,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
                 controller: restaurantController,
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 97, 97, 97),
+                style: TextStyle(
+                    color: Theme.of(context).shadowColor,
                   ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Write to restaurant',
                   hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 97, 97, 97)
+                    color: Theme.of(context).shadowColor
                   )
                 ),
               ),
@@ -82,13 +83,13 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
                 controller: subjectController,
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 97, 97, 97),
+                style: TextStyle(
+                    color: Theme.of(context).shadowColor,
                   ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Subject',
                   hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 97, 97, 97)
+                    color: Theme.of(context).shadowColor
                   )
                 ),
               ),
@@ -98,15 +99,15 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
                   controller: messageController,
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 97, 97, 97),
+                  style: TextStyle(
+                    color: Theme.of(context).shadowColor,
                   ),
                   maxLines: null,
                   expands: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Write the details of the incidence here',
                     hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 97, 97, 97)
+                      color: Theme.of(context).shadowColor
                     )
                   ),
                 ),
@@ -121,11 +122,11 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
           width: 100.0,
           child: FittedBox(
             child: FloatingActionButton(
-              child: const Icon(
+              child: Icon(
                 Icons.send,
-                color: Color.fromARGB(255, 213, 94, 85),
+                color: Theme.of(context).focusColor,
               ),
-              backgroundColor: const Color.fromARGB(255, 60, 60, 60),
+              backgroundColor: Theme.of(context).cardColor,
               onPressed: () async {
                 Message newMessage = Message(senderName: widget.myCustomer!.customerName, 
                         receiverName: restaurantController.text, 

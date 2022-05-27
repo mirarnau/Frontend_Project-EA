@@ -60,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.picture'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.username'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -128,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.dark_mode'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.account_settings'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -196,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.notifications'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.logout'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -264,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.delete'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -298,7 +298,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       translate('profile_page.help.contact'),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).focusColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -318,7 +318,7 @@ class _ProfilePageState extends State<ProfilePage> {
     tutorialCoachMark = TutorialCoachMark(
       context,
       targets: targets,
-      colorShadow: Theme.of(context).backgroundColor,
+      colorShadow: Theme.of(context).cardColor,
       textSkip: translate('skip').toUpperCase(),
       opacityShadow: 0.95,
       onFinish: () {
@@ -401,14 +401,14 @@ class _ProfilePageState extends State<ProfilePage> {
       floatingActionButton: Container(
         child: FittedBox(
           child: FloatingActionButton.extended(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).cardColor,
             icon: Icon(
               Icons.help,
-              color: Theme.of(context).primaryColor),
+              color: Theme.of(context).focusColor),
             label: Text(
               translate('help'),
               style: TextStyle(
-                color: Theme.of(context).primaryColor
+                color: Theme.of(context).focusColor
               ),
             ),
             onPressed: () {
@@ -448,31 +448,33 @@ class _ProfilePageState extends State<ProfilePage> {
             key: key2,
             child: buildDarkMode(),
           ),
-          SettingsGroup(
-            title: translate('profile_page.configuration'), 
-            children: <Widget> [
-              const SizedBox(height: 8),
-              Container(
-                key: key3,
-                child: buildSettings(),
-              ),
-              Container(
-                key: key4,
-                child: buildNotifications(),
-              ),
-              Container(
-                key: key5,
-                child: buildLogout(),
-              ),
-              Container(
-                key: key6,
-                child: buildDeleteAccount(),
-              ),
-              Container(
-                key: key7,
-                child: buildContact(),
-              ),
-            ],
+          Container(
+            child: SettingsGroup(
+              title: translate('profile_page.configuration'),
+              children: <Widget> [
+                const SizedBox(height: 8),
+                Container(
+                  key: key3,
+                  child: buildSettings(),
+                ),
+                Container(
+                  key: key4,
+                  child: buildNotifications(),
+                ),
+                Container(
+                  key: key5,
+                  child: buildLogout(),
+                ),
+                Container(
+                  key: key6,
+                  child: buildDeleteAccount(),
+                ),
+                Container(
+                  key: key7,
+                  child: buildContact(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

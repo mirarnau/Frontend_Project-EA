@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
@@ -64,7 +65,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     child: Text(
                       widget.selectedRestaurant!.restaurantName,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).highlightColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 25.0
                       ),
@@ -94,7 +95,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                 child: Text(
                   widget.selectedRestaurant!.rating.toString(),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 44, 44, 44),
+                    color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold
                   ),
                 ),
@@ -106,14 +107,14 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     border: Border.all(
-                      color: Color.fromARGB(255, 213, 94, 85),
+                      color: Theme.of(context).primaryColor,
                     )
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
                       Icons.call,
-                      color: Color.fromARGB(255, 213, 94, 85),
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),
@@ -135,14 +136,14 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
             child: Container(
               width: 150,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 213, 94, 85),
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(20)
 
               ),
               child: TextButton(
                 onPressed: () {},
                 child: Text (
-                  "Make reservation",
+                  translate('restaurants_page.make_res'),
                   style: TextStyle(
                     color: Colors.white
                   ),

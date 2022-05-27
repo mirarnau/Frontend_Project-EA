@@ -6,20 +6,22 @@ class Owner {
   late final String password;
   late final String imagePath;
   late final bool isDarkMode;
-  late final List<dynamic> restaurants;
+  late final List<dynamic> listRestaurants;
 
   Owner(
       {required this.ownerName,
       required this.fullName,
       required this.email,
-      required this.password});
+      required this.password,
+      listRestaurants});
 
   factory Owner.fromJSON(dynamic json) {
     Owner owner = Owner(
-        ownerName: json['ownerName'],
+        ownerName: json['ownerName'] as String,
         fullName: json['fullName'],
         email: json['email'],
-        password: json['password']);
+        password: json['password'],
+        listRestaurants: json['listRestaurants']);
     owner.id = json['_id'];
     return owner;
   }
@@ -30,6 +32,7 @@ class Owner {
       'fullName': owner.fullName,
       'email': owner.email,
       'password': owner.password,
+      'restaurants': owner.listRestaurants,
     };
   }
 }

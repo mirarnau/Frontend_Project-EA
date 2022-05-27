@@ -99,12 +99,13 @@
     "restaurants_page":
     {
         "filter": "Filtri la seva cerca",
-        "no_match": "Ho setntim, cap restaurant coincideix amb les seves preferències",
+        "no_match": "Ho sentim, cap restaurant coincideix amb les seves preferències",
         "no_rest": "Aquest usuari no té restaurants",
         "filter_style": "Filtrar per estil",
         "select_style": "Seleccioni l'estil del menjar",
         "filter_pref": "Filtrar per preferencies",
-        "select_pref": "Seleccioni les seves preferencies"
+        "select_pref": "Seleccioni les seves preferencies",
+        "make_res": "Faci una reserva"
     },
 
     "tickets_page":
