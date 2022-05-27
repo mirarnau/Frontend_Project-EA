@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:flutter_tutorial/widgets/mapWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoRestaurantPage extends StatefulWidget {
@@ -26,7 +28,6 @@ class InfoRestaurantPage extends StatefulWidget {
 }
 
 class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
-
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -35,6 +36,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
 
   @override
   void initState() {
+    print(widget.selectedRestaurant!.location.coordinates[1]);
     super.initState();
   }
 
@@ -44,7 +46,10 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image(image: NetworkImage(widget.selectedRestaurant!.photos[0])),
@@ -144,9 +149,22 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                 )
               ),
             ),
-          )
+          ),
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              color: Colors.blue,
+              child: MapWidget(
+              longRestaurant: widget.selectedRestaurant!.location.coordinates[0], 
+              latRestaurant: widget.selectedRestaurant!.location.coordinates[1]
+              ),
+            ),
         ],
+        
       ),
+        ],
+      )
+      
     );
     
   }

@@ -13,6 +13,7 @@ class Restaurant {
   late final List<dynamic> listTags;
   late final List<dynamic> listDishes;
   late final String creationDate;
+  late final Location location;
 
 
   Restaurant({
@@ -27,7 +28,8 @@ class Restaurant {
     required this.rating,
     required this.listTags,
     required this.listDishes,
-    required this.creationDate
+    required this.creationDate,
+    required this.location
   });
 
   factory Restaurant.fromJSON(dynamic json){
@@ -43,10 +45,12 @@ class Restaurant {
       rating: json['rating'] as int,
       listTags: json ['listTags'] as List<dynamic>,
       listDishes: json['listDishes'] as List <dynamic>,
-      creationDate: json['creationDate'] as String
+      creationDate: json['creationDate'] as String,
+      location : Location.fromJSON(json['location'])
       );
       return restaurant;
   }
+
 
    static Map<String, dynamic> toJson(Restaurant restaurant) {
     return {
@@ -75,5 +79,22 @@ class Restaurant {
 
 class Tag {
     late final String tagName;
+}
+
+class Location{
+  late final List<double> coordinates;
+
+  Location({
+    required this.coordinates
+  });
+
+  factory Location.fromJSON(dynamic json){
+    var coordinates = json['coordinates'];
+    List<double> coordinatesDouble = List<double>.from(coordinates);
+    Location location = Location(
+      coordinates: coordinatesDouble
+    );
+    return location;
+  }
 }
 

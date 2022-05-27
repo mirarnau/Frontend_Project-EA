@@ -20,7 +20,8 @@ class RestaurantService{
     List<Restaurant> listFiltered = [];
     var decoded = jsonDecode(res.body);
     decoded.forEach((restaurant) => listFiltered.add(Restaurant.fromJSON(restaurant)));
-
+    
+    print (listFiltered[0].location.coordinates[0]);
     return listFiltered;
   }
 }

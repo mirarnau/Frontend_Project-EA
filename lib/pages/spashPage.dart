@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/pages/googleUserPage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_tutorial/pages/googleLoginPage.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
