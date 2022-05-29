@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/dish.dart';
@@ -9,6 +11,9 @@ import 'package:flutter_tutorial/widgets/TextFieldWidget.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:path/path.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:path_provider/path_provider.dart';
 
 class editProfilePage extends StatefulWidget {
   final Customer? customer;
@@ -19,6 +24,7 @@ class editProfilePage extends StatefulWidget {
 }
 
 class _editProfilePage extends State<editProfilePage> {
+  String imagePath = "";
   String _errorMessage = '';
   String? _initialEmail;
   final customernameController = TextEditingController();
@@ -40,10 +46,21 @@ class _editProfilePage extends State<editProfilePage> {
         physics: BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-            imagePath:
-                'https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png',
+            imagePath: widget.customer!.profilePic,
             isEdit: true,
-            onClicked: () async {},
+            onClicked: () async {
+              final image =
+                  await ImagePicker().getImage(source: ImageSource.gallery);
+              if (image == null) return;
+
+              final directory = await getApplicationDocumentsDirectory();
+              final name = basename(image.path);
+              final imageFile = File('${directory.path}/$name');
+              final newImage = await File(image.path).copy(imageFile.path);
+              setState(() {
+                widget.customer!.profilePic = newImage.path;
+              });
+            },
           ),
           const SizedBox(height: 24),
           /*TextFieldWidget(
@@ -120,11 +137,11 @@ class _editProfilePage extends State<editProfilePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => MainPage(
-                          customer: newcustomer, 
-                          selectedIndex: 1, 
-                          transferRestaurantTags: voidListTags,
-                          chatPage: "Inbox",)
-                        ),
+                              customer: newcustomer,
+                              selectedIndex: 1,
+                              transferRestaurantTags: voidListTags,
+                              chatPage: "Inbox",
+                            )),
                   );
                 }
               },

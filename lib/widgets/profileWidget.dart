@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -5,11 +7,8 @@ class ProfileWidget extends StatelessWidget {
   final VoidCallback onClicked;
   final bool isEdit;
 
-  ProfileWidget({
-    required this.imagePath,
-    required this.onClicked,
-    this.isEdit = false
-  });
+  ProfileWidget(
+      {required this.imagePath, required this.onClicked, this.isEdit = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +28,15 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
+    final image = imagePath.contains('https://')
+        ? NetworkImage(
+            'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png')
+        : FileImage(File(imagePath));
     return ClipOval(
       child: Material(
           color: Colors.transparent,
           child: Ink.image(
-            image: image,
+            image: image as ImageProvider,
             fit: BoxFit.cover,
             width: 128,
             height: 128,
@@ -44,24 +46,24 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
-    child: buildCircle(
-      color: color,
-      all: 8,
-      child: Icon(
-        isEdit ? Icons.add_a_photo : Icons.edit,
         color: Colors.white,
-        size: 18,
-      ),
-    ),
-  );
+        all: 3,
+        child: buildCircle(
+          color: color,
+          all: 8,
+          child: Icon(
+            isEdit ? Icons.add_a_photo : Icons.edit,
+            color: Colors.white,
+            size: 18,
+          ),
+        ),
+      );
 
   Widget buildCircle({
     required Widget child,
     required double all,
     required Color color,
-    }) =>
+  }) =>
       ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
