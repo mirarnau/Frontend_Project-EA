@@ -46,7 +46,9 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+      ),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
@@ -132,7 +134,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 5.0),
             child: Container(
               width: 150,
               decoration: BoxDecoration(
@@ -151,15 +153,18 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
               ),
             ),
           ),
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              color: Colors.blue,
-              child: MapWidget(
-              longRestaurant: widget.selectedRestaurant!.location.coordinates[0], 
-              latRestaurant: widget.selectedRestaurant!.location.coordinates[1]
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 370,
+                color: Colors.blue,
+                child: MapWidget(
+                longRestaurant: widget.selectedRestaurant!.location.coordinates[0], 
+                latRestaurant: widget.selectedRestaurant!.location.coordinates[1]
+                ),
               ),
-            ),
+          ),
         ],
         
       ),

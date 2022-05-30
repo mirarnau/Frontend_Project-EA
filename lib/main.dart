@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           theme: isDarkMode 
             ? ThemeData.dark().copyWith(
               primaryColor: Color.fromARGB(255, 213, 94, 85),
-              scaffoldBackgroundColor: Color.fromARGB(255, 23, 23, 23),
+              scaffoldBackgroundColor: Color.fromARGB(255, 16, 16, 16),
               canvasColor: Color.fromARGB(255, 30, 30, 30),
               backgroundColor: const Color.fromARGB(255, 48, 48, 48),
               cardColor:Color.fromARGB(255, 56, 55, 55),
@@ -99,5 +99,3 @@ class Palette {
     }, 
   ); 
 }
-
-

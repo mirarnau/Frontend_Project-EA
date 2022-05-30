@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/message.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -80,6 +82,11 @@ class _TicketsPageState extends State<TicketsPage> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
             ),
             drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
             body: Text(translate('tickets_page.no_tickets')),
@@ -115,8 +122,13 @@ class _TicketsPageState extends State<TicketsPage> {
       else{
       return Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).cardColor,
-          ),
+              backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
+            ),
           drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
           body: Container(
             color: Theme.of(context).canvasColor,
@@ -183,8 +195,13 @@ class _TicketsPageState extends State<TicketsPage> {
       if (listTicketsReceived == null){
         return  Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).cardColor,
-          ),
+              backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
+            ),
           drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
           body: Container(
             width: MediaQuery.of(context).size.width,

@@ -68,7 +68,7 @@ class NavDrawer extends StatefulWidget {
                 title: Text(
                   translate('restaurants_page.filter_style'),
                   style: TextStyle(
-                    color: Theme.of(context).shadowColor,
+                    color: Theme.of(context).highlightColor,
                   ),),
                 subtitle: Text(
                   translate('restaurants_page.select_style'),
@@ -98,10 +98,10 @@ class NavDrawer extends StatefulWidget {
                       children: [
                         DropdownButtonFormField(
                           style: TextStyle(
-                            color:Theme.of(context).shadowColor, 
+                            color:Theme.of(context).highlightColor, 
                           ),
                           iconDisabledColor: Theme.of(context).backgroundColor,
-                          dropdownColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).hoverColor,
                           borderRadius: BorderRadius.circular(20),
                     value: selectedFoodStyle,
                     items: foodStylesTags, 
@@ -145,7 +145,7 @@ class NavDrawer extends StatefulWidget {
                 title: Text(
                   translate('restaurants_page.filter_pref'),
                   style: TextStyle(
-                    color: Theme.of(context).shadowColor,
+                    color: Theme.of(context).highlightColor,
                   ),),
                 subtitle: Text(
                   translate('restaurants_page.select_pref'),
@@ -175,11 +175,11 @@ class NavDrawer extends StatefulWidget {
                       children: [
                         DropdownButtonFormField(
                           style: TextStyle(
-                            color:Theme.of(context).shadowColor, 
+                            color:Theme.of(context).highlightColor, 
                           ),
                           borderRadius: BorderRadius.circular(20),
                           iconDisabledColor: Theme.of(context).backgroundColor,
-                          dropdownColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).hoverColor,
                           value: selectedExtras,
                           items: extrasTags, 
                           onChanged: (String? newValue) { 

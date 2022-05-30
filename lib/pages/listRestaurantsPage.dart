@@ -58,6 +58,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column (
@@ -108,7 +109,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
             ),
             Text(
               translate('restaurants_page.no_match'),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white
               ),
               )
@@ -126,6 +127,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [

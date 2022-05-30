@@ -508,7 +508,6 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "0.4.9"
   transparent_image:
     dependency: "direct main"
@@ -531,9 +530,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.3"
-=======
-    version: "0.4.8"
->>>>>>> MA-Owner
   typed_data:
     dependency: transitive
     description:
