@@ -80,7 +80,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
             label: 'Restaurants',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
+            icon: Icon(Icons.house),
             label: 'Home',
           ),
           BottomNavigationBarItem(
