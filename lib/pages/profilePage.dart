@@ -425,7 +425,7 @@ class _ProfilePageState extends State<ProfilePage> {
             key: key,
             child: ProfileWidget(
               imagePath:
-                  "https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png",
+                  widget.customer!.profilePic,
               onClicked: () async {
                 var route = MaterialPageRoute(
                   builder: (BuildContext context) => editProfilePage(
@@ -567,7 +567,6 @@ class _ProfilePageState extends State<ProfilePage> {
     title: translate('profile_page.contact.title'),
     subtitle: translate('profile_page.contact.sub_title'),
     onTap: () {
-      //TODO: Implement send email method
       Navigator.push(context, MaterialPageRoute(builder: (context) => EmailPage()));
     },
   );

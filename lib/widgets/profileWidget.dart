@@ -28,10 +28,7 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = imagePath.contains('https://')
-        ? NetworkImage(
-            'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png')
-        : FileImage(File(imagePath));
+    final image = NetworkImage(imagePath);
     return ClipOval(
       child: Material(
           color: Colors.transparent,
