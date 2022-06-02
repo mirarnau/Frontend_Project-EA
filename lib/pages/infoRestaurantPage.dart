@@ -157,7 +157,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
             padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
             child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 370,
+                height: 400,
                 color: Colors.blue,
                 child: MapWidget(
                 longRestaurant: widget.selectedRestaurant!.location.coordinates[0], 

@@ -43,6 +43,7 @@ dependencies:
   proj4dart: any
   meta: ^1.1.0
   collection: ^1.14.0
+  geolocator: ^8.2.0
 
 
   

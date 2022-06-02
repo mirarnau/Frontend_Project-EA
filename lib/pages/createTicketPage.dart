@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/message.dart';
 import 'package:flutter_tutorial/models/owner.dart';
@@ -43,6 +45,29 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
     messageController.dispose();
 
     super.dispose();
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  
+
+  AlertDialog alert = AlertDialog(
+      title: Text(
+        "Empty fields",
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text('Some fields are empty, please fill them'),
+      actions: [
+        okButton,
+      ],
+    );
+
   }
 
   @override
@@ -128,7 +153,9 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
               ),
               backgroundColor: Theme.of(context).cardColor,
               onPressed: () async {
-                Message newMessage = Message(senderName: widget.myCustomer!.customerName, 
+
+                if (subjectController.text.isNotEmpty && restaurantController.text.isNotEmpty && messageController.text.isNotEmpty){
+                  Message newMessage = Message(senderName: widget.myCustomer!.customerName, 
                         receiverName: restaurantController.text, 
                         message: messageController.text, 
                         profilePicSender: widget.myCustomer!.profilePic);
@@ -150,6 +177,12 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                           MainPage(customer: widget.myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
                     
                 Navigator.of(context).push(route);
+                }
+
+                else{
+                  showAlertDialog(context);
+                }
+                
               },
             ),
           ),

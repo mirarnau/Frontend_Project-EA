@@ -123,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: (widget.listMessages![index].senderName  != widget.myCustomer!.customerName ?Colors.grey.shade200:Colors.blue[200]),
+                                  color: (widget.listMessages![index].senderName  != widget.myCustomer!.customerName ?Color.fromARGB(255, 143, 143, 143):Color.fromARGB(255, 96, 135, 166)),
                                 ),
                                 padding: EdgeInsets.all(16),
                                 child: Text(widget.listMessages![index].message, style: TextStyle(fontSize: 15),),
