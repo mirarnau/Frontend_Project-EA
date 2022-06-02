@@ -28,7 +28,6 @@ class _SearchPageState extends State<SearchPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // The search area here
           backgroundColor: Color.fromARGB(255, 0, 0, 0),
           title: Container(
         width: double.infinity,
@@ -44,7 +43,6 @@ class _SearchPageState extends State<SearchPage>{
                   icon: Icon(Icons.clear),
                   color: Color.fromARGB(255, 0, 0, 0),
                   onPressed: () {
-                    /* Clear the search field */
                   },
                 ),
                 
@@ -53,6 +51,16 @@ class _SearchPageState extends State<SearchPage>{
           ),
         ),
       )),
+      body: Container(
+        padding: EdgeInsets.only(top: 20.0),
+        color: Colors.grey,
+   
+           
+      
+      )
+
+      
+      ,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(

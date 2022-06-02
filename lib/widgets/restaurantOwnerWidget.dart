@@ -60,7 +60,7 @@ class OwnerCardRestaurant extends StatelessWidget {
               
             ),
             Container(
-              color: Colors.green,
+              color: Colors.white,
             width: MediaQuery.of(context).size.width,
             height: 120,
             child: Stack(
@@ -75,7 +75,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                               restaurantName,
                               style: const TextStyle(
                                 fontSize: 19,
-                                color: Colors.white
+                                color: Colors.black
                               ),
 
                               overflow: TextOverflow.ellipsis,
@@ -94,7 +94,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                                 address,
                                 style: const TextStyle(
                                   fontSize: 19,
-                                  color: Colors.white
+                                  color: Colors.black
                                 ),
 
                                 overflow: TextOverflow.ellipsis,
@@ -131,7 +131,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                               Text(
                                 rating,
                                 style: const TextStyle(
-                                  color: Colors.white
+                                  color: Colors.black
                                 ),),
 
                             ],
@@ -154,7 +154,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                               const SizedBox(width: 7),
                               Text(
                                 city,
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ],
                           ),
