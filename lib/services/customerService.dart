@@ -66,4 +66,14 @@ class CustomerService {
     if (statusCode == 200) return true;
     return false;
   }
+
+  Future<bool> deactivateCustomer(Customer customer) async {
+    var res = await http.post(Uri.parse(apiURL + "/api/customers_deactivated"),
+      headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
+        body: json.encode(Customer.toJson(customer)));
+      
+    int statusCode = res.statusCode;
+    if (statusCode == 200) return true;
+    return false;
+  }
 }

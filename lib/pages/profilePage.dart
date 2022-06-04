@@ -362,6 +362,8 @@ class _ProfilePageState extends State<ProfilePage> {
     Widget deleteButton = TextButton(
       child: Text(translate('profile_page.delete').toUpperCase()),
       onPressed:  () async {
+        await customerService.deactivateCustomer(
+          widget.customer!);
         await customerService.deleteCustomer(
           widget.customer!.id);
         Settings.clearCache(); 

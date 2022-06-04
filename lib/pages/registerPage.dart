@@ -224,6 +224,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           email: emailController.text,
                           profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
                           password: passwordController.text);
+                      newCustomer.listReservations = [];
+                      newCustomer.listDiscounts = [];
+                      newCustomer.role = [];
+                      newCustomer.creationDate = "";
                       await customerService.addCustomer(newCustomer);
 
                       List<String> voidListTags = [];

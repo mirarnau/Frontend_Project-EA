@@ -84,4 +84,14 @@ class OwnerService {
     if (statusCode == 200) return true;
     return false;
   }
+
+  Future<bool> deactivateOwner(Owner owner) async {
+    var res = await http.post(Uri.parse(apiURL + "/api/owners_deactivated"),
+      headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
+        body: json.encode(Owner.toJson(owner)));
+      
+    int statusCode = res.statusCode;
+    if (statusCode == 200) return true;
+    return false;
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,9 @@ class Customer {
   late final String email;
   late final String password;
   late final String profilePic;
-  late final bool isDarkMode;
-  late final String about;
+  late final String creationDate;
+  late final List<String> listReservations;
+  late final List<Discount> listDiscounts;
   late final List<String> role;
 
   Customer({
@@ -32,6 +34,10 @@ class Customer {
         //profilePic: Image.memory(base64Decode(json['profilePic'])));
     customer.role = json['role'].cast<String>();    
     customer.id = json['_id'];
+    customer.listReservations =  json['listReservations'].cast<String>();
+    customer.listDiscounts = json['listDiscounts'].cast<Discount>();
+    customer.creationDate = json['creationDate'];
+
     return customer;
   }
 
@@ -46,7 +52,17 @@ class Customer {
       'fullName': customer.fullName,
       'email': customer.email,
       'password': customer.password,
-      'profilePic': customer.profilePic
+      'profilePic': customer.profilePic,
+      'listReservations': customer.listReservations,
+      'listDiscounts': customer.listDiscounts,
+      'role': customer.role,
+      'creationDate': customer.creationDate
     };
   }
+}
+
+class Discount {
+  late final String restaurantName;
+  late final Double amount;
+  late final String expirationDate;
 }
