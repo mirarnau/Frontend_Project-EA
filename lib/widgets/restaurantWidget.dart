@@ -16,7 +16,7 @@ class CardRestaurant extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container  (
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       width: MediaQuery.of(context).size.width,
       height: 150,
