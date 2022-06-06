@@ -104,7 +104,8 @@
         "filter_style": "Filtrar por estilo",
         "select_style": "Seleccione el estilo de la comida",
         "filter_pref": "Filtrar por preferencias",
-        "select_pref": "Seleccione sus preferencias"
+        "select_pref": "Seleccione sus preferencias",
+        "make_res": "Haga una reserva"
     },
 
     "tickets_page":

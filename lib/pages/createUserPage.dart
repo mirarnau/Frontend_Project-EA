@@ -36,6 +36,7 @@ class _CreateUserPageState extends State<CreateUser> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -55,10 +56,14 @@ class _CreateUserPageState extends State<CreateUser> {
             const Padding(padding: EdgeInsets.only(left: 40)),
             TextField(  
               controller: customernameController,
-              decoration: InputDecoration(  
+              decoration: InputDecoration( 
+                filled: true,
+                fillColor: Theme.of(context).hintColor, 
                 icon: Icon(Icons.person),  
                 hintText: translate('login_page.enter_user'),  
-                labelText: translate('login_page.username'),  
+                labelText: translate('login_page.username'),
+                labelStyle: TextStyle(color: Theme.of(context).highlightColor),
+                hintStyle: TextStyle(color: Theme.of(context).highlightColor),
               ),
             ),
             TextField(  

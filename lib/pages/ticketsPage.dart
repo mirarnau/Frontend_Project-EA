@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/message.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -79,7 +81,12 @@ class _TicketsPageState extends State<TicketsPage> {
           color: Theme.of(context).canvasColor,
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
             ),
             drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
             body: Text(translate('tickets_page.no_tickets')),
@@ -89,14 +96,14 @@ class _TicketsPageState extends State<TicketsPage> {
               width: 100.0,
               child: FittedBox(
                 child: FloatingActionButton.extended(
-                  backgroundColor: const Color.fromARGB(255, 30, 30, 30),
-                  icon: const Icon(
+                  backgroundColor: Theme.of(context).cardColor,
+                  icon: Icon(
                     Icons.add_comment,
-                    color: Color.fromARGB(255, 213, 94, 85)),
+                    color: Theme.of(context).focusColor),
                   label: Text(
                     translate('tickets_page.create'),
                     style: TextStyle(
-                      color: Color.fromARGB(255, 213, 94, 85)
+                      color: Theme.of(context).focusColor
                     ),
                   ),
                   onPressed: () {
@@ -115,10 +122,16 @@ class _TicketsPageState extends State<TicketsPage> {
       else{
       return Scaffold(
           appBar: AppBar(
-          ),
+              backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
+            ),
           drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
           body: Container(
-            color: Color.fromARGB(255, 30, 30, 30),
+            color: Theme.of(context).canvasColor,
             child: Column (
             mainAxisSize: MainAxisSize.min,
             children: <Widget> [
@@ -155,14 +168,14 @@ class _TicketsPageState extends State<TicketsPage> {
             width: 100.0,
             child: FittedBox(
               child: FloatingActionButton.extended(
-                backgroundColor: const Color.fromARGB(255, 60, 60, 60),
-                icon: const Icon(
+                backgroundColor: Theme.of(context).cardColor,
+                icon: Icon(
                   Icons.add_comment,
-                  color: Color.fromARGB(255, 213, 94, 85)),
+                  color: Theme.of(context).focusColor),
                 label: Text(
                   translate('tickets_page.create'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 213, 94, 85)
+                    color: Theme.of(context).focusColor
                   ),
                 ),
                 onPressed: () {
@@ -181,12 +194,19 @@ class _TicketsPageState extends State<TicketsPage> {
     else{ 
       if (listTicketsReceived == null){
         return  Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+              backgroundColor: Theme.of(context).cardColor,
+              title: Text(
+                widget.page,
+                style: TextStyle(
+                  color: Colors.white
+                ),),
+            ),
           drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
           body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color.fromARGB(255, 30, 30, 30),
+            color: Theme.of(context).canvasColor,
             child: Padding(
               padding: EdgeInsets.all(50),
               child: Text(
@@ -202,14 +222,14 @@ class _TicketsPageState extends State<TicketsPage> {
             width: 100.0,
             child: FittedBox(
               child: FloatingActionButton.extended(
-                backgroundColor: const Color.fromARGB(255, 30, 30, 30),
-                icon: const Icon(
+                backgroundColor: Theme.of(context).cardColor,
+                icon: Icon(
                   Icons.add_comment,
-                  color: Color.fromARGB(255, 213, 94, 85)),
+                  color: Theme.of(context).focusColor),
                 label: Text(
                   translate('tickets_page.create'),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 213, 94, 85)
+                    color: Theme.of(context).focusColor
                   ),
                 ),
                 onPressed: () {
@@ -265,14 +285,14 @@ class _TicketsPageState extends State<TicketsPage> {
             width: 100.0,
             child: FittedBox(
               child: FloatingActionButton.extended(
-                backgroundColor: const Color.fromARGB(255, 60, 60, 60),
-                icon: const Icon(
+                backgroundColor: Theme.of(context).cardColor,
+                icon: Icon(
                   Icons.add_comment,
-                  color: Color.fromARGB(255, 213, 94, 85)),
-                label: const Text(
+                  color: Theme.of(context).focusColor),
+                label: Text(
                   'Create',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 213, 94, 85)
+                    color: Theme.of(context).focusColor
                   ),
                 ),
                 onPressed: () {

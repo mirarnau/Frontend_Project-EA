@@ -1,3 +1,5 @@
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -5,27 +7,28 @@ import 'package:flutter_tutorial/pages/accountSettings.dart';
 import 'package:flutter_tutorial/pages/emailPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/loginService.dart';
+import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/widgets/iconWidget.dart';
 import 'package:flutter_tutorial/widgets/profileWidget.dart';
-import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/pages/editProfilePage.dart';
+import 'package:flutter_tutorial/models/owner.dart';
+import 'package:flutter_tutorial/pages/editOwnerPage.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import 'loginPage.dart';
 
-class ProfilePage extends StatefulWidget {
-  final Customer? customer;
+class OwnerProfilePage extends StatefulWidget {
+  final Owner? owner;
   static const keyDarkMode = 'key-dark-mode';
-  const ProfilePage({Key? key, required this.customer}) : super(key: key);
-  
+  const OwnerProfilePage({Key? key, required this.owner}) : super(key: key);
+
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<OwnerProfilePage> createState() => _OwnerProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _OwnerProfilePageState extends State<OwnerProfilePage> {
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = <TargetFocus>[];
 
@@ -44,7 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key",
         keyTarget: key,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         paddingFocus: 0,
         contents: [
           TargetContent(
@@ -77,7 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key1",
         keyTarget: key1,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -111,7 +116,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key2",
         keyTarget: key2,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -145,7 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key3",
         keyTarget: key3,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -179,7 +186,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key4",
         keyTarget: key4,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -213,7 +221,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key5",
         keyTarget: key5,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -247,7 +256,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key6",
         keyTarget: key6,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -281,7 +291,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TargetFocus(
         identify: "key7",
         keyTarget: key7,
-        alignSkip: Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
+        alignSkip:
+            Alignment.lerp(Alignment.bottomLeft, Alignment.centerLeft, 0.12),
         shape: ShapeLightFocus.RRect,
         radius: 3,
         contents: [
@@ -334,7 +345,8 @@ class _ProfilePageState extends State<ProfilePage> {
       onClickTargetWithTapPosition: (target, tapDetails) {
         if (kDebugMode) {
           print("target: $target");
-          print("clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+          print(
+              "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
         }
       },
       onClickOverlay: (target) {
@@ -352,31 +364,26 @@ class _ProfilePageState extends State<ProfilePage> {
 
   showAlertDialog(BuildContext context) {
     CustomerService customerService = CustomerService();
-    
+
     Widget cancelButton = TextButton(
       child: Text(translate('cancel').toUpperCase()),
-      onPressed:  () {
+      onPressed: () {
         Navigator.pop(context);
       },
     );
     Widget deleteButton = TextButton(
       child: Text(translate('profile_page.delete').toUpperCase()),
-      onPressed:  () async {
-        await customerService.deactivateCustomer(
-          widget.customer!);
-        await customerService.deleteCustomer(
-          widget.customer!.id);
-        Settings.clearCache(); 
-        Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      onPressed: () async {
+        //await OwnerService.deleteOwner(widget.owner!.id);
+        Settings.clearCache();
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginPage()));
       },
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text(
-        translate('profile_page.delete'),
-        style: TextStyle(color: Colors.red)
-      ),
+      title: Text(translate('profile_page.delete'),
+          style: TextStyle(color: Colors.red)),
       content: Text(translate('profile_page.delete_confirm')),
       actions: [
         cancelButton,
@@ -404,21 +411,17 @@ class _ProfilePageState extends State<ProfilePage> {
         child: FittedBox(
           child: FloatingActionButton.extended(
             backgroundColor: Theme.of(context).cardColor,
-            icon: Icon(
-              Icons.help,
-              color: Theme.of(context).focusColor),
+            icon: Icon(Icons.help, color: Theme.of(context).focusColor),
             label: Text(
               translate('help'),
-              style: TextStyle(
-                color: Theme.of(context).focusColor
-              ),
+              style: TextStyle(color: Theme.of(context).focusColor),
             ),
             onPressed: () {
               Future.delayed(Duration.zero, showTutorial);
             },
           ),
         ),
-      ) ,
+      ),
       body: ListView(
         padding: EdgeInsets.only(top: 100),
         physics: BouncingScrollPhysics(),
@@ -427,11 +430,11 @@ class _ProfilePageState extends State<ProfilePage> {
             key: key,
             child: ProfileWidget(
               imagePath:
-                  widget.customer!.profilePic,
+                  "https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png",
               onClicked: () async {
                 var route = MaterialPageRoute(
-                  builder: (BuildContext context) => editProfilePage(
-                    customer: widget.customer,
+                  builder: (BuildContext context) => editOwnerPage(
+                    owner: widget.owner,
                   ),
                 );
                 Navigator.of(context).push(route);
@@ -441,8 +444,10 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 24),
           Container(
             key: key1,
-            child: buildName(widget.customer!.fullName, widget.customer!.email,
-              (widget.customer!.customerName),
+            child: buildName(
+              widget.owner!.fullName,
+              widget.owner!.email,
+              (widget.owner!.ownerName),
             ),
           ),
           const SizedBox(height: 24),
@@ -453,7 +458,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             child: SettingsGroup(
               title: translate('profile_page.configuration'),
-              children: <Widget> [
+              children: <Widget>[
                 const SizedBox(height: 8),
                 Container(
                   key: key3,
@@ -483,96 +488,87 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildName(String fullName, String email, String customerName) => Column(
-    children: [
-      Text(
-        customerName,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
-      const SizedBox(height: 4),
-      Text(
-        email,
-        style: TextStyle(color: Colors.grey),
-      ),
-      Text(
-        fullName,
-        style: TextStyle(color: Colors.grey),
-      )
-    ],
-  );
+  Widget buildName(String fullName, String email, String customerName) =>
+      Column(
+        children: [
+          Text(
+            customerName,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            email,
+            style: TextStyle(color: Colors.grey),
+          ),
+          Text(
+            fullName,
+            style: TextStyle(color: Colors.grey),
+          )
+        ],
+      );
 
   Widget buildDarkMode() => SwitchSettingsTile(
-    settingKey: ProfilePage.keyDarkMode,
-    leading: IconWidget(
-      icon: Icons.dark_mode,
-      color: Color(0xFF642ef3),
-    ),
-    title: translate('profile_page.dark_mode'),
-    onChange: (isDarkMode) { /* NOOP */}
-  );
+      settingKey: OwnerProfilePage.keyDarkMode,
+      leading: IconWidget(
+        icon: Icons.dark_mode,
+        color: Color(0xFF642ef3),
+      ),
+      title: translate('profile_page.dark_mode'),
+      onChange: (isDarkMode) {/* NOOP */});
 
   Widget buildSettings() => SimpleSettingsTile(
-    leading: IconWidget(
-      color: Colors.green, 
-      icon: Icons.person
-    ),
-    title: translate('profile_page.account_settings.title'),
-    subtitle: translate('profile_page.account_settings.sub_title'),
-    //child: Container(),
-    onTap: () { 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage()));
-    },
-  );
+        leading: IconWidget(color: Colors.green, icon: Icons.person),
+        title: translate('profile_page.account_settings.title'),
+        subtitle: translate('profile_page.account_settings.sub_title'),
+        //child: Container(),
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AccountPage()));
+        },
+      );
 
   Widget buildNotifications() => SimpleSettingsTile(
-    leading: IconWidget(
-      color: Colors.orangeAccent, 
-      icon: Icons.notifications
-    ),
-    title: translate('profile_page.notifications'),
-    subtitle: '',
-    //child: Container(),
-    onTap: () { 
-      //
-    },
-  );
+        leading:
+            IconWidget(color: Colors.orangeAccent, icon: Icons.notifications),
+        title: translate('profile_page.notifications'),
+        subtitle: '',
+        //child: Container(),
+        onTap: () {
+          //
+        },
+      );
 
   Widget buildLogout() => SimpleSettingsTile(
-    leading: IconWidget(
-      color: Colors.blueAccent, 
-      icon: Icons.logout
-    ),
-    title: translate('profile_page.logout'),
-    subtitle: '',
-    onTap: () { 
-      Settings.clearCache();
-      Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
-    },
-  );
+        leading: IconWidget(color: Colors.blueAccent, icon: Icons.logout),
+        title: translate('profile_page.logout'),
+        subtitle: '',
+        onTap: () {
+          Settings.clearCache();
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
+        },
+      );
 
   Widget buildDeleteAccount() => SimpleSettingsTile(
-    leading: IconWidget(
-      color: Colors.redAccent, 
-      icon: Icons.delete
-    ),
-    title: translate('profile_page.delete'),
-    subtitle: '',
-    onTap: () { 
-      showAlertDialog(context);
-    },
-  );
+        leading: IconWidget(color: Colors.redAccent, icon: Icons.delete),
+        title: translate('profile_page.delete'),
+        subtitle: '',
+        onTap: () {
+          showAlertDialog(context);
+        },
+      );
 
   Widget buildContact() => SimpleSettingsTile(
-    leading: IconWidget(
-      color: Color.fromARGB(255, 231, 100, 0), 
-      icon: Icons.mail_outline,
-    ),
-    title: translate('profile_page.contact.title'),
-    subtitle: translate('profile_page.contact.sub_title'),
-    onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => EmailPage()));
-    },
-  );
-
+        leading: IconWidget(
+          color: Color.fromARGB(255, 231, 100, 0),
+          icon: Icons.mail_outline,
+        ),
+        title: translate('profile_page.contact.title'),
+        subtitle: translate('profile_page.contact.sub_title'),
+        onTap: () {
+          //TODO: Implement send email method
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => EmailPage()));
+        },
+      );
 }

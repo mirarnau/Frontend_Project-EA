@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
@@ -15,6 +17,9 @@ import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:flutter_tutorial/services/pdfService.dart';
+import 'package:flutter_tutorial/widgets/mapWidget.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoRestaurantPage extends StatefulWidget {
@@ -27,6 +32,7 @@ class InfoRestaurantPage extends StatefulWidget {
 
 class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
 
+  PDFService pdfService = PDFService();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -35,6 +41,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
 
   @override
   void initState() {
+    print(widget.selectedRestaurant!.location.coordinates[1]);
     super.initState();
   }
 
@@ -43,8 +50,13 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+      ),
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image(image: NetworkImage(widget.selectedRestaurant!.photos[0])),
@@ -59,7 +71,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     child: Text(
                       widget.selectedRestaurant!.restaurantName,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).highlightColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 25.0
                       ),
@@ -89,7 +101,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                 child: Text(
                   widget.selectedRestaurant!.rating.toString(),
                   style: TextStyle(
-                    color: Color.fromARGB(255, 44, 44, 44),
+                    color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold
                   ),
                 ),
@@ -101,14 +113,14 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     border: Border.all(
-                      color: Color.fromARGB(255, 213, 94, 85),
+                      color: Theme.of(context).primaryColor,
                     )
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
                       Icons.call,
-                      color: Color.fromARGB(255, 213, 94, 85),
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),
@@ -126,27 +138,73 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 5.0),
             child: Container(
               width: 150,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 213, 94, 85),
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(20)
 
               ),
               child: TextButton(
                 onPressed: () {},
                 child: Text (
-                  "Make reservation",
+                  translate('restaurants_page.make_res'),
                   style: TextStyle(
                     color: Colors.white
                   ),
                 )
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 400,
+                color: Colors.blue,
+                child: MapWidget(
+                longRestaurant: widget.selectedRestaurant!.location.coordinates[0], 
+                latRestaurant: widget.selectedRestaurant!.location.coordinates[1]
+                ),
+              ),
+          ),
+
+          /*
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  child: Row(
+                    children: [
+                      Icon(Icons.picture_as_pdf),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'menu.pdf'
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    final file = await pdfService.loadFile();
+                    pdfService.openPDF(context, file);
+                  },
+                )
+              ),
+            ),
           )
+          */
+
+
         ],
       ),
+        ],
+      )
+      
     );
     
   }

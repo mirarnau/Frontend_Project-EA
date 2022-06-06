@@ -53,11 +53,12 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     if (listRestaurants == null){
       return  Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 76, 75, 75),
+          backgroundColor: Theme.of(context).cardColor,
           title: Text (translate('restaurants_page.filter')),
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column (
@@ -108,7 +109,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
             ),
             Text(
               translate('restaurants_page.no_match'),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white
               ),
               )
@@ -122,9 +123,11 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text (translate('restaurants_page.filter')),
+          backgroundColor: Theme.of(context).cardColor,
         ),
         drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
         body: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [

@@ -94,7 +94,7 @@ class NavDrawer extends StatelessWidget {
                 child: const Text(
                   'ADD TAG',
                   style: TextStyle(
-                    color: Colors.green
+                    color: Colors.white
                   ),
                 ),
                 onPressed:() {

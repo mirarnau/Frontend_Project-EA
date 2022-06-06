@@ -50,13 +50,17 @@ class MyApp extends StatelessWidget {
           theme: isDarkMode 
             ? ThemeData.dark().copyWith(
               primaryColor: Color.fromARGB(255, 213, 94, 85),
-              scaffoldBackgroundColor: Color.fromARGB(255, 23, 23, 23),
+              scaffoldBackgroundColor: Color.fromARGB(255, 16, 16, 16),
               canvasColor: Color.fromARGB(255, 30, 30, 30),
               backgroundColor: const Color.fromARGB(255, 48, 48, 48),
               cardColor:Color.fromARGB(255, 56, 55, 55),
               focusColor: Color.fromARGB(255, 213, 94, 85),
               indicatorColor: Colors.white,
-              shadowColor: Color.fromARGB(255, 104, 104, 104)
+              shadowColor: Color.fromARGB(255, 104, 104, 104),
+              hoverColor: Color.fromARGB(255, 96, 66, 64),
+              highlightColor: Colors.white,
+              hintColor: Color.fromARGB(255, 56, 55, 55),
+              
             )
             : ThemeData.light().copyWith(
               primaryColor: Color.fromARGB(255, 233, 166, 66),
@@ -66,7 +70,10 @@ class MyApp extends StatelessWidget {
               cardColor:Color.fromARGB(255, 233, 166, 66),
               focusColor: Color.fromARGB(255, 255, 255, 255),
               indicatorColor: Color.fromARGB(255, 217, 105, 105),
-              shadowColor: Color.fromARGB(255, 170, 170, 170)
+              shadowColor: Color.fromARGB(255, 170, 170, 170),
+              hoverColor: Color.fromARGB(255, 253, 225, 187),
+              highlightColor: Colors.black,
+              hintColor: Color.fromARGB(255, 219, 219, 219),
             ),
           home: LoginPage(),
         ),
@@ -92,5 +99,3 @@ class Palette {
     }, 
   ); 
 }
-
-

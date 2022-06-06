@@ -6,6 +6,7 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
+import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -49,6 +50,7 @@ class _MainPageState extends State<MainPage> {
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
+    //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
     Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),
   ];
@@ -83,8 +85,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
-        selectedItemColor: Theme.of(context).backgroundColor,
+        unselectedItemColor: Theme.of(context).shadowColor,
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );
