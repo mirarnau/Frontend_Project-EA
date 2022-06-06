@@ -45,6 +45,13 @@ dependencies:
   collection: ^1.14.0
   geolocator: ^8.2.0
 
+  flutter_pdfview: ^1.0.4
+  permission_handler: any
+
+  file_picker: any
+  path: ^1.7.0
+  path_provider: any
+
 
   
 

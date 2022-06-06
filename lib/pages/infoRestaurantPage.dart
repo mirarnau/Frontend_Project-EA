@@ -17,7 +17,9 @@ import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:flutter_tutorial/services/pdfService.dart';
 import 'package:flutter_tutorial/widgets/mapWidget.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoRestaurantPage extends StatefulWidget {
@@ -29,6 +31,8 @@ class InfoRestaurantPage extends StatefulWidget {
 }
 
 class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
+
+  PDFService pdfService = PDFService();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -165,8 +169,38 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                 ),
               ),
           ),
+
+          /*
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  child: Row(
+                    children: [
+                      Icon(Icons.picture_as_pdf),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'menu.pdf'
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    final file = await pdfService.loadFile();
+                    pdfService.openPDF(context, file);
+                  },
+                )
+              ),
+            ),
+          )
+          */
+
+
         ],
-        
       ),
         ],
       )
