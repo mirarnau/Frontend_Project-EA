@@ -9,16 +9,19 @@ import 'package:flutter_tutorial/pages/listRestaurantsOwnerPage.dart';
 import '../models/customer.dart';
 import 'listRestaurantsOwnerPage.dart';
 import 'ownerRestaurantsPage.dart';
+import 'ownerTicketsPage.dart';
 
 class OwnerMainPage extends StatefulWidget {
   final Owner? owner;
   late final int selectedIndex;
+  late final String chatPage;
   final List<String> transferRestaurantTags;
   OwnerMainPage(
       {Key? key,
       required this.owner,
       required this.selectedIndex,
-      required this.transferRestaurantTags})
+      required this.transferRestaurantTags,
+      required this.chatPage})
       : super(key: key);
 
   @override
@@ -58,6 +61,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
     ListRestaurantsOwnerPage(
         newTags: widget.transferRestaurantTags, owner: _owner),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
+    OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
     OwnerProfilePage(owner: _owner)
   ];
 

@@ -223,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (BuildContext context) =>
                                 OwnerMainPage(owner: owner,
                                 selectedIndex: 0,
-                                  transferRestaurantTags: voidListTags,
+                                  transferRestaurantTags: voidListTags, chatPage: "Inbox",
                                 ));
                         Navigator.of(context).push(routes);
                       }

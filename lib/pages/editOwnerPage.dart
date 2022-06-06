@@ -125,7 +125,7 @@ class _editOwnerPageState extends State<editOwnerPage> {
                         builder: (context) => OwnerMainPage(
                               owner: newcustomer,
                               selectedIndex: 1,
-                              transferRestaurantTags: voidListTags,
+                              transferRestaurantTags: voidListTags,chatPage: "Inbox"
                             )),
                   );
                 }

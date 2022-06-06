@@ -95,7 +95,7 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags))
+                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
@@ -161,7 +161,7 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
                                   print(myTags[index]);
                                   myTags.remove(myTags[index]);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags))
+                                    builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
                                   );
                                 },
                                 icon: const Icon(Icons.cancel)
