@@ -7,6 +7,7 @@ import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
+import 'package:flutter_tutorial/pages/videocallPage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -27,16 +28,20 @@ class _MainPageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Restaurants',
+      'Index 0: VideoCall',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Agenda',
+      'Index 1: Restaurants',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Agenda',
       style: optionStyle,
     ),
     //ProfilePage(customer: widget.customer),
     Text(
-      'Index 2: Profile',
+      'Index 3: Profile',
       style: optionStyle,
     )
   ];
@@ -48,6 +53,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
+    VideocallPage(),
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
     //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
@@ -67,6 +73,10 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_call_outlined),
+            label: translate('nav_bar.videocall'),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: translate('nav_bar.restaurants'),
