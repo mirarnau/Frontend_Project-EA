@@ -155,12 +155,12 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
               onPressed: () async {
 
                 if (subjectController.text.isNotEmpty && restaurantController.text.isNotEmpty && messageController.text.isNotEmpty){
-                  Message newMessage = Message(senderName: widget.myCustomer!.customerName, 
+                  MessageCustom newMessage = MessageCustom(senderName: widget.myCustomer!.customerName, 
                         receiverName: restaurantController.text, 
                         message: messageController.text, 
                         profilePicSender: widget.myCustomer!.profilePic);
 
-                List <Message> newListMessages = [];
+                List <MessageCustom> newListMessages = [];
                 newListMessages.add(newMessage);
                 
                 Ticket newTicket = Ticket(creatorName: widget.myCustomer!.customerName, 

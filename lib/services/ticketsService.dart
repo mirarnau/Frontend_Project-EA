@@ -59,10 +59,10 @@ class TicketService {
     return null;
   }
 
-  Future<bool> addMessageToTicket(Message message, Ticket ticket) async {
+  Future<bool> addMessageToTicket(MessageCustom message, Ticket ticket) async {
     var res = await http.post(Uri.parse(baseUrl + '/' + ticket.id),
         headers: {'authorization': LocalStorage('key').getItem('token'),'content-type': 'application/json'},
-        body: json.encode(Message.toJson(message)));
+        body: json.encode(MessageCustom.toJson(message)));
 
     if (res.statusCode == 201) {
       return true;
@@ -70,14 +70,14 @@ class TicketService {
     return false;
   }
 
-  Future<List<Message>?> getMessagesFromTicket(Ticket ticket) async {
+  Future<List<MessageCustom>?> getMessagesFromTicket(Ticket ticket) async {
     var res = await http.get(Uri.parse(baseUrl + '/messages/' +  ticket.id),
         headers: {'authorization': LocalStorage('key').getItem('token'),'content-type': 'application/json'});
 
     if (res.statusCode == 200) {
-      List <Message> listMessages = [];
+      List <MessageCustom> listMessages = [];
       var decoded = jsonDecode(res.body);
-      decoded.forEach((message) => listMessages.add(Message.fromJSON(message)));
+      decoded.forEach((message) => listMessages.add(MessageCustom.fromJSON(message)));
       return listMessages;
     }
     return null;

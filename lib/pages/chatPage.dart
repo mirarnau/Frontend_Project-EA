@@ -15,7 +15,7 @@ import 'package:flutter_tutorial/services/ticketsService.dart';
 class ChatPage extends StatefulWidget {
   final Customer? myCustomer;
   final Ticket selectedTicket;
-  final List<Message>? listMessages;
+  final List<MessageCustom>? listMessages;
   const ChatPage({Key? key,required this.myCustomer, required this.selectedTicket, required this.listMessages}) : super(key: key);
 
   @override
@@ -173,7 +173,7 @@ class _ChatPageState extends State<ChatPage> {
                     SizedBox(width: 15,),
                     FloatingActionButton(
                       onPressed: () async {
-                        Message newMessage = Message(senderName: widget.myCustomer!.customerName, 
+                        MessageCustom newMessage = MessageCustom(senderName: widget.myCustomer!.customerName, 
                             receiverName: widget.selectedTicket.recipientName, 
                             message: messageController.text, 
                             profilePicSender:widget.myCustomer!.profilePic);

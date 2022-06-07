@@ -55,6 +55,9 @@ dependencies:
   path: ^1.7.0
   path_provider: any
 
+  dialog_flowtter: any 
+
+
 
   
 
@@ -77,5 +80,6 @@ flutter:
     - assets/i18n/en.json
     - assets/i18n/es.json
     - assets/i18n/ca.json
+    - assets/dialog_flow_auth.json
 
  
