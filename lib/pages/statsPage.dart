@@ -35,6 +35,7 @@ class _StatsPage extends State<StatsPage> {
   late String month = "January";
 
   Future<void> monthlyRate(List<_Restaurants> data) async {
+    realdata = [];
     for (_Restaurants rest in data) {
       if (rest.restMonth == month) {
         realdata.add(rest);
@@ -63,7 +64,7 @@ class _StatsPage extends State<StatsPage> {
           SfCartesianChart(
               primaryXAxis: CategoryAxis(),
               // Chart title
-              title: ChartTitle(text: 'Restaurants Rating'),
+              title: ChartTitle(text: 'Restaurants Rating of ' + month),
               // Enable legend
               legend: Legend(isVisible: true),
               // Enable tooltip
@@ -78,7 +79,9 @@ class _StatsPage extends State<StatsPage> {
                     dataLabelSettings: DataLabelSettings(isVisible: true))
               ]
             ),
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget buildMonth({required BuildContext context}) => DropDownSettingsTile(
@@ -91,9 +94,9 @@ class _StatsPage extends State<StatsPage> {
       3: "March",
     },
     onChange: (month) {
-      if(month == 1) month = "January";
-      if(month == 2) month = "February";
-      if(month == 3) month = "March";
+      if(month == 1) this.month = "January";
+      if(month == 2) this.month = "February";
+      if(month == 3) this.month = "March";
       monthlyRate(data);
       setState(() {
         
