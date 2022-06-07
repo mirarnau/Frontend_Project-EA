@@ -28,6 +28,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   List<dynamic>? myRestaurants;
   Restaurant? searchedRestaurant;
   bool isLoading = true;
+  List<String> myTags = [];
 
   
 
@@ -43,7 +44,6 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   Widget build(BuildContext context) {
     if (myRestaurants == null){
       return Scaffold(
-
         body: Text (translate('restaurants_page.no_rest'),
                   style: TextStyle(
                     fontSize: 20
@@ -51,6 +51,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
         )
       );
     }
+
     if(_nameRestaurant == ''){
       return Scaffold(
         appBar: AppBar(
@@ -98,36 +99,48 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
           padding: EdgeInsets.only(top: 50.0),
           color: Color.fromARGB(255, 30, 30, 30),
           child: Column (
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget> [
-                Expanded(
-                  child: 
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      return OwnerCardRestaurant(
-                          restaurantName: searchedRestaurant!.restaurantName,
-                          city: searchedRestaurant!.city,
-                          rating: searchedRestaurant!.rating.toString(),
-                          address: searchedRestaurant!.address,
-                          imagesUrl: searchedRestaurant!.photos,);
-                    }
-                  )
-                )
-                
-              ],
-            ),
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget> [
+              Expanded(
+                child: 
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return OwnerCardRestaurant(
+                        restaurantName: searchedRestaurant!.restaurantName,
+                        city: searchedRestaurant!.city,
+                        rating: searchedRestaurant!.rating.toString(),
+                        address: searchedRestaurant!.address,
+                        imagesUrl: searchedRestaurant!.photos,);
+                  }
+                ),
+              ),
+              Container(
+                child: TextButton(  
+                child: Text(translate('done')),  
+                onPressed: ()  {}
+                ),
+              ),
+            ],
+          ),
         )
       );
-          }
+    }
 
   } 
 
     Future<void> getRestaurants() async {
       Owner? owner = this._owner;
-      myRestaurants = await ownerService.getOwnerById(owner!) ;
-      //print(myRestaurants);
+      myRestaurants = await restaurantService.filterRestaurants(myTags);
+      for (Restaurant restaurant in myRestaurants!) {
+        if (restaurant.owner != this._owner!.id) {
+          myRestaurants!.remove(restaurant);
+        }
+      }
+
+      print(myRestaurants![0]);
+
       setState(() {
         isLoading = false;
       });

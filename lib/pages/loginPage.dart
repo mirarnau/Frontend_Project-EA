@@ -147,49 +147,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Appétit',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 213, 67, 67)
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  controller: customernameController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 57, 57, 57),
-                      border: OutlineInputBorder(),
-                      labelText: translate('login_page.username'),
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                      hintText: translate('login_page.enter_user')),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                child: TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 57, 57, 57),
-                      border: OutlineInputBorder(),
-                      labelText: translate('login_page.password'),
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                      hintText: translate('login_page.enter_pass')),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
                     translate('login_page.forgot_pass'),
                     style: TextStyle(color: Colors.red, fontSize: 15),
                   ),

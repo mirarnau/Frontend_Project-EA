@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/owner.dart';
+import 'package:flutter_tutorial/pages/statsPage.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
 import 'package:flutter_tutorial/widgets/lateralRestaurantOwnerWidget.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
@@ -184,8 +185,33 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
                       rating: listRestaurants![index].rating.toString(),
                       imagesUrl: listRestaurants![index].photos);
                 }
-              )
-            )
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
+                onPressed: () {  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StatsPage(
+                        restaurants: listRestaurants,
+                      ),
+                    ),
+                  );
+                }, 
+                child: const Text(
+                  "See stats",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+              ),
+
+              ),
+            ),
+            
+
           ],
         ) ,
         )

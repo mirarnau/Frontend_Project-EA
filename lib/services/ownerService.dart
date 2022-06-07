@@ -28,7 +28,7 @@ class OwnerService {
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
       List<dynamic> listRestaurants = data['listRestaurants'];   
-      //print(listRestaurants);
+      print(listRestaurants);
       List<Restaurant> listRestaurantsParsed = [];
       listRestaurants.forEach((restaurant) => listRestaurantsParsed.add(Restaurant.fromJSON(restaurant)));
       
@@ -37,6 +37,7 @@ class OwnerService {
 
       return listRestaurantsParsed;
     }
+    print("hello");
     return null;
     }
 
