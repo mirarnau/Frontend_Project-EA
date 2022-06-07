@@ -15,44 +15,40 @@ class Restaurant {
   late final String creationDate;
   late final Location location;
 
+  Restaurant(
+      {required this.id,
+      required this.owner,
+      required this.restaurantName,
+      required this.email,
+      required this.address,
+      required this.description,
+      required this.city,
+      required this.photos,
+      required this.rating,
+      required this.listTags,
+      required this.listDishes,
+      required this.creationDate,
+      required this.location});
 
-  Restaurant({
-    required this.id,
-    required this.owner, 
-    required this.restaurantName, 
-    required this.email, 
-    required this.address,
-    required this.description,
-    required this.city,
-    required this.photos,
-    required this.rating,
-    required this.listTags,
-    required this.listDishes,
-    required this.creationDate,
-    required this.location
-  });
-
-  factory Restaurant.fromJSON(dynamic json){
-    Restaurant restaurant =  Restaurant(
-      id: json['_id'] as String,
-      owner: json['owner'] as String,
-      restaurantName: json['restaurantName'] as String, 
-      email: json['email'] as String,
-      address: json['address'] as String,
-      description: json['description'] as String,
-      city: json['city'] as String,
-      photos: json['photos'] as List<dynamic>,
-      rating: json['rating'] as int,
-      listTags: json ['listTags'] as List<dynamic>,
-      listDishes: json['listDishes'] as List <dynamic>,
-      creationDate: json['creationDate'] as String,
-      location : Location.fromJSON(json['location'])
-      );
-      return restaurant;
+  factory Restaurant.fromJSON(dynamic json) {
+    Restaurant restaurant = Restaurant(
+        id: json['_id'] as String,
+        owner: json['owner'] as String,
+        restaurantName: json['restaurantName'] as String,
+        email: json['email'] as String,
+        address: json['address'] as String,
+        description: json['description'] as String,
+        city: json['city'] as String,
+        photos: json['photos'] as List<dynamic>,
+        rating: json['rating'] as int,
+        listTags: json['listTags'] as List<dynamic>,
+        listDishes: json['listDishes'] as List<dynamic>,
+        creationDate: json['creationDate'] as String,
+        location: Location.fromJSON(json['location']));
+    return restaurant;
   }
 
-
-   static Map<String, dynamic> toJson(Restaurant restaurant) {
+  static Map<String, dynamic> toJson(Restaurant restaurant) {
     return {
       'owner': restaurant.owner,
       'restaurantName': restaurant.restaurantName,
@@ -66,35 +62,27 @@ class Restaurant {
   static Map<String, dynamic> tagsToJson(List<String> tags) {
     var json = {
       'tags': [
-        for (var i = 0; i < tags.length; i++){
-          'tagName': tags[i]
-        }
+        for (var i = 0; i < tags.length; i++) {'tagName': tags[i]}
       ]
     };
     print(json);
     return json;
   }
-  
 }
 
 class Tag {
-    late final String tagName;
+  late final String tagName;
 }
 
-class Location{
+class Location {
   late final List<double> coordinates;
 
-  Location({
-    required this.coordinates
-  });
+  Location({required this.coordinates});
 
-  factory Location.fromJSON(dynamic json){
+  factory Location.fromJSON(dynamic json) {
     var coordinates = json['coordinates'];
     List<double> coordinatesDouble = List<double>.from(coordinates);
-    Location location = Location(
-      coordinates: coordinatesDouble
-    );
+    Location location = Location(coordinates: coordinatesDouble);
     return location;
   }
 }
-
