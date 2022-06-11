@@ -12,7 +12,7 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class StatsPage extends StatefulWidget {
   final List<Restaurant>? restaurants;
-  StatsPage({Key? key, required this.restaurants}) : super(key: key);
+  const StatsPage({Key? key, required this.restaurants}) : super(key: key);
 
   @override
   _StatsPage createState() => _StatsPage();
@@ -20,37 +20,37 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPage extends State<StatsPage> {
   List<_Restaurants> data = [
-    _Restaurants('Bokoto', 'Jan', '2020', 3),
-    _Restaurants('Tagliatella', 'Jan', '2020', 4),
-    _Restaurants('Mare', 'Jan', '2020', 5),
-    _Restaurants('Bokoto', 'Feb', '2020', 4),
-    _Restaurants('Tagliatella', 'Feb', '2020', 4.5),
-    _Restaurants('Mare', 'Feb', '2020', 3.5),
-    _Restaurants('XTreme', 'Feb', '2020', 1),
-    _Restaurants('Vicio', 'Feb', '2020', 2),
+    _Restaurants('Bokoto', 'Jan', '2020', 3, 1231),
+    _Restaurants('Tagliatella', 'Jan', '2020', 4, 1242),
+    _Restaurants('Mare', 'Jan', '2020', 5, 483),
+    _Restaurants('Bokoto', 'Feb', '2020', 4, 235),
+    _Restaurants('Tagliatella', 'Feb', '2020', 4.5, 9738),
+    _Restaurants('Mare', 'Feb', '2020', 3.5, 234),
+    _Restaurants('XTreme', 'Feb', '2020', 1, 345),
+    _Restaurants('Vicio', 'Feb', '2020', 2, 3456),
 
-    _Restaurants('Bokoto', 'Jan', '2021', 4),
-    _Restaurants('Tagliatella', 'Jan', '2021', 3),
-    _Restaurants('Mare', 'Jan', '2021', 2),
-    _Restaurants('Bokoto', 'Feb', '2021', 2.4),
-    _Restaurants('Tagliatella', 'Feb', '2021', 4),
-    _Restaurants('Mare', 'Feb', '2021', 3),
-    _Restaurants('XTreme', 'Feb', '2021', 1.5),
-    _Restaurants('Vicio', 'Feb', '2021', 2.7)
+    _Restaurants('Bokoto', 'Jan', '2021', 4, 346),
+    _Restaurants('Tagliatella', 'Jan', '2021', 3, 3466),
+    _Restaurants('Mare', 'Jan', '2021', 2, 3466),
+    _Restaurants('Bokoto', 'Feb', '2021', 2.4, 645),
+    _Restaurants('Tagliatella', 'Feb', '2021', 4, 456),
+    _Restaurants('Mare', 'Feb', '2021', 3, 123),
+    _Restaurants('XTreme', 'Feb', '2021', 1.5, 325),
+    _Restaurants('Vicio', 'Feb', '2021', 2.7, 2355)
   ];
 
   List<_Restaurants> data_year = [
-    _Restaurants('Bokoto', 'Feb', '2020', 3),
-    _Restaurants('Tagliatella', 'Feb', '2020', 2),
-    _Restaurants('Mare', 'Feb', '2020', 3),
-    _Restaurants('XTreme', 'Feb', '2020', 1.4),
-    _Restaurants('Vicio', 'Feb', '2020', 2.3),
+    _Restaurants('Bokoto', 'x', '2020', 3, 12355),
+    _Restaurants('Tagliatella', 'x', '2020', 2, 34663),
+    _Restaurants('Mare', 'x', '2020', 3, 34666),
+    _Restaurants('XTreme', 'x', '2020', 1.4, 89556),
+    _Restaurants('Vicio', 'x', '2020', 2.3, 56733),
 
-    _Restaurants('Bokoto', 'Feb', '2021', 2.8),
-    _Restaurants('Tagliatella', 'Feb', '2021', 2),
-    _Restaurants('Mare', 'Feb', '2021', 3.4),
-    _Restaurants('XTreme', 'Feb', '2021', 1.5),
-    _Restaurants('Vicio', 'Feb', '2021', 2.5)
+    _Restaurants('Bokoto', 'x', '2021', 2.8, 3455),
+    _Restaurants('Tagliatella', 'x', '2021', 2, 23566),
+    _Restaurants('Mare', 'x', '2021', 3.4, 2122),
+    _Restaurants('XTreme', 'x', '2021', 1.5, 23562),
+    _Restaurants('Vicio', 'x', '2021', 2.5, 2345)
   ];
 
   late List<_Restaurants> monthlydata = [];
@@ -93,109 +93,153 @@ class _StatsPage extends State<StatsPage> {
         appBar: AppBar(
           title: const Text('Rating Chart'),
         ),
-        body: Column(children: [
-          //Initialize the chart widget
-          Align(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(2.5),
-                  margin: const EdgeInsets.all(5),
-                  child: Row(
-                    children:  [
-                      SizedBox(
-                        width: 175,
-                        child: buildMonth(context: context),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Align(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(2.5),
+                      margin: const EdgeInsets.all(5),
+                      child: Row(
+                        children:  [
+                          SizedBox(
+                            width: 175,
+                            child: buildMonth(context: context),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2.5),
+                      margin: const EdgeInsets.all(5),
+                      child: Row(
+                        children:  [
+                          SizedBox(
+                            width: 175,
+                            child: buildYear(context: context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                child: 
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    title: ChartTitle(
+                      text: 'Rating: ' + month + ', ' +  year,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_Restaurants, String>>[
+                      BarSeries<_Restaurants, String>(
+                        dataSource: monthlydata,
+                        xValueMapper: (_Restaurants rest, _) => rest.restName,
+                        yValueMapper: (_Restaurants rest, _) => rest.restRate,
+                        name: 'Rating',
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(2.5),
-                  margin: const EdgeInsets.all(5),
-                  child: Row(
-                    children:  [
-                      SizedBox(
-                        width: 175,
-                        child: buildYear(context: context),
+              ),
+              SizedBox(
+                child: 
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    title: ChartTitle(
+                      text: 'Rating: ' +  year,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_Restaurants, String>>[
+                      BarSeries<_Restaurants, String>(
+                        dataSource: yearlydata,
+                        xValueMapper: (_Restaurants rest, _) => rest.restName,
+                        yValueMapper: (_Restaurants rest, _) => rest.restRate,
+                        name: 'Rating',
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-
-          SizedBox(
-            child: 
-            Padding(
-              padding: const EdgeInsets.all(3),
-              child: SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                title: ChartTitle(
-                  text: 'Rating: ' + month + ', ' +  year,
-                ),
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_Restaurants, String>>[
-                  BarSeries<_Restaurants, String>(
-                    dataSource: monthlydata,
-                    xValueMapper: (_Restaurants restRate, _) => restRate.restName,
-                    yValueMapper: (_Restaurants restRate, _) => restRate.restRate,
-                    name: 'Rating',
-                    dataLabelSettings: const DataLabelSettings(isVisible: true),
+              ),
+              SizedBox(
+                child: 
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    title: ChartTitle(
+                      text: 'Occupation: ' + month + ', ' +  year,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_Restaurants, String>>[
+                      BarSeries<_Restaurants, String>(
+                        dataSource: monthlydata,
+                        xValueMapper: (_Restaurants rest, _) => rest.restName,
+                        yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
+                        name: 'Occupation',
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(
-            child: 
-            Padding(
-              padding: const EdgeInsets.all(3),
-              child: SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                title: ChartTitle(
-                  text: 'Rating: ' +  year,
                 ),
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_Restaurants, String>>[
-                  BarSeries<_Restaurants, String>(
-                    dataSource: yearlydata,
-                    xValueMapper: (_Restaurants restRate, _) => restRate.restName,
-                    yValueMapper: (_Restaurants restRate, _) => restRate.restRate,
-                    name: 'Rating',
-                    dataLabelSettings: const DataLabelSettings(isVisible: true),
+              ),
+              SizedBox(
+                child: 
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    title: ChartTitle(
+                      text: 'Occupation: ' +  year,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_Restaurants, String>>[
+                      BarSeries<_Restaurants, String>(
+                        dataSource: yearlydata,
+                        xValueMapper: (_Restaurants rest, _) => rest.restName,
+                        yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
+                        name: 'Occupation',
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
 
 
-          /* INTENT DE GRÁFIC DE BARRES
-            SizedBox(
-            height: 200,
-            width: 320,
-            child: 
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: SfSparkBarChart.custom(
-                xValueMapper: (int index) => monthlydata[index].restName,
-                yValueMapper: (int index) => monthlydata[index].restRate,
-                dataCount: monthlydata.length,
-                labelDisplayMode: SparkChartLabelDisplayMode.all,
-                trackball: const SparkChartTrackball(
-                  width: 2,
-                  color: Colors.black, 
+            /* INTENT DE GRÁFIC DE BARRES
+              SizedBox(
+              height: 200,
+              width: 320,
+              child: 
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: SfSparkBarChart.custom(
+                  xValueMapper: (int index) => monthlydata[index].restName,
+                  yValueMapper: (int index) => monthlydata[index].restRate,
+                  dataCount: monthlydata.length,
+                  labelDisplayMode: SparkChartLabelDisplayMode.all,
+                  trackball: const SparkChartTrackball(
+                    width: 2,
+                    color: Colors.black, 
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 50),
-          */
-        ],
+            const SizedBox(height: 50),
+            */
+          ],
+        ),
       ),
     );
   }
@@ -261,10 +305,11 @@ class _StatsPage extends State<StatsPage> {
 }
 
 class _Restaurants {
-  _Restaurants(this.restName, this.restMonth, this.restYear, this.restRate);
+  _Restaurants(this.restName, this.restMonth, this.restYear, this.restRate, this.restCustomers);
 
   final String restName;
   final String restMonth;
   final String restYear;
   final double restRate;
+  final double restCustomers;
 }
