@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:http/http.dart' as http;
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 import 'package:flutter/material.dart';
-
-import '../agoraSettings.dart';
+import 'package:flutter_tutorial/agoraSettings.dart';
+import 'package:flutter_tutorial/services/videocallService.dart';
 
 class CallPage extends StatefulWidget {
   /// non-modifiable channel name of the page
@@ -26,6 +27,7 @@ class _CallPageState extends State<CallPage> {
   final _infoStrings = <String>[];
   bool muted = false;
   late RtcEngine _engine;
+  late String token;
 
   @override
   void dispose() {
@@ -43,6 +45,16 @@ class _CallPageState extends State<CallPage> {
     // initialize agora sdk
     initialize();
   }
+   Future<void> getAgoraToken() async {
+    String response = await VideocallService.getAgoraToken(widget.channelName!);
+    if (response != 'Failed to fetch the token') {
+      setState(() {
+        token = response;
+      });
+    } else {
+      print(response);
+    }
+  }
 
   Future<void> initialize() async {
     if (APP_ID.isEmpty) {
@@ -55,13 +67,14 @@ class _CallPageState extends State<CallPage> {
       return;
     }
 
+    await getAgoraToken();
     await _initAgoraRtcEngine();
     _addAgoraEventHandlers();
     await _engine.enableWebSdkInteroperability(true);
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(Token, widget.channelName!, null, 0);
+    await _engine.joinChannel(token, widget.channelName!, null, 0);
   }
 
   /// Create agora sdk instance and initialize
@@ -115,7 +128,7 @@ class _CallPageState extends State<CallPage> {
     if (widget.role == ClientRole.Broadcaster) {
       list.add(RtcLocalView.SurfaceView());
     }
-    _users.forEach((int uid) => list.add(RtcRemoteView.SurfaceView(uid: uid, channelId: channelId)));
+    _users.forEach((uid) => list.add(RtcRemoteView.SurfaceView(uid: uid, channelId: widget.channelName as String)));
     return list;
   }
 

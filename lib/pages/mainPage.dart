@@ -7,7 +7,7 @@ import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
-import 'package:flutter_tutorial/pages/videocallPage.dart';
+import 'package:flutter_tutorial/pages/indexPage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;

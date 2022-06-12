@@ -34,7 +34,7 @@ class VideocallState extends State<VideocallPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agora Flutter QuickStart'),
+        title: Text('Video call'),
       ),
       body: Center(
         child: Container(

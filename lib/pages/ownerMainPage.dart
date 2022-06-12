@@ -5,7 +5,7 @@ import 'package:flutter_tutorial/pages/ownerProfilePage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsOwnerPage.dart';
-import 'package:flutter_tutorial/pages/videocallPage.dart';
+import 'package:flutter_tutorial/pages/indexPage.dart';
 
 import '../models/customer.dart';
 import 'listRestaurantsOwnerPage.dart';

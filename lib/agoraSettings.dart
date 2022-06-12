@@ -1,3 +1,2 @@
-const APP_ID = "a4ed55b698644c4b89947c0449a83104";
-const Token = "006a4ed55b698644c4b89947c0449a83104IABLsYWQUJjscI/a8lVH396oNYrNumkiLFKU60R8jDuLBrnYDM0AAAAAEABMB+An8n6gYgEAAQDyfqBi";
-const channelId = "EA";
+const APP_ID = "0be47409c1db40c1b5bef5e0468a75db";
+//const channelId = "EA";
