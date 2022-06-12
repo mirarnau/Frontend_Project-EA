@@ -79,7 +79,7 @@ class _TicketsPageState extends State<TicketsPage> {
     if (widget.page == "Sent"){
       if (listTicketsSent == null){
         return  Container(
-          color: Theme.of(context).canvasColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).cardColor,
@@ -132,7 +132,7 @@ class _TicketsPageState extends State<TicketsPage> {
             ),
           drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
           body: Container(
-            color: Theme.of(context).canvasColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Column (
             mainAxisSize: MainAxisSize.min,
             children: <Widget> [
@@ -194,185 +194,191 @@ class _TicketsPageState extends State<TicketsPage> {
     }
     else{ 
       if (listTicketsReceived == null){
-        return  Scaffold(
-          appBar: AppBar(
-              backgroundColor: Theme.of(context).cardColor,
-              title: Text(
-                widget.page,
-                style: TextStyle(
-                  color: Colors.white
-                ),),
-            ),
-          drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: Theme.of(context).canvasColor,
-            child: Padding(
-              padding: EdgeInsets.all(50),
-              child: Text(
-                translate('tickets_page.no_tickets'),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white
-                ),),
-            )),
-            floatingActionButton: 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                    alignment: Alignment.bottomLeft,
-                    height: 200.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton.extended(
-                        heroTag: "1",
-                        backgroundColor: Theme.of(context).cardColor,
-                        icon: Icon(
-                          Icons.add_comment,
-                          color: Colors.blue),
-                        label: Text(
-                          'Chat Bot',
-                          style: TextStyle(
-                            color: Colors.blue
-                          ),
-                        ),
-                        onPressed: () {
-                          var routes = MaterialPageRoute(
-                                builder: (BuildContext context) => 
-                                  ChatBotPage()
-                              );
-                              Navigator.of(context).push(routes);
-                        },
-                      ),
-                    ),
-                  ),
-                Container(
-                alignment: Alignment.bottomRight,
-                height: 200.0,
-                width: 100.0,
-                child: FittedBox(
-                  child: FloatingActionButton.extended(
-                    heroTag: '2',
-                    backgroundColor: Theme.of(context).cardColor,
-                    icon: Icon(
-                      Icons.add_comment,
-                      color: Theme.of(context).focusColor),
-                    label: Text(
-                      translate('tickets_page.create'),
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor
-                      ),
-                    ),
-                    onPressed: () {
-                      var routes = MaterialPageRoute(
-                            builder: (BuildContext context) => 
-                              CreateTicketPage(myCustomer: widget.myCustomer)
-                          );
-                          Navigator.of(context).push(routes);
-                    },
-                  ),
-                ),
+        return  Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Scaffold(
+            appBar: AppBar(
+                backgroundColor: Theme.of(context).cardColor,
+                title: Text(
+                  widget.page,
+                  style: TextStyle(
+                    color: Colors.white
+                  ),),
               ),
-            ]
-          ) ,
-        );
-      }
-      return Scaffold(
-          appBar: AppBar(
-          ),
-          drawer: NavDrawerChat(myCustomer: widget.myCustomer, currentPage: "Inbox",),
-          body: Container(
-            color: Color.fromARGB(255, 30, 30, 30),
-            child: Column (
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget> [
-              Expanded(
-                child: 
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: listTicketsReceived?.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () async {
-                        List<MessageCustom>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
-                        var routes = MaterialPageRoute(
-                        builder: (BuildContext context) => 
-                          ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsReceived![index], listMessages: listMessages,)
-                      );
-                      Navigator.of(context).push(routes);
-                      },
-                      child: TicketWidget (
-                        creatorName: listTicketsReceived![index].creatorName,
-                        subject: listTicketsReceived![index].subject,
-                        status: listTicketsReceived![index].status.toString())
-                    );
-                  }
-                )
-              ),
+            drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
+            body: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Padding(
+                padding: EdgeInsets.all(50),
+                child: Text(
+                  translate('tickets_page.no_tickets'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white
+                  ),),
+              )),
+              floatingActionButton: 
               Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    alignment: Alignment.bottomRight,
-                    height: 200.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton.extended(
-                        heroTag: '1',
-                        backgroundColor: Theme.of(context).cardColor,
-                        icon: Icon(
-                          Icons.add_comment,
-                          color: Theme.of(context).focusColor),
-                        label: Text(
-                          'Create',
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor
+                      alignment: Alignment.bottomLeft,
+                      height: 200.0,
+                      width: 100.0,
+                      child: FittedBox(
+                        child: FloatingActionButton.extended(
+                          heroTag: "1",
+                          backgroundColor: Theme.of(context).cardColor,
+                          icon: Icon(
+                            Icons.add_comment,
+                            color: Theme.of(context).focusColor),
+                          label: Text(
+                            'Chat Bot',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor
+                            ),
                           ),
+                          onPressed: () {
+                            var routes = MaterialPageRoute(
+                                  builder: (BuildContext context) => 
+                                    ChatBotPage()
+                                );
+                                Navigator.of(context).push(routes);
+                          },
                         ),
-                        onPressed: () {
-                          var routes = MaterialPageRoute(
-                                builder: (BuildContext context) => 
-                                  CreateTicketPage(myCustomer: widget.myCustomer)
-                              );
-                              Navigator.of(context).push(routes);
-                        },
                       ),
                     ),
-                  ),
                   Container(
-                    alignment: Alignment.bottomLeft,
-                    height: 200.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton.extended(
-                        heroTag: '2',
-                        backgroundColor: Theme.of(context).cardColor,
-                        icon: Icon(
-                          Icons.add_comment,
-                          color: Theme.of(context).focusColor),
-                        label: Text(
-                          'Create',
-                          style: TextStyle(
-                            color: Theme.of(context).focusColor
-                          ),
+                  alignment: Alignment.bottomRight,
+                  height: 200.0,
+                  width: 100.0,
+                  child: FittedBox(
+                    child: FloatingActionButton.extended(
+                      heroTag: '2',
+                      backgroundColor: Theme.of(context).cardColor,
+                      icon: Icon(
+                        Icons.add_comment,
+                        color: Theme.of(context).focusColor),
+                      label: Text(
+                        translate('tickets_page.create'),
+                        style: TextStyle(
+                          color: Theme.of(context).focusColor
                         ),
-                        onPressed: () {
-                          var routes = MaterialPageRoute(
-                                builder: (BuildContext context) => 
-                                  CreateTicketPage(myCustomer: widget.myCustomer)
-                              );
-                              Navigator.of(context).push(routes);
-                        },
                       ),
+                      onPressed: () {
+                        var routes = MaterialPageRoute(
+                              builder: (BuildContext context) => 
+                                CreateTicketPage(myCustomer: widget.myCustomer)
+                            );
+                            Navigator.of(context).push(routes);
+                      },
                     ),
                   ),
-                ],
-              )
-            ],
+                ),
+              ]
+            ) ,
           ),
-          ),
-          
+        );
+      }
+      return Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Scaffold(
+            appBar: AppBar(
+            ),
+            drawer: NavDrawerChat(myCustomer: widget.myCustomer, currentPage: "Inbox",),
+            body: Container(
+              color: Color.fromARGB(255, 30, 30, 30),
+              child: Column (
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget> [
+                Expanded(
+                  child: 
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: listTicketsReceived?.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () async {
+                          List<MessageCustom>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
+                          var routes = MaterialPageRoute(
+                          builder: (BuildContext context) => 
+                            ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsReceived![index], listMessages: listMessages,)
+                        );
+                        Navigator.of(context).push(routes);
+                        },
+                        child: TicketWidget (
+                          creatorName: listTicketsReceived![index].creatorName,
+                          subject: listTicketsReceived![index].subject,
+                          status: listTicketsReceived![index].status.toString())
+                      );
+                    }
+                  )
+                ),
+                Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      height: 200.0,
+                      width: 100.0,
+                      child: FittedBox(
+                        child: FloatingActionButton.extended(
+                          heroTag: '1',
+                          backgroundColor: Theme.of(context).cardColor,
+                          icon: Icon(
+                            Icons.add_comment,
+                            color: Theme.of(context).focusColor),
+                          label: Text(
+                            'Create',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor
+                            ),
+                          ),
+                          onPressed: () {
+                            var routes = MaterialPageRoute(
+                                  builder: (BuildContext context) => 
+                                    CreateTicketPage(myCustomer: widget.myCustomer)
+                                );
+                                Navigator.of(context).push(routes);
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      height: 200.0,
+                      width: 100.0,
+                      child: FittedBox(
+                        child: FloatingActionButton.extended(
+                          heroTag: '2',
+                          backgroundColor: Theme.of(context).cardColor,
+                          icon: Icon(
+                            Icons.add_comment,
+                            color: Theme.of(context).focusColor),
+                          label: Text(
+                            'Create',
+                            style: TextStyle(
+                              color: Theme.of(context).focusColor
+                            ),
+                          ),
+                          onPressed: () {
+                            var routes = MaterialPageRoute(
+                                  builder: (BuildContext context) => 
+                                    CreateTicketPage(myCustomer: widget.myCustomer)
+                                );
+                                Navigator.of(context).push(routes);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            ),
+            
+        ),
       );
     }
     

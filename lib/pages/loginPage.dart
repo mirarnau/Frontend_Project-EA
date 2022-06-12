@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   var route = MaterialPageRoute(
                       builder: (BuildContext context) => MainPage(
                             customer: customer,
-                            selectedIndex: 0,
+                            selectedIndex: 1,
                             transferRestaurantTags: voidListTags,
                             chatPage: "Inbox",
                           ));

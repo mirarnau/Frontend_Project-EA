@@ -72,7 +72,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Deimos Dialogflow Integration')),
+      appBar: AppBar(title: Text('Chat Bot')),
       body: Column(
         children: [
           Expanded(
@@ -80,7 +80,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            color: Colors.blue,
+            color: Color.fromARGB(255, 43, 43, 43),
             child: Row(
               children: [
                 Expanded(
@@ -91,7 +91,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   ),
                 ),
                 IconButton(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 213, 94, 85),
                   icon: Icon(Icons.send),
                   onPressed: () {
                     sendMessage(_controller.text);
@@ -151,7 +151,7 @@ class _MessageContainer extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 250),
           child: Container(
             decoration: BoxDecoration(
-              color: isUserMessage ? Colors.blue : Colors.orange,
+              color: isUserMessage ? Color.fromARGB(255, 96, 135, 166) : Colors.orange,
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.all(10),

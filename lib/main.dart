@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
               hoverColor: Color.fromARGB(255, 96, 66, 64),
               highlightColor: Colors.white,
               hintColor: Color.fromARGB(255, 56, 55, 55),
+              dialogBackgroundColor: Color.fromARGB(255, 226, 226, 226),
               
             )
             : ThemeData.light().copyWith(
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
               hoverColor: Color.fromARGB(255, 253, 225, 187),
               highlightColor: Colors.black,
               hintColor: Color.fromARGB(255, 219, 219, 219),
+              dialogBackgroundColor: Color.fromARGB(255, 31, 31, 31),
             ),
           home: LoginPage(),
         ),
