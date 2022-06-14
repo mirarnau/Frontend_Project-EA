@@ -8,44 +8,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/agoraSettings.dart';
 import 'package:flutter_tutorial/services/videocallService.dart';
 
+import 'indexPage.dart';
+
 class CallPage extends StatefulWidget {
-  /// non-modifiable channel name of the page
-  final String? channelName;
+   final String? channelName;
 
   /// non-modifiable client role of the page
   final ClientRole? role;
 
   /// Creates a call page with given channel name.
   const CallPage({Key? key, this.channelName, this.role}) : super(key: key);
-
   @override
   _CallPageState createState() => _CallPageState();
 }
 
 class _CallPageState extends State<CallPage> {
-  final _users = <int>[];
-  final _infoStrings = <String>[];
-  bool muted = false;
+  int? _remoteUid;
   late RtcEngine _engine;
+  bool isJoined = false, switchCamera = true, openMicrophone = true;
+  bool _isRenderSurfaceView = false;
   late String token;
 
-  @override
-  void dispose() {
-    // clear users
-    _users.clear();
-    // destroy sdk
-    _engine.leaveChannel();
-    _engine.destroy();
-    super.dispose();
-  }
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    // initialize agora sdk
-    initialize();
+    _controller = TextEditingController(text: widget.channelName);
+    initAgora();
   }
-   Future<void> getAgoraToken() async {
+
+  @override
+  void dispose() {
+    super.dispose();
+    _engine.destroy();
+  }
+  Future<void> getToken() async {
     String response = await VideocallService.getAgoraToken(widget.channelName!);
     if (response != 'Failed to fetch the token') {
       setState(() {
@@ -56,266 +54,156 @@ class _CallPageState extends State<CallPage> {
     }
   }
 
-  Future<void> initialize() async {
-    if (APP_ID.isEmpty) {
-      setState(() {
-        _infoStrings.add(
-          'APP_ID missing, please provide your APP_ID in settings.dart',
-        );
-        _infoStrings.add('Agora Engine is not starting');
-      });
-      return;
-    }
+  _leaveChannel() async {
+    await _engine.leaveChannel();
+    setState(() {
+      isJoined = false;
+      openMicrophone = true;
+    });
+  }
 
-    await getAgoraToken();
-    await _initAgoraRtcEngine();
-    _addAgoraEventHandlers();
-    await _engine.enableWebSdkInteroperability(true);
-    VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
-    configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
-    await _engine.setVideoEncoderConfiguration(configuration);
+  _switchCamera() async {
+    if (!switchCamera) _engine.enableLocalVideo(false);
+
+    /*setState(() {
+        switchCamera = !switchCamera;
+      });*/
+  }
+
+  _switchMicrophone() async {
+    // await _engine.muteLocalAudioStream(!openMicrophone);
+    if (!openMicrophone) _engine.enableLocalAudio(false);
+    /*await _engine.enableLocalAudio(!openMicrophone).then((value) {
+      _engine.disableAudio();
+      /*setState(() {
+        openMicrophone = !openMicrophone;
+      });*/
+    }).catchError((err) {
+      //logSink.log('enableLocalAudio $err');
+    });*/
+  }
+
+  Future<void> initAgora() async {
+    _engine = await RtcEngine.create(APP_ID);
+    await getToken();
+    await _engine.enableAudio();
+    await _engine.enableVideo();
+    await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
+    await _engine.setClientRole(ClientRole.Broadcaster);
+
+    _engine.setEventHandler(
+      RtcEngineEventHandler(
+        joinChannelSuccess: (String channel, int uid, int elapsed) {
+          print("local user $uid joined");
+          setState(() {
+            isJoined = true;
+          });
+        },
+        userJoined: (int uid, int elapsed) {
+          print("remote user $uid joined");
+          setState(() {
+            _remoteUid = uid;
+          });
+        },
+        userOffline: (int uid, UserOfflineReason reason) {
+          print("remote user $uid left channel");
+          setState(() {
+            _remoteUid = null;
+          });
+        },
+      ),
+    );
+
     await _engine.joinChannel(token, widget.channelName!, null, 0);
   }
 
-  /// Create agora sdk instance and initialize
-  Future<void> _initAgoraRtcEngine() async {
-    _engine = await RtcEngine.create(APP_ID);
-    await _engine.enableVideo();
-    await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await _engine.setClientRole(widget.role!);
-  }
-
-  /// Add agora event handlers
-  void _addAgoraEventHandlers() {
-    _engine.setEventHandler(RtcEngineEventHandler(error: (code) {
-      setState(() {
-        final info = 'onError: $code';
-        _infoStrings.add(info);
-      });
-    }, joinChannelSuccess: (channel, uid, elapsed) {
-      setState(() {
-        final info = 'onJoinChannel: $channel, uid: $uid';
-        _infoStrings.add(info);
-      });
-    }, leaveChannel: (stats) {
-      setState(() {
-        _infoStrings.add('onLeaveChannel');
-        _users.clear();
-      });
-    }, userJoined: (uid, elapsed) {
-      setState(() {
-        final info = 'userJoined: $uid';
-        _infoStrings.add(info);
-        _users.add(uid);
-      });
-    }, userOffline: (uid, elapsed) {
-      setState(() {
-        final info = 'userOffline: $uid';
-        _infoStrings.add(info);
-        _users.remove(uid);
-      });
-    }, firstRemoteVideoFrame: (uid, width, height, elapsed) {
-      setState(() {
-        final info = 'firstRemoteVideo: $uid ${width}x $height';
-        _infoStrings.add(info);
-      });
-    }));
-  }
-
-  /// Helper function to get list of native views
-  List<Widget> _getRenderViews() {
-    final List<StatefulWidget> list = [];
-    if (widget.role == ClientRole.Broadcaster) {
-      list.add(RtcLocalView.SurfaceView());
-    }
-    _users.forEach((uid) => list.add(RtcRemoteView.SurfaceView(uid: uid, channelId: widget.channelName as String)));
-    return list;
-  }
-
-  /// Video view wrapper
-  Widget _videoView(view) {
-    return Expanded(child: Container(child: view));
-  }
-
-  /// Video view row wrapper
-  Widget _expandedVideoRow(List<Widget> views) {
-    final wrappedViews = views.map<Widget>(_videoView).toList();
-    return Expanded(
-      child: Row(
-        children: wrappedViews,
+  // Create UI with local view and remote view
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Community Video Call'),
       ),
-    );
-  }
-
-  /// Video layout wrapper
-  Widget _viewRows() {
-    final views = _getRenderViews();
-    switch (views.length) {
-      case 1:
-        return Container(
-            child: Column(
-          children: <Widget>[_videoView(views[0])],
-        ));
-      case 2:
-        return Container(
-            child: Column(
-          children: <Widget>[
-            _expandedVideoRow([views[0]]),
-            _expandedVideoRow([views[1]])
-          ],
-        ));
-      case 3:
-        return Container(
-            child: Column(
-          children: <Widget>[
-            _expandedVideoRow(views.sublist(0, 2)),
-            _expandedVideoRow(views.sublist(2, 3))
-          ],
-        ));
-      case 4:
-        return Container(
-            child: Column(
-          children: <Widget>[
-            _expandedVideoRow(views.sublist(0, 2)),
-            _expandedVideoRow(views.sublist(2, 4))
-          ],
-        ));
-      default:
-    }
-    return Container();
-  }
-
-  /// Toolbar layout
-  Widget _toolbar() {
-    if (widget.role == ClientRole.Audience) return Container();
-    return Container(
-      alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.symmetric(vertical: 48),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          RawMaterialButton(
-            onPressed: _onToggleMute,
-            child: Icon(
-              muted ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blueAccent,
-              size: 20.0,
-            ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
+      body: Stack(
+        children: [
+          Center(
+             child: _remoteVideo(),
           ),
-          RawMaterialButton(
-            onPressed: () => _onCallEnd(context),
-            child: Icon(
-              Icons.call_end,
-              color: Colors.white,
-              size: 35.0,
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              width: 100,
+              height: 150,
+              child: Center(
+                child: isJoined
+                    ? RtcLocalView.SurfaceView()
+                    : CircularProgressIndicator(),
+              ),
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            padding: const EdgeInsets.all(15.0),
           ),
-          RawMaterialButton(
-            onPressed: _onSwitchCamera,
-            child: Icon(
-              Icons.switch_camera,
-              color: Colors.blueAccent,
-              size: 20.0,
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Align(
+              alignment: Alignment(0.5, 0.8),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(255, 255, 58, 58)),
+                    onPressed: _switchMicrophone,
+                    child: const Icon(Icons.mic_none_outlined, size: 20)),
+              ),
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          )
+            SizedBox(width: 50), // give it width
+            Align(
+              alignment: Alignment(0.5, 0.8),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: FloatingActionButton(
+                    heroTag: null,
+                    backgroundColor: Color.fromARGB(255, 255, 58, 58),
+                    onPressed: () {
+                      _leaveChannel();
+                      final route = MaterialPageRoute(
+                          builder: (context) => VideocallPage());
+                      Navigator.push(context, route);
+                    },
+                    mini: true,
+                    child: const Icon(Icons.phone_disabled_outlined, size: 20)),
+              ),
+            ),
+            SizedBox(width: 50), // give it width
+            Align(
+              alignment: Alignment(0.5, 0.8),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                    onPressed: _switchCamera,
+                    child: const Icon(Icons.video_camera_front_outlined,
+                        size: 20)),
+              ),
+            ),
+          ])
         ],
       ),
     );
   }
 
-  /// Info panel to show logs
-  Widget _panel() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 48),
-      alignment: Alignment.bottomCenter,
-      child: FractionallySizedBox(
-        heightFactor: 0.5,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 48),
-          child: ListView.builder(
-            reverse: true,
-            itemCount: _infoStrings.length,
-            itemBuilder: (BuildContext context, int index) {
-              if (_infoStrings.isEmpty) {
-                return Text("null");  // return type can't be null, a widget was required
-              }
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 3,
-                  horizontal: 10,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 2,
-                          horizontal: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.yellowAccent,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          _infoStrings[index],
-                          style: TextStyle(color: Colors.blueGrey),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _onCallEnd(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  void _onToggleMute() {
-    setState(() {
-      muted = !muted;
-    });
-    _engine.muteLocalAudioStream(muted);
-  }
-
-  void _onSwitchCamera() {
-    _engine.switchCamera();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Agora Flutter QuickStart'),
-      ),*/
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            _viewRows(),
-            _panel(),
-            _toolbar(),
-          ],
-        ),
-      ),
-    );
+  // Display remote user's 
+ Widget _remoteVideo() {
+    if (_remoteUid != null) {
+      return RtcRemoteView.SurfaceView(
+        uid: _remoteUid!,
+        channelId: widget.channelName!,
+      );
+    } else {
+      return Text(
+        'Please wait for another user to join',
+        textAlign: TextAlign.center,
+      );
+    }
   }
 }
