@@ -1,5 +1,5 @@
-import 'dart:ffi';
-import 'dart:ui';
+// ignore_for_file: non_constant_identifier_names, file_names
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
-import 'package:flutter_tutorial/widgets/iconWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
-
 class StatsPage extends StatefulWidget {
   final List<Restaurant>? restaurants;
   final Owner? owner;
@@ -30,7 +27,7 @@ class _StatsPage extends State<StatsPage> {
   late List<_Restaurants> yearlydata = [];
   static const keyMonth = 'key-month';
   static const keyYear = 'key-year';
-  late String month_name = "January";
+  late String month_name = translate('stats_page.months.Jan');
   late int month = 1;
   late int year = 2020;
 
@@ -45,13 +42,11 @@ class _StatsPage extends State<StatsPage> {
 
   Future<void> yearlyRate(List<_Restaurants>? data) async {
     yearlydata.clear();
-    var count = -1;
     for (Restaurant restaurant in listRestaurants!) {
       for (_Restaurants rest in data!) {
         if (rest.restName == restaurant.restaurantName && rest.restYear == year) {
           if (yearlydata.isEmpty) {
             yearlydata.add(rest);
-            count++;
           }
           else {
             if (rest.restName == yearlydata.last.restName){
@@ -60,12 +55,9 @@ class _StatsPage extends State<StatsPage> {
               _Restaurants newRest =  _Restaurants(rest.restName, rest.restMonth, rest.restYear, rate, occ);
               yearlydata.removeLast();
               yearlydata.add(newRest);
-              //yearlydata[count].restCustomers += rest.restCustomers;
-              //yearlydata[count].restRate = rest.restRate;
             }
             else {
               yearlydata.add(rest);
-              count++;
             }
           }
         }
@@ -105,7 +97,7 @@ class _StatsPage extends State<StatsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Rating Chart'),
+          title: Text(translate('stats_page.title')),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -148,7 +140,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Rating: ' + month_name + ', ' +  year.toString(),
+                      text: translate('rating') + ': ' + month_name + ', ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -156,7 +148,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: monthlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restRate,
-                        name: 'Rating',
+                        name: translate('rating'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
@@ -170,7 +162,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Rating: ' +  year.toString(),
+                      text: translate('rating') + ': ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -178,7 +170,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: yearlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restRate,
-                        name: 'Rating',
+                        name: translate('rating'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
@@ -192,7 +184,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Occupation: ' + month_name + ', ' +  year.toString(),
+                      text: translate('occupation') + ': ' + month_name + ', ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -200,7 +192,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: monthlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
-                        name: 'Occupation',
+                        name: translate('occupation'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
@@ -214,7 +206,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Occupation: ' +  year.toString(),
+                      text: translate('occupation') + ': ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -222,7 +214,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: yearlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
-                        name: 'Occupation',
+                        name: translate('occupation'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
@@ -238,70 +230,70 @@ class _StatsPage extends State<StatsPage> {
 
   Widget buildMonth({required BuildContext context}) => DropDownSettingsTile(
     settingKey: keyMonth,
-    title: "Month",
+    title: translate('stats_page.month'),
     selected: 1,
-    values: const <int, String> {
-      1: "Jan",
-      2: "Feb",
-      3: "Mar",
-      4: "Apr",
-      5: "May",
-      6: "Jun",
-      7: "Jul",
-      8: "Aug",
-      9: "Sep",
-      10: "Oct",
-      11: "Nov",
-      12: "Dec"
+    values: <int, String> {
+      1: translate('stats_page.months_ab.Jan'),
+      2: translate('stats_page.months_ab.Feb'),
+      3: translate('stats_page.months_ab.Mar'),
+      4: translate('stats_page.months_ab.Apr'),
+      5: translate('stats_page.months_ab.May'),
+      6: translate('stats_page.months_ab.Jun'),
+      7: translate('stats_page.months_ab.Jul'),
+      8: translate('stats_page.months_ab.Aug'),
+      9: translate('stats_page.months_ab.Sep'),
+      10: translate('stats_page.months_ab.Oct'),
+      11: translate('stats_page.months_ab.Nov'),
+      12: translate('stats_page.months_ab.Dec')
     },
     onChange: (month) {
       if(month == 1) {
         this.month = 1; 
-        month_name = "January";
+        month_name = translate('stats_page.months.Jan');
       }
       if(month == 2) {
         this.month = 2;
-        month_name = "February";
+        month_name = translate('stats_page.months.Feb');
       }
       if(month == 3) {
         this.month = 3;
-        month_name = "March";
+        month_name = translate('stats_page.months.Mar');
       }
       if(month == 4) {
         this.month = 4;
-        month_name = "April";
+        month_name = translate('stats_page.months.Apr');
       }
       if(month == 5) {
         this.month = 5;
-        month_name = "May";
+        month_name = translate('stats_page.months.May');
       }
       if(month == 6) {
         this.month = 6;
-        month_name = "June";
+        month_name = translate('stats_page.months.Jun');
       }
       if(month == 7) {
         this.month = 7;
-        month_name = "July";
+        month_name = translate('stats_page.months.Jul');
       }
       if(month == 8) {
         this.month = 8;
-        month_name = "August";
+        month_name = translate('stats_page.months.Aug');
       }
       if(month == 9) {
         this.month = 9;
-        month_name = "September";
+        month_name = translate('stats_page.months.Sep');
       }
       if(month == 10) {
         this.month = 10;
-        month_name = "October";
+        month_name = translate('stats_page.months.Oct');
       }
       if(month == 11) {
         this.month = 11;
-        month_name = "November";
+        month_name = translate('stats_page.months.Nov');
       }
       if(month == 12) {
         this.month = 12;
-        month_name = "December";
+        month_name = translate('stats_page.months.Dec');
       }
       monthlyRate(dataRestaurants);
       setState(() {
@@ -312,7 +304,7 @@ class _StatsPage extends State<StatsPage> {
 
   Widget buildYear({required BuildContext context}) => DropDownSettingsTile(
     settingKey: keyYear,
-    title: "Year",
+    title: translate('stats_page.year'),
     selected: 1,
     values: const <int, String> {
       1: "2020",
@@ -326,7 +318,7 @@ class _StatsPage extends State<StatsPage> {
       monthlyRate(dataRestaurants);
       yearlyRate(dataRestaurants);
       setState(() {
-        
+  
       });
     },
   );

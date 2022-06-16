@@ -8,6 +8,8 @@
     "help": "Ayuda",
     "skip": "Omitir",
     "empty": "Uno de los campos está vacío",
+    "rating": "Puntuación",
+    "occupation": "Occupación",
 
     "app_bar":
     {
@@ -128,6 +130,48 @@
         "send": "Enviar",
         "open": "Abriendo aplicación de correo...",
         "failed": "Parece ser que no tiene ninguna aplicación de correo instalada"
+    },
+
+    "stats_page": 
+    {
+        "title": "Estadísticas",
+        "month": "Mes",
+        "year": "Año",
+        "months":
+        {
+            "Jan": "Enero",
+            "Feb": "Febrero",
+            "Mar": "Marzo",
+            "Apr": "Abril",
+            "May": "Mayo",
+            "Jun": "Junio",
+            "Jul": "Julio",
+            "Aug": "Agost0",
+            "Sep": "Septiembre",
+            "Oct": "Octubre",
+            "Nov": "Noviembre",
+            "Dec": "Diciembre"
+        },
+        "months_ab":
+        {
+            "Jan": "Ene",
+            "Feb": "Feb",
+            "Mar": "Mar",
+            "Apr": "Abr",
+            "May": "May",
+            "Jun": "Jun",
+            "Jul": "Jul",
+            "Aug": "Ago",
+            "Sep": "Sep",
+            "Oct": "Oct",
+            "Nov": "Nov",
+            "Dec": "Dic"
+        }
+    },
+
+    "info_owner": 
+    {
+        "add": "Actualice los clientes que entran/salen"
     },
 
     "food_tags":

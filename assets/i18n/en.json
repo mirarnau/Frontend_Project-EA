@@ -8,6 +8,8 @@
     "help": "Help",
     "skip": "Skip",
     "empty": "One of the fields is empty",
+    "rating": "Rating",
+    "occupation": "Occupation",
 
     "app_bar":
     {
@@ -128,6 +130,48 @@
         "send": "Send",
         "open": "Opening mail application...",
         "failed": "It seems you do not have any mail application installed"
+    },
+
+    "stats_page": 
+    {
+        "title": "Statistics",
+        "month": "Month",
+        "year": "Year",
+        "months":
+        {
+            "Jan": "January",
+            "Feb": "February",
+            "Mar": "March",
+            "Apr": "April",
+            "May": "May",
+            "Jun": "June",
+            "Jul": "July",
+            "Aug": "August",
+            "Sep": "September",
+            "Oct": "October",
+            "Nov": "November",
+            "Dec": "Desember"
+        },
+        "months_ab":
+        {
+            "Jan": "Jan",
+            "Feb": "Feb",
+            "Mar": "Mar",
+            "Apr": "Apr",
+            "May": "May",
+            "Jun": "Jun",
+            "Jul": "Jul",
+            "Aug": "Aug",
+            "Sep": "Sep",
+            "Oct": "Oct",
+            "Nov": "Nov",
+            "Dec": "Des"
+        }
+    },
+
+    "info_owner": 
+    {
+        "add": "Update ingoing/outgoing customers"
     },
 
     "food_tags":

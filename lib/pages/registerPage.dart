@@ -313,7 +313,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     isOwner = true;
                     print(isOwner);
                 },
-                child: const Text("Owner",style: TextStyle(color: Colors.black, fontSize: 25)),
+                child: Text(translate('owner'),style: const TextStyle(color: Colors.black, fontSize: 25)),
                 
               ),
             ),
@@ -329,7 +329,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     isOwner = false;
                     print(isOwner);
                 },
-                child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
+                child: Text(translate('customer'),style: const TextStyle(color: Colors.black, fontSize: 25)),
                 
               ),
             ),

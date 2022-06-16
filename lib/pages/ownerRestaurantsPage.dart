@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/pages/infoOwnerRestaurantPage.dart';
+import 'package:flutter_tutorial/pages/statsPage.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_tutorial/services/ownerService.dart';
 
 import '../models/owner.dart';
 import '../widgets/restaurantOwnerWidget.dart';
+import 'infoRestaurantPage.dart';
 import 'ownerSearchPage.dart';
 
 class OwnerRestaurantPage extends StatefulWidget {
@@ -25,7 +28,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   late String? _nameRestaurant = widget.nameRestaurant;
   OwnerService ownerService = OwnerService();
   RestaurantService restaurantService = RestaurantService();
-  List<dynamic>? myRestaurants;
+  List<Restaurant>? myRestaurants;
   Restaurant? searchedRestaurant;
   bool isLoading = true;
   List<String> myTags = [];
@@ -34,9 +37,10 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
 
   @override
   void initState() { 
-    if (_nameRestaurant != '') {searchRestaurant();}
-    getRestaurants();  
-    //getRestaurantIDs(myRestaurants!);
+    if (_nameRestaurant != '') { 
+      searchRestaurant();
+    }
+    getRestaurants();
     super.initState();
   }
 
@@ -45,14 +49,14 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
     if (myRestaurants == null){
       return Scaffold(
         body: Text (translate('restaurants_page.no_rest'),
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
+          style: TextStyle(
+            fontSize: 20
+          ),
         )
       );
     }
 
-    if(_nameRestaurant == ''){
+    if(_nameRestaurant == '') {
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -66,35 +70,95 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                 icon: Icon(Icons.search))
           ],
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FittedBox(
+          child: FloatingActionButton.extended(
+            backgroundColor: Theme.of(context).cardColor,
+            icon: Icon(
+              Icons.local_restaurant_outlined,
+              color: Theme.of(context).focusColor),
+            label: Text(
+              translate('stats_page.title'),
+              style: TextStyle(
+                color: Theme.of(context).focusColor
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StatsPage(
+                    restaurants: myRestaurants,
+                    owner: widget.owner,
+                  ),
+                ),
+              );
+            },
+          ),
+        ) ,
         body: Container(
-          padding: EdgeInsets.only(top: 50.0),
+          padding: EdgeInsets.only(top: 20.0),
           color: Color.fromARGB(255, 30, 30, 30),
           child: Column (
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget> [
-                Expanded(
-                  child: 
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: myRestaurants?.length,
-                    itemBuilder: (context, index) {
-                      return OwnerCardRestaurant(
-                          restaurantName: myRestaurants![index].restaurantName,
-                          city: myRestaurants![index].city,
-                          rating: myRestaurants![index].rating.toString(),
-                          address: myRestaurants![index].address,
-                          imagesUrl: myRestaurants![index].photos,);
-                    }
-                  )
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget> [
+              Expanded(
+                child: 
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: myRestaurants?.length,
+                  itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: CardRestaurant(
+                      restaurantName: myRestaurants![index].restaurantName,
+                      city: myRestaurants![index].city,
+                      rating: myRestaurants![index].rating.toString(),
+                      imagesUrl: myRestaurants![index].photos,
+                      occupation: myRestaurants![index].occupation,
+                      address: myRestaurants![index].address),
+                    onTap: () {
+                      var routes = MaterialPageRoute(
+                        builder: (BuildContext context) => 
+                          InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
+                      );
+                      Navigator.of(context).push(routes);
+                    },);
+                  }
                 )
-                
-              ],
-            ),
+              )
+            ],
+          ),
         )
-          );                
+      );                
     }
     else{
       return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FittedBox(
+        child: FloatingActionButton.extended(
+          backgroundColor: Theme.of(context).cardColor,
+          icon: Icon(
+            Icons.local_restaurant_outlined,
+            color: Theme.of(context).focusColor),
+          label: Text(
+            translate('help'),
+            style: TextStyle(
+              color: Theme.of(context).focusColor
+            ),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StatsPage(
+                  restaurants: myRestaurants,
+                  owner: widget.owner,
+                ),
+              ),
+            );
+          },
+        ),
+      ) ,
       body: Container(
           padding: EdgeInsets.only(top: 50.0),
           color: Color.fromARGB(255, 30, 30, 30),
@@ -107,12 +171,22 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                   shrinkWrap: true,
                   itemCount: 1,
                   itemBuilder: (context, index) {
-                    return OwnerCardRestaurant(
-                        restaurantName: searchedRestaurant!.restaurantName,
-                        city: searchedRestaurant!.city,
-                        rating: searchedRestaurant!.rating.toString(),
-                        address: searchedRestaurant!.address,
-                        imagesUrl: searchedRestaurant!.photos,);
+                    return GestureDetector(
+                      child: CardRestaurant(
+                        restaurantName: myRestaurants![index].restaurantName,
+                        city: myRestaurants![index].city,
+                        rating: myRestaurants![index].rating.toString(),
+                        imagesUrl: myRestaurants![index].photos,
+                        occupation: myRestaurants![index].occupation,
+                        address: myRestaurants![index].address),
+                      onTap: () {
+                        var routes = MaterialPageRoute(
+                          builder: (BuildContext context) => 
+                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
+                        );
+                        Navigator.of(context).push(routes);
+                      },
+                    );
                   }
                 ),
               ),

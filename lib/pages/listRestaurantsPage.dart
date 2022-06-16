@@ -185,7 +185,9 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                       restaurantName: listRestaurants![index].restaurantName,
                       city: listRestaurants![index].city,
                       rating: listRestaurants![index].rating.toString(),
-                      imagesUrl: listRestaurants![index].photos),
+                      imagesUrl: listRestaurants![index].photos,
+                      occupation: listRestaurants![index].occupation,
+                      address: listRestaurants![index].address),
                     onTap: () {
                       var routes = MaterialPageRoute(
                         builder: (BuildContext context) => 

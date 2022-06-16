@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
-import 'package:flutter/material.dart';
 
 class Customer {
   late final String id;
@@ -63,6 +59,6 @@ class Customer {
 
 class Discount {
   late final String restaurantName;
-  late final Double amount;
+  late final double amount;
   late final String expirationDate;
 }
