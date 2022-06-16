@@ -56,7 +56,6 @@ dependencies:
   path_provider: any
   syncfusion_flutter_charts: ^20.1.59
   simple_animations: ^4.0.2
-  equatable: ^2.0.3
 
 
   
