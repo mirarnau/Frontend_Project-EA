@@ -199,6 +199,7 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
                     MaterialPageRoute(
                       builder: (context) => StatsPage(
                         restaurants: listRestaurants,
+                        owner: widget.owner,
                       ),
                     ),
                   );

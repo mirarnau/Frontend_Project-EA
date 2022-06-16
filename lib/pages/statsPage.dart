@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -6,89 +7,102 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/services/restaurantService.dart';
 import 'package:flutter_tutorial/widgets/iconWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class StatsPage extends StatefulWidget {
   final List<Restaurant>? restaurants;
-  const StatsPage({Key? key, required this.restaurants}) : super(key: key);
+  final Owner? owner;
+  const StatsPage({Key? key, required this.restaurants, required this.owner}) : super(key: key);
 
   @override
   _StatsPage createState() => _StatsPage();
 }
 
 class _StatsPage extends State<StatsPage> {
-  List<_Restaurants> data = [
-    _Restaurants('Bokoto', 'Jan', '2020', 3, 1231),
-    _Restaurants('Tagliatella', 'Jan', '2020', 4, 1242),
-    _Restaurants('Mare', 'Jan', '2020', 5, 483),
-    _Restaurants('Bokoto', 'Feb', '2020', 4, 235),
-    _Restaurants('Tagliatella', 'Feb', '2020', 4.5, 9738),
-    _Restaurants('Mare', 'Feb', '2020', 3.5, 234),
-    _Restaurants('XTreme', 'Feb', '2020', 1, 345),
-    _Restaurants('Vicio', 'Feb', '2020', 2, 3456),
-
-    _Restaurants('Bokoto', 'Jan', '2021', 4, 346),
-    _Restaurants('Tagliatella', 'Jan', '2021', 3, 3466),
-    _Restaurants('Mare', 'Jan', '2021', 2, 3466),
-    _Restaurants('Bokoto', 'Feb', '2021', 2.4, 645),
-    _Restaurants('Tagliatella', 'Feb', '2021', 4, 456),
-    _Restaurants('Mare', 'Feb', '2021', 3, 123),
-    _Restaurants('XTreme', 'Feb', '2021', 1.5, 325),
-    _Restaurants('Vicio', 'Feb', '2021', 2.7, 2355)
-  ];
-
-  List<_Restaurants> data_year = [
-    _Restaurants('Bokoto', 'x', '2020', 3, 12355),
-    _Restaurants('Tagliatella', 'x', '2020', 2, 34663),
-    _Restaurants('Mare', 'x', '2020', 3, 34666),
-    _Restaurants('XTreme', 'x', '2020', 1.4, 89556),
-    _Restaurants('Vicio', 'x', '2020', 2.3, 56733),
-
-    _Restaurants('Bokoto', 'x', '2021', 2.8, 3455),
-    _Restaurants('Tagliatella', 'x', '2021', 2, 23566),
-    _Restaurants('Mare', 'x', '2021', 3.4, 2122),
-    _Restaurants('XTreme', 'x', '2021', 1.5, 23562),
-    _Restaurants('Vicio', 'x', '2021', 2.5, 2345)
-  ];
+  RestaurantService restaurantService = RestaurantService();
+  List<Restaurant>? listRestaurants;
+  List<_Restaurants>? dataRestaurants = [];
 
   late List<_Restaurants> monthlydata = [];
   late List<_Restaurants> yearlydata = [];
   static const keyMonth = 'key-month';
   static const keyYear = 'key-year';
-  late String month = "Jan";
-  late String year = "2020";
+  late String month_name = "January";
+  late int month = 1;
+  late int year = 2020;
 
-  Future<void> monthlyRate(List<_Restaurants> data) async {
+  Future<void> monthlyRate(List<_Restaurants>? data) async {
     monthlydata.clear();
-    for (_Restaurants rest in data) {
+    for (_Restaurants rest in data!) {
       if (rest.restMonth == month && rest.restYear == year) {
         monthlydata.add(rest);
       }
     }
   }
 
-  Future<void> yearlyRate(List<_Restaurants> data) async {
+  Future<void> yearlyRate(List<_Restaurants>? data) async {
     yearlydata.clear();
-    for (_Restaurants rest in data) {
-      if (rest.restYear == year) {
-        yearlydata.add(rest);
+    var count = -1;
+    for (Restaurant restaurant in listRestaurants!) {
+      for (_Restaurants rest in data!) {
+        if (rest.restName == restaurant.restaurantName && rest.restYear == year) {
+          if (yearlydata.isEmpty) {
+            yearlydata.add(rest);
+            count++;
+          }
+          else {
+            if (rest.restName == yearlydata.last.restName){
+              var occ = yearlydata.last.restCustomers + rest.restCustomers;
+              var rate = rest.restRate;
+              _Restaurants newRest =  _Restaurants(rest.restName, rest.restMonth, rest.restYear, rate, occ);
+              yearlydata.removeLast();
+              yearlydata.add(newRest);
+              //yearlydata[count].restCustomers += rest.restCustomers;
+              //yearlydata[count].restRate = rest.restRate;
+            }
+            else {
+              yearlydata.add(rest);
+              count++;
+            }
+          }
+        }
       }
     }
   }
-  
+
+  Future<void> getRestaurants() async {
+    listRestaurants = await restaurantService.getRestaurantByOwner(widget.owner!.id);
+    for (Restaurant rest in listRestaurants!) {
+      for (var stat in rest.statsLog) {
+        if (dataRestaurants!.isEmpty) {
+          _Restaurants newRest =  _Restaurants(rest.restaurantName, DateTime.parse(stat['date']).month, DateTime.parse(stat['date']).year, stat['rating'].toDouble(), stat['occupation'].toDouble());
+          dataRestaurants?.add(newRest);
+        }
+        else {
+          if (DateTime.parse(stat['date']).month == dataRestaurants!.last.restMonth && DateTime.parse(stat['date']).year == dataRestaurants!.last.restYear) {
+            dataRestaurants!.last.restCustomers += stat['occupation'];
+            dataRestaurants!.last.restRate = stat['rating'];
+          }
+          else {
+            _Restaurants newRest =  _Restaurants(rest.restaurantName, DateTime.parse(stat['date']).month, DateTime.parse(stat['date']).year, stat['rating'].toDouble(), stat['occupation'].toDouble());
+            dataRestaurants?.add(newRest);
+          }
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
-    monthlyRate(data);
-    yearlyRate(data_year);
+    getRestaurants();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         appBar: AppBar(
           title: const Text('Rating Chart'),
@@ -134,7 +148,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Rating: ' + month + ', ' +  year,
+                      text: 'Rating: ' + month_name + ', ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -156,7 +170,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Rating: ' +  year,
+                      text: 'Rating: ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -178,7 +192,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Occupation: ' + month + ', ' +  year,
+                      text: 'Occupation: ' + month_name + ', ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -200,7 +214,7 @@ class _StatsPage extends State<StatsPage> {
                   child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     title: ChartTitle(
-                      text: 'Occupation: ' +  year,
+                      text: 'Occupation: ' +  year.toString(),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<_Restaurants, String>>[
@@ -216,28 +230,6 @@ class _StatsPage extends State<StatsPage> {
                 ),
               ),
 
-
-            /* INTENT DE GRÁFIC DE BARRES
-              SizedBox(
-              height: 200,
-              width: 320,
-              child: 
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: SfSparkBarChart.custom(
-                  xValueMapper: (int index) => monthlydata[index].restName,
-                  yValueMapper: (int index) => monthlydata[index].restRate,
-                  dataCount: monthlydata.length,
-                  labelDisplayMode: SparkChartLabelDisplayMode.all,
-                  trackball: const SparkChartTrackball(
-                    width: 2,
-                    color: Colors.black, 
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50),
-            */
           ],
         ),
       ),
@@ -263,19 +255,55 @@ class _StatsPage extends State<StatsPage> {
       12: "Dec"
     },
     onChange: (month) {
-      if(month == 1) this.month = "Jan";
-      if(month == 2) this.month = "Feb";
-      if(month == 3) this.month = "Mar";
-      if(month == 4) this.month = "Apr";
-      if(month == 5) this.month = "May";
-      if(month == 6) this.month = "Jun";
-      if(month == 7) this.month = "Jul";
-      if(month == 8) this.month = "Aug";
-      if(month == 9) this.month = "Sep";
-      if(month == 10) this.month = "Oct";
-      if(month == 11) this.month = "Nov";
-      if(month == 12) this.month = "Dec";
-      monthlyRate(data);
+      if(month == 1) {
+        this.month = 1; 
+        month_name = "January";
+      }
+      if(month == 2) {
+        this.month = 2;
+        month_name = "February";
+      }
+      if(month == 3) {
+        this.month = 3;
+        month_name = "March";
+      }
+      if(month == 4) {
+        this.month = 4;
+        month_name = "April";
+      }
+      if(month == 5) {
+        this.month = 5;
+        month_name = "May";
+      }
+      if(month == 6) {
+        this.month = 6;
+        month_name = "June";
+      }
+      if(month == 7) {
+        this.month = 7;
+        month_name = "July";
+      }
+      if(month == 8) {
+        this.month = 8;
+        month_name = "August";
+      }
+      if(month == 9) {
+        this.month = 9;
+        month_name = "September";
+      }
+      if(month == 10) {
+        this.month = 10;
+        month_name = "October";
+      }
+      if(month == 11) {
+        this.month = 11;
+        month_name = "November";
+      }
+      if(month == 12) {
+        this.month = 12;
+        month_name = "December";
+      }
+      monthlyRate(dataRestaurants);
       setState(() {
         
       });
@@ -292,11 +320,11 @@ class _StatsPage extends State<StatsPage> {
       3: "2022",
     },
     onChange: (year) {
-      if(year == 1) this.year = "2020";
-      if(year == 2) this.year = "2021";
-      if(year == 3) this.year = "2022";
-      yearlyRate(data_year);
-      monthlyRate(data);
+      if(year == 1) this.year = 2020;
+      if(year == 2) this.year = 2021;
+      if(year == 3) this.year = 2022;
+      monthlyRate(dataRestaurants);
+      yearlyRate(dataRestaurants);
       setState(() {
         
       });
@@ -308,8 +336,8 @@ class _Restaurants {
   _Restaurants(this.restName, this.restMonth, this.restYear, this.restRate, this.restCustomers);
 
   final String restName;
-  final String restMonth;
-  final String restYear;
-  final double restRate;
-  final double restCustomers;
+  final int restMonth;
+  final int restYear;
+  late double restRate;
+  late double restCustomers;
 }

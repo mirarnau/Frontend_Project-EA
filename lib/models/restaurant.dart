@@ -10,6 +10,8 @@ class Restaurant {
   late final String city;
   late final List<dynamic> photos;
   late final int rating;
+  late final int occupation;
+  late final List<dynamic> statsLog;
   late final List<dynamic> listTags;
   late final List<dynamic> listDishes;
   late final String creationDate;
@@ -26,13 +28,15 @@ class Restaurant {
     required this.city,
     required this.photos,
     required this.rating,
+    required this.occupation,
+    required this.statsLog,
     required this.listTags,
     required this.listDishes,
     required this.creationDate,
     required this.location
   });
 
-  factory Restaurant.fromJSON(dynamic json){
+  factory Restaurant.fromJSON(Map<String, dynamic> json) {
     Restaurant restaurant =  Restaurant(
       id: json['_id'] as String,
       owner: json['owner'] as String,
@@ -43,11 +47,14 @@ class Restaurant {
       city: json['city'] as String,
       photos: json['photos'] as List<dynamic>,
       rating: json['rating'] as int,
+      occupation: json['occupation'] as int,
+      statsLog: json['statsLog'] as List<dynamic>,
       listTags: json ['listTags'] as List<dynamic>,
       listDishes: json['listDishes'] as List <dynamic>,
       creationDate: json['creationDate'] as String,
       location : Location.fromJSON(json['location'])
       );
+      
       return restaurant;
   }
 
@@ -59,7 +66,9 @@ class Restaurant {
       'email': restaurant.email,
       'address': restaurant.address,
       'description': restaurant.description,
-      'listTags': restaurant.listTags
+      'listTags': restaurant.listTags,
+      'occupation': restaurant.occupation,
+      'statsLog': restaurant.statsLog
     };
   }
 
@@ -96,5 +105,13 @@ class Location{
     );
     return location;
   }
+}
+
+class Stats {
+  Stats(this.date, this.rating, this.occupation);
+
+  late final double rating;
+  late final double occupation;
+  late final DateTime date;
 }
 
