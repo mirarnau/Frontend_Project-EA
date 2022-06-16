@@ -97,10 +97,9 @@ class _InfoOwnerRestaurantPageState extends State<InfoOwnerRestaurantPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
-                              selectedRest!.city + ' - ' + selectedRest!.address,
+                              selectedRest!.city,
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                
                               ),
                             ),
                           )
