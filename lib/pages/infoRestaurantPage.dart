@@ -124,7 +124,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 3.0),
                         child: Text(
-                          widget.selectedRestaurant!.rating.last['rating'].toDouble().toString(),
+                          widget.selectedRestaurant!.rating.last['rating'].toDouble().toStringAsFixed(1),
                           style: TextStyle(
                             color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.bold
@@ -132,7 +132,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 15.0, 0.0),
+                        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(100.0),
                           onTap: () {
@@ -156,7 +156,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
+                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                         child: 
                         InkWell(
                           borderRadius: BorderRadius.circular(100.0),

@@ -182,7 +182,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                     child: CardRestaurant(
                       restaurantName: listRestaurants![index].restaurantName,
                       city: listRestaurants![index].city,
-                      rating: listRestaurants![index].rating.last['rating'].toDouble().toString(),
+                      rating: listRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
                       imagesUrl: listRestaurants![index].photos,
                       occupation: listRestaurants![index].occupation,
                       address: listRestaurants![index].address),

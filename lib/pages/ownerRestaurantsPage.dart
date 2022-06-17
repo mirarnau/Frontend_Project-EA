@@ -112,7 +112,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                     child: CardRestaurant(
                       restaurantName: myRestaurants![index].restaurantName,
                       city: myRestaurants![index].city,
-                      rating: myRestaurants![index].rating.last['rating'].toDouble().toString(),
+                      rating: myRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
                       imagesUrl: myRestaurants![index].photos,
                       occupation: myRestaurants![index].occupation,
                       address: myRestaurants![index].address),
@@ -175,7 +175,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                       child: CardRestaurant(
                         restaurantName: myRestaurants![index].restaurantName,
                         city: myRestaurants![index].city,
-                        rating: myRestaurants![index].rating.last['rating'].toDouble().toString(),
+                        rating: myRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
                         imagesUrl: myRestaurants![index].photos,
                         occupation: myRestaurants![index].occupation,
                         address: myRestaurants![index].address),

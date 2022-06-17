@@ -94,8 +94,6 @@ class _RatingWidgetState extends State<RatingWidget> {
               color: Theme.of(context).primaryColor,
               child: MaterialButton(
                 onPressed: _idDisabled ? null : () async {
-                  //!TODO Implement API endpoint
-                  //!TODO Implement Save Rating
                   if (_voted) {
                     _restaurant!.rating.last['total'] -= _ratingStatic;
                     _restaurant!.rating.last['total'] += _rating;

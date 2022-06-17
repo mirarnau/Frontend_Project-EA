@@ -132,7 +132,7 @@ class _InfoOwnerRestaurantPageState extends State<InfoOwnerRestaurantPage> {
                       Padding(
                         padding: const EdgeInsets.only(left:3.0),
                         child: Text(
-                          selectedRest!.rating.last['rating'].toDouble().toString(),
+                          selectedRest!.rating.last['rating'].toDouble().toStringAsFixed(1),
                           style: TextStyle(
                             color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.bold
