@@ -63,7 +63,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                   child: Text(
                     restaurantName,
                     style: const TextStyle(
-                      fontSize: 19,
+                      fontSize: 24,
                       color: Colors.white
                     ),
 
@@ -79,7 +79,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 45,
+                      width: 55,
                       padding: const EdgeInsets.all(5),
                       margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -98,8 +98,8 @@ class OwnerCardRestaurant extends StatelessWidget {
                             rating,
                             style: const TextStyle(
                               color: Colors.white
-                            ),),
-
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -144,7 +144,7 @@ class OwnerCardRestaurant extends StatelessWidget {
                           ),
                           const SizedBox(width: 7),
                           Text(
-                            city + ' - ' + address,
+                            city,
                             style: const TextStyle(color: Colors.white),
                           ),
                         ],

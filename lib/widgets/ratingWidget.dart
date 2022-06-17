@@ -2,18 +2,52 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/services/customerService.dart';
+import 'package:flutter_tutorial/services/restaurantService.dart';
+
+import '../models/customer.dart';
 
 class RatingWidget extends StatefulWidget {
-  const RatingWidget({Key? key}) : super(key: key);
+  final Customer? customer;
+  final Restaurant? restaurant;
+  const RatingWidget({Key? key, required this.customer, required this.restaurant}) : super(key: key);
 
   @override
   State<RatingWidget> createState() => _RatingWidgetState();
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
+  RestaurantService _restaurantService = new RestaurantService();
+  CustomerService _customerService = new CustomerService();
+  late final Restaurant? _restaurant;
+  late final Customer? _customer;
   var _ratingPageController = PageController();
-  var _rating = 0.0;
+  int _ratingStatic = 0;
+  int _rating = 0;
+  bool _idDisabled = false;
+  bool _voted = false;
+  
+  searchRating() {
+    for(var log in _customer!.ratingLog) {
+      if(log['restaurant'] == _restaurant!.restaurantName) {
+        _rating = log['rating'].toInt();
+        _ratingStatic = log['rating'].toInt();
+        _idDisabled = true;
+        _voted = true;
+        break;
+      }
+    }
+  }
 
+  @override
+  void initState() {
+    _customer = widget.customer;
+    _restaurant = widget.restaurant;
+    searchRating();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,12 +93,35 @@ class _RatingWidgetState extends State<RatingWidget> {
             child: Container(
               color: Theme.of(context).primaryColor,
               child: MaterialButton(
-              onPressed:() async {
-                //!TODO Implement API endpoint
-                //!TODO Implement Save Rating
-                _hideDialog();
-              }, 
-              child: Text(translate('done')),
+                onPressed: _idDisabled ? null : () async {
+                  //!TODO Implement API endpoint
+                  //!TODO Implement Save Rating
+                  if (_voted) {
+                    _restaurant!.rating.last['total'] -= _ratingStatic;
+                    _restaurant!.rating.last['total'] += _rating;
+                    _restaurant!.rating.last['rating'] = _restaurant!.rating.last['total'] / _restaurant!.rating.last['votes'];
+                    for(var log in _customer!.ratingLog) {
+                      if(log['restaurant'] == _restaurant!.restaurantName) {
+                        log['rating'] = _rating;
+                        break;
+                      }
+                    }
+                  }
+                  else {
+                    _restaurant!.rating.last['votes'] += 1;
+                    _restaurant!.rating.last['total'] += _rating;
+                    _restaurant!.rating.last['rating'] = _restaurant!.rating.last['total'] / _restaurant!.rating.last['votes'];
+                    Map newLog = {
+                      'restaurant': _restaurant!.restaurantName,
+                      'rating': _rating,
+                    };
+                    _customer!.ratingLog.add(newLog);
+                  }
+                  await _customerService.update(_customer!, _customer!.id);
+                  await _restaurantService.updateRestaurant(_restaurant!, _restaurant!.id);
+                  _hideDialog();
+                }, 
+                child: Text(translate('done')),
               ),
             ),
           ),
@@ -92,6 +149,12 @@ class _RatingWidgetState extends State<RatingWidget> {
                   onPressed: () {
                     setState(() {
                       _rating = index + 1;
+                      if(_ratingStatic == _rating) {
+                        _idDisabled = true;
+                      }
+                      else {
+                        _idDisabled = false;
+                      }
                     });
                   },
                 ),

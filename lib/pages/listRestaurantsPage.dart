@@ -182,14 +182,17 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                     child: CardRestaurant(
                       restaurantName: listRestaurants![index].restaurantName,
                       city: listRestaurants![index].city,
-                      rating: listRestaurants![index].rating.toString(),
+                      rating: listRestaurants![index].rating.last['rating'].toDouble().toString(),
                       imagesUrl: listRestaurants![index].photos,
                       occupation: listRestaurants![index].occupation,
                       address: listRestaurants![index].address),
                     onTap: () {
                       var routes = MaterialPageRoute(
                         builder: (BuildContext context) => 
-                          InfoRestaurantPage(selectedRestaurant: listRestaurants?[index],)
+                          InfoRestaurantPage(
+                            selectedRestaurant: listRestaurants?[index],
+                            customer: widget.customer,
+                          )
                       );
                       Navigator.of(context).push(routes);
                     },

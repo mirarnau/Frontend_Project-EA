@@ -27,7 +27,8 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 class InfoRestaurantPage extends StatefulWidget {
   final Restaurant? selectedRestaurant;
-  const InfoRestaurantPage({Key? key, required this.selectedRestaurant}) : super(key: key);
+  final Customer? customer;
+  const InfoRestaurantPage({Key? key, required this.selectedRestaurant, required this.customer}) : super(key: key);
 
   @override
   _InfoRestaurantPageState createState() => _InfoRestaurantPageState();
@@ -123,7 +124,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 3.0),
                         child: Text(
-                          widget.selectedRestaurant!.rating.toDouble().toString(),
+                          widget.selectedRestaurant!.rating.last['rating'].toDouble().toString(),
                           style: TextStyle(
                             color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.bold
@@ -262,6 +263,8 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
       builder:(context) {
         return Dialog(
           child: RatingWidget(
+            customer: widget.customer,
+            restaurant: widget.selectedRestaurant,
           ),
         );
       },

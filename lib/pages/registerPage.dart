@@ -244,7 +244,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           fullName: fullnameController.text,
                           email: emailController.text,
                           profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
-                          password: passwordController.text);
+                          password: passwordController.text,
+                          ratingLog: []);
                       newCustomer.listReservations = [];
                       newCustomer.listDiscounts = [];
                       newCustomer.role = [];

@@ -145,6 +145,7 @@ class _editProfilePage extends State<editProfilePage> {
                       email: _emailController.text,
                       password: widget.customer!.password,
                       profilePic: profilePic,
+                      ratingLog: widget.customer!.ratingLog
                       );
                   
                   newcustomer.id = widget.customer!.id;

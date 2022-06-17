@@ -211,7 +211,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           email: account!.email,
                           profilePic: account!.photoUrl!,
                           //profilePic: Image.asset("assets/images/userDefaultPic.png"),
-                          password: passwordController.text);
+                          password: passwordController.text,
+                          ratingLog: []);
                       await customerService.addCustomer(newCustomer);
 
                       List<String> voidListTags = [];

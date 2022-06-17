@@ -10,7 +10,7 @@ class Restaurant {
   late final String description;
   late final String city;
   late final List<dynamic> photos;
-  late final int rating;
+  late final List<dynamic> rating;
   late final int occupation;
   late final List<dynamic> statsLog;
   late final List<dynamic> listTags;
@@ -49,7 +49,7 @@ class Restaurant {
       description: json['description'] as String,
       city: json['city'] as String,
       photos: json['photos'] as List<dynamic>,
-      rating: json['rating'] as int,
+      rating: json['rating'] as List<dynamic>,
       occupation: json['occupation'] as int,
       statsLog: json['statsLog'] as List<dynamic>,
       listTags: json ['listTags'] as List<dynamic>,
@@ -72,7 +72,8 @@ class Restaurant {
       'description': restaurant.description,
       'listTags': restaurant.listTags,
       'occupation': restaurant.occupation,
-      'statsLog': restaurant.statsLog
+      'statsLog': restaurant.statsLog,
+      'rating': restaurant.rating
     };
   }
 
@@ -84,7 +85,6 @@ class Restaurant {
         }
       ]
     };
-    print(json);
     return json;
   }
   
