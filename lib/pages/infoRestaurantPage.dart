@@ -19,9 +19,11 @@ import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/pdfService.dart';
 import 'package:flutter_tutorial/widgets/mapWidget.dart';
+import 'package:flutter_tutorial/widgets/ratingWidget.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/mirror_animation.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 class InfoRestaurantPage extends StatefulWidget {
   final Restaurant? selectedRestaurant;
@@ -95,7 +97,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: EdgeInsets.only(left: 10.0),
                         child: Icon(
                           Icons.people,
                           color: Color.fromARGB(255, value.toInt(), 0, 0),
@@ -112,42 +114,74 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 30),
+                        padding: const EdgeInsets.only(left: 15.0),
                         child: Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left:3.0),
+                        padding: const EdgeInsets.only(left: 3.0),
                         child: Text(
-                          widget.selectedRestaurant!.rating.toString(),
+                          widget.selectedRestaurant!.rating.toDouble().toString(),
                           style: TextStyle(
                             color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.bold
                           ),
                         ),
                       ),
-                      Spacer(),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 25.0, 0.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.0),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.call,
-                              color: Theme.of(context).primaryColor,
+                        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 15.0, 0.0),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(100.0),
+                          onTap: () {
+                            openRatingDialog(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              border: Border.all(
+                                color: Colors.amber,
+                              )
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
                             ),
                           ),
                         ),
-                      )
-                      
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
+                        child: 
+                        InkWell(
+                          borderRadius: BorderRadius.circular(100.0),
+                          onTap:() async {
+                            UrlLauncher.launchUrl(Uri(
+                              scheme: 'tel',
+                              path: widget.selectedRestaurant!.phone,
+                            ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                              )
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Icon(
+                                Icons.call,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
@@ -198,5 +232,39 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
         );
       }
     );
-  } 
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  
+
+  AlertDialog alert = AlertDialog(
+      title: Text(
+        "Empty fields",
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text('Some fields are empty, please fill them'),
+      actions: [
+        okButton,
+      ],
+    );
+  }
+
+  openRatingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder:(context) {
+        return Dialog(
+          child: RatingWidget(
+          ),
+        );
+      },
+    );
+  }
 }

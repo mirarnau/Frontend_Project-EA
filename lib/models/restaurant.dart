@@ -5,6 +5,7 @@ class Restaurant {
   late final String owner;
   late final String restaurantName;
   late final String email;
+  late final String phone;
   late final String address;
   late final String description;
   late final String city;
@@ -23,6 +24,7 @@ class Restaurant {
     required this.owner, 
     required this.restaurantName, 
     required this.email, 
+    required this.phone,
     required this.address,
     required this.description,
     required this.city,
@@ -42,6 +44,7 @@ class Restaurant {
       owner: json['owner'] as String,
       restaurantName: json['restaurantName'] as String, 
       email: json['email'] as String,
+      phone: json['phone'] as String,
       address: json['address'] as String,
       description: json['description'] as String,
       city: json['city'] as String,
@@ -64,6 +67,7 @@ class Restaurant {
       'owner': restaurant.owner,
       'restaurantName': restaurant.restaurantName,
       'email': restaurant.email,
+      'phone': restaurant.phone,
       'address': restaurant.address,
       'description': restaurant.description,
       'listTags': restaurant.listTags,

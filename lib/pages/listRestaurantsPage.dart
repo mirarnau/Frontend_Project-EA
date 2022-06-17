@@ -65,7 +65,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             SizedBox(
-              height: 47,
+              height: 35,
               child: 
                 ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -112,12 +112,10 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
               style: const TextStyle(
                 color: Colors.white
               ),
-              )
+            ),
           ],
         ),
-        )
-        
-        
+        ),
       );
     }
     return Scaffold(
@@ -132,7 +130,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             SizedBox(
-              height: 47,
+              height: 35,
               child: 
                 ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -200,7 +198,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
               )
             )
           ],
-        ) ,
+        ),
         )
         
         
