@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_tutorial/config.dart';
-import 'package:flutter_tutorial/models/message.dart';
 import 'package:flutter_tutorial/models/post.dart';
-import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
@@ -15,7 +13,7 @@ class PostService {
       headers: {'authorization': LocalStorage('key').getItem('token')});
       
     if (res.statusCode == 200) {
-      List <Post> listPosts = [];
+      List<Post> listPosts = [];
       var decoded = jsonDecode(res.body);
       decoded.forEach((eachPost) => listPosts.add(Post.fromJSON(eachPost)));
       return listPosts;

@@ -1,8 +1,10 @@
 import 'package:flutter_tutorial/models/message.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 
 class Post {
   late final String id;
   late final String creator;
+  late final String profileImage;
   late final String description;
   late final String postImageUrl;
   late final List<Comment> comments;
@@ -10,15 +12,16 @@ class Post {
 
   Post(
       {required this.creator,
+      required this.profileImage,
       required this.description,
       required this.postImageUrl});
 
   factory Post.fromJSON(dynamic json) {
     Post post = Post(
         creator: json['creator'],
+        profileImage: json['profileImage'],
         description: json['description'],
         postImageUrl: json['postImageUrl']);
-
     post.id = json['_id'];
     post.comments = json['comments'].cast<Comment>();
     return post;

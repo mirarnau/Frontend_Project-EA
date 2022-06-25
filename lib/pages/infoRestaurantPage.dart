@@ -170,7 +170,6 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
               ),
           ),
 
-          
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
