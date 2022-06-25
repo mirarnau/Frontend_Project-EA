@@ -30,7 +30,7 @@ class Customer {
         password: json['password'],
         profilePic:json['profilePic'],
         ratingLog: json['ratingLog'] as List<dynamic>);
-        //profilePic: Image.memory(base64Decode(json['profilePic'])));
+        
     customer.role = json['role'].cast<String>();    
     customer.id = json['_id'];
     customer.listReservations =  json['listReservations'].cast<String>();

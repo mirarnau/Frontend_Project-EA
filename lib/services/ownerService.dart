@@ -37,20 +37,18 @@ class OwnerService {
 
       return listRestaurantsParsed;
     }
-    print("hello");
     return null;
     }
 
-  Future<Owner?> update(Owner owner, String id) async {
+  Future<bool> update(Owner owner, String id) async {
     var res = await http.put(Uri.parse(baseUrl + '/' + id),
-        headers: {'content-type': 'application/json'},
+        headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
         body: json.encode(Owner.toJson(owner)));
 
     if (res.statusCode == 201) {
-      Owner newOwner = Owner.fromJSON(res.body);
-      return newOwner;
+      return true;
     }
-    return null;
+    return false;
   }
 
   Future<List<Owner>?> getAllOwners() async {
@@ -72,9 +70,8 @@ class OwnerService {
     var res = await http.post(Uri.parse(baseUrl),
         headers: {'content-type': 'application/json'},
         body: json.encode(Owner.toJson(owner)));
-    if (res.statusCode == 201) {
-      Owner newOwner = Owner.fromJSON(res.body);
-      return newOwner;
+    if (res.statusCode == 200) {
+      return owner;
     }
     return null;
   }

@@ -21,7 +21,8 @@
         "restaurants": "Restaurants",
         "chat": "Xat",
         "agenda": "Agenda",
-        "profile": "Perfil"
+        "profile": "Perfil",
+        "home": "Casa"
     },
 
     "language":
@@ -102,12 +103,13 @@
     {
         "filter": "Filtri la seva cerca",
         "no_match": "Ho sentim, cap restaurant coincideix amb les seves preferències",
-        "no_rest": "Aquest usuari no té restaurants",
+        "no_rest": "No hi ha restaurants",
         "filter_style": "Filtrar per estil",
         "select_style": "Seleccioni l'estil del menjar",
         "filter_pref": "Filtrar per preferencies",
         "select_pref": "Seleccioni les seves preferencies",
-        "make_res": "Faci una reserva"
+        "make_res": "Faci una reserva",
+        "search": "Busqui un restaurant"
     },
 
     "tickets_page":

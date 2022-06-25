@@ -32,7 +32,7 @@ class _editProfilePage extends State<editProfilePage> {
   String? _initialUsername;
   bool _isEditingName = false;
   bool _isEditingEmail = false;
-  late File newImage;
+  late File newImage = File("");
   late TextEditingController _customerNameController;
   late TextEditingController _emailController;
   bool buttonEnabled = false;
@@ -117,27 +117,23 @@ class _editProfilePage extends State<editProfilePage> {
                   
                   var profilePic = "";
                   
-                  try {
-                    CloudinaryResponse response = await cloudinary.uploadFile(
-                      CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
-                    );
-                    
-                    profilePic = response.secureUrl;
+                  if(newImage.path != "") {
+                    try {
+                      CloudinaryResponse response = await cloudinary.uploadFile(
+                        CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
+                      );
+                      
+                      profilePic = response.secureUrl;
 
-                    if (kDebugMode) {
-                      print("HA FUNCIONAT");
-                      print(response.secureUrl);
-                    }
-                  } on CloudinaryException catch (e) {
+                    } on CloudinaryException catch (e) {
 
-                    profilePic = widget.customer!.profilePic;
-
-                    if (kDebugMode) {
-                      print("NO HA FUNCIONAT");
-                      print(e.message);
-                      print(e.request);
+                      profilePic = widget.customer!.profilePic;
                     }
                   }
+                  else{ 
+                    profilePic = widget.customer!.profilePic;
+                  }
+
                   
                   Customer? newcustomer = Customer(
                       customerName: _customerNameController.text,
@@ -149,9 +145,13 @@ class _editProfilePage extends State<editProfilePage> {
                       );
                   
                   newcustomer.id = widget.customer!.id;
+                  newcustomer.creationDate = widget.customer!.creationDate;
+                  newcustomer.listDiscounts = widget.customer!.listDiscounts;
+                  newcustomer.listReservations = widget.customer!.listReservations;
+                  newcustomer.role = widget.customer!.role;
                   
                     
-                  bool res = await customerService.update(newcustomer, widget.customer!.id);
+                  bool res = await customerService.update(newcustomer, newcustomer.id);
                   
                   setState(() {
                     buttonEnabled = true;

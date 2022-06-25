@@ -23,7 +23,7 @@ class OwnerCardRestaurant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MirrorAnimation<double>( // <-- changed to "MirrorAnimation"
+    return MirrorAnimation<double> (
       duration: Duration(milliseconds: 1500),
       curve: Curves.easeInOut,
       tween: Tween(begin: 110.0, end: 250.0),

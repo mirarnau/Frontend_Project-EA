@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 
 import '../models/owner.dart';
+import '../widgets/loadingCardsWidget.dart';
 import '../widgets/restaurantOwnerWidget.dart';
 import 'infoRestaurantPage.dart';
 import 'ownerSearchPage.dart';
@@ -28,40 +31,36 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   late String? _nameRestaurant = widget.nameRestaurant;
   OwnerService ownerService = OwnerService();
   RestaurantService restaurantService = RestaurantService();
-  List<Restaurant>? myRestaurants;
+  List<Restaurant>? myRestaurants = [];
   Restaurant? searchedRestaurant;
-  bool isLoading = true;
+  bool _isLoading = true;
+  bool _isEmpty = true;
   List<String> myTags = [];
 
   
 
   @override
   void initState() { 
+    Future.delayed(const Duration(seconds: 1), () {
+      getRestaurants();
+    });
+
     if (_nameRestaurant != '') { 
-      searchRestaurant();
+        searchRestaurant();
     }
-    getRestaurants();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (myRestaurants == null){
-      return Scaffold(
-        body: Text (translate('restaurants_page.no_rest'),
-          style: TextStyle(
-            fontSize: 20
-          ),
-        )
-      );
-    }
-
     if(_nameRestaurant == '') {
       return Scaffold(
-        appBar: AppBar(
+        appBar:
+        AppBar(
           automaticallyImplyLeading: false,
-          title: const Text ("SEARCH A RESTAURANT"),
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          title: Text(translate("restaurants_page.search")),
+          backgroundColor: Theme.of(context).cardColor,
           actions: [
             // Navigate to the Search Screen
             IconButton(
@@ -98,40 +97,62 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
         ) ,
         body: Container(
           padding: EdgeInsets.only(top: 20.0),
-          color: Color.fromARGB(255, 30, 30, 30),
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Column (
             mainAxisSize: MainAxisSize.min,
             children: <Widget> [
-              Expanded(
-                child: 
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: myRestaurants?.length,
-                  itemBuilder: (context, index) {
-                  return GestureDetector(
-                    child: CardRestaurant(
-                      restaurantName: myRestaurants![index].restaurantName,
-                      city: myRestaurants![index].city,
-                      rating: myRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
-                      imagesUrl: myRestaurants![index].photos,
-                      occupation: myRestaurants![index].occupation,
-                      address: myRestaurants![index].address),
-                    onTap: () {
-                      var routes = MaterialPageRoute(
-                        builder: (BuildContext context) => 
-                          InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
-                      );
-                      Navigator.of(context).push(routes);
-                    },);
-                  }
+              _isLoading 
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => const LoadingCards(),
+                    itemCount: 4
+                  ),
                 )
-              )
+              : _isEmpty 
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      translate('restaurants_page.no_rest'),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).highlightColor
+                      ),
+                    ),
+                  ] 
+                )
+                : Expanded(
+                  child: 
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: myRestaurants?.length,
+                    itemBuilder: (context, index) {
+                    return GestureDetector(
+                      child: CardRestaurant(
+                        restaurantName: myRestaurants![index].restaurantName,
+                        city: myRestaurants![index].city,
+                        rating: myRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
+                        imagesUrl: myRestaurants![index].photos,
+                        occupation: myRestaurants![index].occupation,
+                        address: myRestaurants![index].address),
+                      onTap: () {
+                        var routes = MaterialPageRoute(
+                          builder: (BuildContext context) => 
+                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
+                        );
+                        Navigator.of(context).push(routes);
+                      },);
+                    }
+                  )
+                )
             ],
           ),
         )
       );                
     }
-    else{
+
+    else {
       return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FittedBox(
@@ -158,10 +179,10 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
             );
           },
         ),
-      ) ,
+      ),
       body: Container(
           padding: EdgeInsets.only(top: 50.0),
-          color: Color.fromARGB(255, 30, 30, 30),
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Column (
             mainAxisSize: MainAxisSize.min,
             children: <Widget> [
@@ -190,11 +211,9 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                   }
                 ),
               ),
-              Container(
-                child: TextButton(  
+              TextButton(  
                 child: Text(translate('done')),  
                 onPressed: ()  {}
-                ),
               ),
             ],
           ),
@@ -205,26 +224,31 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
   } 
 
     Future<void> getRestaurants() async {
-      Owner? owner = this._owner;
-      myRestaurants = await restaurantService.filterRestaurants(myTags);
-      for (Restaurant restaurant in myRestaurants!) {
-        if (restaurant.owner != this._owner!.id) {
-          myRestaurants!.remove(restaurant);
+      
+      setState(() => _isLoading = true);
+
+      List<Restaurant>? rests = await restaurantService.filterRestaurants(myTags);
+
+      for (Restaurant restaurant in rests!) {
+        if (restaurant.owner == _owner!.id) {
+          myRestaurants!.add(restaurant);
         }
       }
 
-      print(myRestaurants![0]);
+      if(myRestaurants!.isEmpty) {
+        _isEmpty = true;
+      }
+      else {
+        _isEmpty = false;
+      }
 
-      setState(() {
-        isLoading = false;
-      });
+      setState(() => _isLoading = false);
+
     }
 
     Future<void> searchRestaurant() async {
-      String? rest = this._nameRestaurant;
-      print(rest);
+      String? rest = _nameRestaurant;
       searchedRestaurant = await restaurantService.getRestaurantByName(rest!);
-      print (searchedRestaurant);
     }
     
   }

@@ -6,10 +6,10 @@ import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
 class NavDrawerChat extends StatelessWidget {
-  final Customer? myCustomer;
+  final myUser;
   final String currentPage;
 
-  const NavDrawerChat({Key? key, required this.myCustomer, required this.currentPage}) : super(key: key);
+  const NavDrawerChat({Key? key, required this.myUser, required this.currentPage}) : super(key: key);
 
   List<DropdownMenuItem<String>> get foodStylesTags{
     List<DropdownMenuItem<String>> foodStylesItems = [
@@ -63,7 +63,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
+                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
                     
                     Navigator.of(context).push(route);
                   }
@@ -90,7 +90,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
+                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
                     
                     Navigator.of(context).push(route);
                   }

@@ -21,7 +21,8 @@
         "restaurants": "Restaurants",
         "chat": "Chat",
         "agenda": "Agenda",
-        "profile": "Profile"
+        "profile": "Profile",
+        "home": "Home"
     },
 
     "language": 
@@ -102,12 +103,13 @@
     {
         "filter": "Filter your search",
         "no_match": "Sorry, any restaurant matches your preferences",
-        "no_rest": "This user has no restaurants",
+        "no_rest": "There are no restaurants",
         "filter_style": "Filter by style",
         "select_style": "Select the style of food",
         "filter_pref": "Filter by preferences",
         "select_pref": "Select your preferences",
-        "make_res": "Make reservation"
+        "make_res": "Make reservation",
+        "search": "Search a restaurant"
     },
 
     "tickets_page":

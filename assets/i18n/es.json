@@ -21,7 +21,8 @@
         "restaurants": "Restaurantes",
         "chat": "Chat",
         "agenda": "Agenda",
-        "profile": "Perfil"
+        "profile": "Perfil",
+        "home": "Casa"
     },
 
     "language": 
@@ -102,12 +103,13 @@
     {
         "filter": "Filtre su búsqueda",
         "no_match": "Lo lamentamos, ningún restaurante coincide con sus preferencias",
-        "no_rest": "Este usuario no tiene restaurantes",
+        "no_rest": "No hay restaurantes",
         "filter_style": "Filtrar por estilo",
         "select_style": "Seleccione el estilo de la comida",
         "filter_pref": "Filtrar por preferencias",
         "select_pref": "Seleccione sus preferencias",
-        "make_res": "Haga una reserva"
+        "make_res": "Haga una reserva",
+        "search": "Busque un restaurante"
     },
 
     "tickets_page":

@@ -405,7 +405,6 @@ class _OwnerProfilePageState extends State<OwnerProfilePage> {
     changeLocale(context, localizationDelegate.currentLocale.languageCode);
 
     return Scaffold(
-      //appBar: AppBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FittedBox(
         child: FloatingActionButton.extended(
@@ -428,7 +427,7 @@ class _OwnerProfilePageState extends State<OwnerProfilePage> {
             key: key,
             child: ProfileWidget(
               imagePath:
-                  "https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png",
+                   widget.owner!.profilePic,
               onClicked: () async {
                 var route = MaterialPageRoute(
                   builder: (BuildContext context) => editOwnerPage(

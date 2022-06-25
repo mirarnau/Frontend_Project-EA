@@ -195,17 +195,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
 
                   Navigator.of(context).push(route);
-
-                  /*
-                  save_data(customer.fullName, customer.email,
-                      customer.customerName);
-                  var route = MaterialPageRoute(f73af5b871
-                    builder: (BuildContext context) => ProfilePage(
-                        fullName: customer.fullName,
-                        email: customer.email,
-                        customerName: customer.customerName),
-                  );
-                  Navigator.of(context).push(route);*/
                 }
                 if ((customernameController.text.isNotEmpty) &&
                     (passwordController.text.isNotEmpty) &&
@@ -215,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                   });
                   var res = await loginService.loginOwner(
                       customernameController.text, passwordController.text);
-                  if (res == "401") {
+                  if (res == "400" || res == "401") {
                     showAlertDialog(context);
                     return;
                   }
@@ -229,9 +218,11 @@ class _LoginPageState extends State<LoginPage> {
                       }
                       var routes = MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              OwnerMainPage(owner: owner,
-                              selectedIndex: 0,
+                              OwnerMainPage(
+                                owner: owner,
+                                selectedIndex: 0,
                                 transferRestaurantTags: voidListTags,
+                                chatPage: "Inbox",
                               ));
                       Navigator.of(context).push(routes);
                     }

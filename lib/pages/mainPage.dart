@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
 
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
+    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, page: widget.chatPage, user: widget.customer,),
     //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
     Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),

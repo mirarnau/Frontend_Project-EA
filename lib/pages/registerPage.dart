@@ -277,7 +277,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           ownerName: customernameController.text,
                           fullName: fullnameController.text,
                           email: emailController.text,
+                          profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
                           password: passwordController.text);
+                      
+                      newOwner.role = [];
+                      newOwner.creationDate = "";
+                      newOwner.listRestaurants = [];
+
                       await ownerService.addOwner(newOwner);
 
                       List<String> voidListTags = [];

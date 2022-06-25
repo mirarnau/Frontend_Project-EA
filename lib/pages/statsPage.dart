@@ -97,6 +97,7 @@ class _StatsPage extends State<StatsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).cardColor,
           title: Text(translate('stats_page.title')),
         ),
         body: SingleChildScrollView(
@@ -148,6 +149,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: monthlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restRate,
+                        color: Theme.of(context).primaryColor,
                         name: translate('rating'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
@@ -170,6 +172,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: yearlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restRate,
+                        color: Theme.of(context).primaryColor,
                         name: translate('rating'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
@@ -192,6 +195,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: monthlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
+                        color: Theme.of(context).primaryColor,
                         name: translate('occupation'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
@@ -214,6 +218,7 @@ class _StatsPage extends State<StatsPage> {
                         dataSource: yearlydata,
                         xValueMapper: (_Restaurants rest, _) => rest.restName,
                         yValueMapper: (_Restaurants rest, _) => rest.restCustomers,
+                        color: Theme.of(context).primaryColor,
                         name: translate('occupation'),
                         dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
@@ -221,7 +226,6 @@ class _StatsPage extends State<StatsPage> {
                   ),
                 ),
               ),
-
           ],
         ),
       ),

@@ -239,6 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Owner newOwner = Owner(
                           ownerName: customernameController.text,
                           fullName: account!.displayName!,
+                          profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
                           email: account!.email,
                           password: passwordController.text);
                       await ownerService.addOwner(newOwner);
