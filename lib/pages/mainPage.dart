@@ -28,10 +28,6 @@ class _MainPageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: VideoCall',
-      style: optionStyle,
-    ),
-    Text(
       'Index 1: Restaurants',
       style: optionStyle,
     ),
@@ -39,9 +35,12 @@ class _MainPageState extends State<MainPage> {
       'Index 2: Agenda',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+     Text(
+      'Index 3: Chat',
+      style: optionStyle,
+    ),
     Text(
-      'Index 3: Profile',
+      'Index 4: Profile',
       style: optionStyle,
     )
   ];
@@ -53,7 +52,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    VideocallPage(),
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
     //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
@@ -73,10 +71,6 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_call_outlined),
-            label: translate('nav_bar.videocall'),
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: translate('nav_bar.restaurants'),

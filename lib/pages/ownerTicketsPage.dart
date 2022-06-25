@@ -14,6 +14,8 @@ import 'package:flutter_tutorial/widgets/ownerLateralChatWidget.dart';
 import 'package:flutter_tutorial/widgets/ticketWidget.dart';
 import 'package:flutter_tutorial/services/ticketsService.dart';
 
+import 'indexPage.dart';
+
 
 class OwnerTicketsPage extends StatefulWidget {
   final Owner? myOwner;
@@ -80,6 +82,16 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
                 color: Colors.white
               ),),
           )),
+          
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context)=> VideocallPage()
+          )
+          );
+        },
+        child: const Icon(Icons.video_call_outlined),
+    ),
       );
     }
     return Scaffold(
@@ -121,6 +133,16 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
           ],
         ),
         ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context)=> VideocallPage()
+          )
+          );
+        },
+        child: const Icon(Icons.video_call_outlined),
+    ),
+        
     );
   }
 }

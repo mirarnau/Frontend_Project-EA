@@ -38,10 +38,6 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: VideoCall',
-      style: optionStyle,
-    ),
-    Text(
       'Index 1: Dashboard',
       style: optionStyle,
     ),
@@ -49,9 +45,12 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       'Index 2: My Restaurants',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+     Text(
+      'Index 3: Chat',
+      style: optionStyle,
+    ),
     Text(
-      'Index 3: Profile',
+      'Index 4: Profile',
       style: optionStyle,
     )
   ];
@@ -63,7 +62,6 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    VideocallPage(),
     ListRestaurantsOwnerPage(
         newTags: widget.transferRestaurantTags, owner: _owner),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
@@ -92,10 +90,6 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
         backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_call_outlined),
-            label: 'VideoCall',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: 'Restaurants',

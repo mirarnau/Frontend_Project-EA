@@ -10,17 +10,14 @@ class VideocallService{
     var res = await http.get(Uri.parse(baseUrl + channelName),
       headers: {'content-type': 'application/json', 'authorization': LocalStorage('key').getItem('token')});
     Object data = jsonDecode(res.body);
-    var agoraToken = AgoraToken.fromJson(await jsonDecode(res.body)).tokenValue;
-    return agoraToken;
-    print ("token aogra;");
-    print(agoraToken);
+    return AgoraToken.fromJson(await jsonDecode(res.body)).tokenValue;
     }
 }
 
 class AgoraToken {
   final String tokenValue;
 
-  AgoraToken({
+  const AgoraToken({
     required this.tokenValue,
   });
 

@@ -5,6 +5,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
+import '../pages/indexPage.dart';
+
 class NavDrawerChat extends StatelessWidget {
   final Customer? myCustomer;
   final String currentPage;
@@ -91,6 +93,33 @@ class NavDrawerChat extends StatelessWidget {
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
                           MainPage(customer: myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
+                    
+                    Navigator.of(context).push(route);
+                  }
+              ),
+            ],
+          )
+        ),
+        Card(
+          child: 
+          Column(
+            children:  [
+              ListTile(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).backgroundColor
+                  )
+                ),
+                tileColor: tileColorSent,
+                iconColor: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).shadowColor,
+                leading: Icon (Icons.send),
+                title: Text(translate('VideoCall')),
+                onTap:() {
+                    List<String> voidListTags = [];
+                    var route = MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          VideocallPage());
                     
                     Navigator.of(context).push(route);
                   }

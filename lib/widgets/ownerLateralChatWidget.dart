@@ -6,6 +6,7 @@ import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 
+import '../pages/indexPage.dart';
 import '../pages/ownerMainPage.dart';
 
 class OwnerNavDrawerChat extends StatelessWidget {
@@ -94,6 +95,33 @@ class OwnerNavDrawerChat extends StatelessWidget {
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
                           OwnerMainPage(owner: myOwner, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
+                    
+                    Navigator.of(context).push(route);
+                  }
+              ),
+            ],
+          )
+        ),
+         Card(
+          child: 
+          Column(
+            children:  [
+              ListTile(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).backgroundColor
+                  )
+                ),
+                tileColor: tileColorSent,
+                iconColor: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).shadowColor,
+                leading: Icon (Icons.send),
+                title: Text(translate('VideoCall')),
+                onTap:() {
+                    List<String> voidListTags = [];
+                    var route = MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          VideocallPage());
                     
                     Navigator.of(context).push(route);
                   }

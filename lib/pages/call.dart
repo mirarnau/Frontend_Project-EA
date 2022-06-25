@@ -28,21 +28,10 @@ class _CallPageState extends State<CallPage> {
   bool isJoined = false, switchCamera = true, openMicrophone = true;
   bool _isRenderSurfaceView = false;
   late String token;
+  //late String token = '0060be47409c1db40c1b5bef5e0468a75dbIACkgKV3mrLsAvzmKjSSGXS69HpthkjDqIX4amt9xcxFbUO+t+gAAAAAEABGROOe6Hu4YgEAAQDne7hi';
 
   late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.channelName);
-    initAgora();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _engine.destroy();
-  }
+  
   Future<void> getToken() async {
     String response = await VideocallService.getAgoraToken(widget.channelName!);
     if (response != 'Failed to fetch the token') {
@@ -54,38 +43,10 @@ class _CallPageState extends State<CallPage> {
     }
   }
 
-  _leaveChannel() async {
-    await _engine.leaveChannel();
-    setState(() {
-      isJoined = false;
-      openMicrophone = true;
-    });
-  }
-
-  _switchCamera() async {
-    if (!switchCamera) _engine.enableLocalVideo(false);
-
-    /*setState(() {
-        switchCamera = !switchCamera;
-      });*/
-  }
-
-  _switchMicrophone() async {
-    // await _engine.muteLocalAudioStream(!openMicrophone);
-    if (!openMicrophone) _engine.enableLocalAudio(false);
-    /*await _engine.enableLocalAudio(!openMicrophone).then((value) {
-      _engine.disableAudio();
-      /*setState(() {
-        openMicrophone = !openMicrophone;
-      });*/
-    }).catchError((err) {
-      //logSink.log('enableLocalAudio $err');
-    });*/
-  }
-
   Future<void> initAgora() async {
-    _engine = await RtcEngine.create(APP_ID);
     await getToken();
+    _engine = await RtcEngine.create(APP_ID);
+    //print(token);
     await _engine.enableAudio();
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
@@ -115,6 +76,49 @@ class _CallPageState extends State<CallPage> {
     );
 
     await _engine.joinChannel(token, widget.channelName!, null, 0);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.channelName);
+    initAgora();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _engine.destroy();
+  }
+  
+
+  _leaveChannel() async {
+    await _engine.leaveChannel();
+    setState(() {
+      isJoined = false;
+      openMicrophone = true;
+    });
+  }
+
+  _switchCamera() async {
+    if (!switchCamera) _engine.enableLocalVideo(false);
+
+    /*setState(() {
+        switchCamera = !switchCamera;
+      });*/
+  }
+
+  _switchMicrophone() async {
+    // await _engine.muteLocalAudioStream(!openMicrophone);
+    if (!openMicrophone) _engine.enableLocalAudio(false);
+    /*await _engine.enableLocalAudio(!openMicrophone).then((value) {
+      _engine.disableAudio();
+      /*setState(() {
+        openMicrophone = !openMicrophone;
+      });*/
+    }).catchError((err) {
+      //logSink.log('enableLocalAudio $err');
+    });*/
   }
 
   // Create UI with local view and remote view
