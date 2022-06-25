@@ -170,7 +170,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
               ),
           ),
 
-          /*
+          
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
@@ -190,24 +190,20 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     ],
                   ),
                   onTap: () async {
-                    final file = await pdfService.loadFile();
-                    pdfService.openPDF(context, file);
+                    final file = await pdfService.pickFile();
+                    print ('aaaaaaaaaaaa ${file!.path}');
+                    if (file != null){
+                      pdfService.openPDF(context, file);
+                    }
                   },
                 )
               ),
             ),
           )
-          */
-
-
         ],
       ),
         ],
       )
-      
     );
-    
   }
-
-  
 }
