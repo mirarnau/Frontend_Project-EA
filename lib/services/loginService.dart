@@ -39,7 +39,7 @@ class LoginService {
       return "200";
     }
     else {
-      return await jsonDecode(res.body);
+      return await jsonDecode(res.body)["message"];
     }
 
   }

@@ -405,21 +405,18 @@ class _OwnerProfilePageState extends State<OwnerProfilePage> {
     changeLocale(context, localizationDelegate.currentLocale.languageCode);
 
     return Scaffold(
-      //appBar: AppBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: Container(
-        child: FittedBox(
-          child: FloatingActionButton.extended(
-            backgroundColor: Theme.of(context).cardColor,
-            icon: Icon(Icons.help, color: Theme.of(context).focusColor),
-            label: Text(
-              translate('help'),
-              style: TextStyle(color: Theme.of(context).focusColor),
-            ),
-            onPressed: () {
-              Future.delayed(Duration.zero, showTutorial);
-            },
+      floatingActionButton: FittedBox(
+        child: FloatingActionButton.extended(
+          backgroundColor: Theme.of(context).cardColor,
+          icon: Icon(Icons.help, color: Theme.of(context).focusColor),
+          label: Text(
+            translate('help'),
+            style: TextStyle(color: Theme.of(context).focusColor),
           ),
+          onPressed: () {
+            Future.delayed(Duration.zero, showTutorial);
+          },
         ),
       ),
       body: ListView(
@@ -430,7 +427,7 @@ class _OwnerProfilePageState extends State<OwnerProfilePage> {
             key: key,
             child: ProfileWidget(
               imagePath:
-                  "https://flyclipart.com/thumb2/user-icon-png-pnglogocom-133466.png",
+                   widget.owner!.profilePic,
               onClicked: () async {
                 var route = MaterialPageRoute(
                   builder: (BuildContext context) => editOwnerPage(
@@ -455,33 +452,31 @@ class _OwnerProfilePageState extends State<OwnerProfilePage> {
             key: key2,
             child: buildDarkMode(),
           ),
-          Container(
-            child: SettingsGroup(
-              title: translate('profile_page.configuration'),
-              children: <Widget>[
-                const SizedBox(height: 8),
-                Container(
-                  key: key3,
-                  child: buildSettings(),
-                ),
-                Container(
-                  key: key4,
-                  child: buildNotifications(),
-                ),
-                Container(
-                  key: key5,
-                  child: buildLogout(),
-                ),
-                Container(
-                  key: key6,
-                  child: buildDeleteAccount(),
-                ),
-                Container(
-                  key: key7,
-                  child: buildContact(),
-                ),
-              ],
-            ),
+          SettingsGroup(
+            title: translate('profile_page.configuration'),
+            children: <Widget>[
+              const SizedBox(height: 8),
+              Container(
+                key: key3,
+                child: buildSettings(),
+              ),
+              Container(
+                key: key4,
+                child: buildNotifications(),
+              ),
+              Container(
+                key: key5,
+                child: buildLogout(),
+              ),
+              Container(
+                key: key6,
+                child: buildDeleteAccount(),
+              ),
+              Container(
+                key: key7,
+                child: buildContact(),
+              ),
+            ],
           ),
         ],
       ),

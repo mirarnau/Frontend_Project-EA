@@ -67,7 +67,6 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
         okButton,
       ],
     );
-
   }
 
   @override

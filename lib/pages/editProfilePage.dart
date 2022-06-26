@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:path/path.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as Path;
+import 'package:mime_type/mime_type.dart';
+
 
 class editProfilePage extends StatefulWidget {
   final Customer? customer;
@@ -32,12 +36,17 @@ class _editProfilePage extends State<editProfilePage> {
   String? _initialUsername;
   bool _isEditingName = false;
   bool _isEditingEmail = false;
-  late File newImage;
+  late File newImage = File("");
   late TextEditingController _customerNameController;
   late TextEditingController _emailController;
   bool buttonEnabled = false;
 
   final cloudinary = CloudinaryPublic('eduardferrecloud', 'oqpjo8a2', cache: false);
+
+  final XTypeGroup typeGroup = XTypeGroup(
+    label: 'images',
+    extensions: <String>['jpg', 'png'],
+  );
   
   @override
   void initState() {
@@ -53,7 +62,9 @@ class _editProfilePage extends State<editProfilePage> {
     CustomerService customerService = CustomerService();
 
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
@@ -63,14 +74,24 @@ class _editProfilePage extends State<editProfilePage> {
             imagePath: widget.customer!.profilePic,
             isEdit: true,
             onClicked: () async {
-              var image =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
-              if (image == null) return;
+              if(!kIsWeb) {
+                var image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image == null) return;
 
-              var directory = await getApplicationDocumentsDirectory();
-              var name = basename(image.path);
-              var imageFile = File('${directory.path}/$name');
-              newImage = await File(image.path).copy(imageFile.path);
+                var directory = await getApplicationDocumentsDirectory();
+                var name = basename(image.path);
+                var imageFile = File('${directory.path}/$name');
+                newImage = await File(image.path).copy(imageFile.path);
+              }
+              else {
+                final XFile? image =
+                  await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+
+                if (image == null) return;
+
+                newImage = File(image.path);
+              }
             },
           ),
           const SizedBox(height: 24),
@@ -109,7 +130,7 @@ class _editProfilePage extends State<editProfilePage> {
             height: 50,
             width: 250,
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)),
             child: TextButton(
               onPressed: () async {
                 if ((_customerNameController.text.isNotEmpty) &&
@@ -117,27 +138,23 @@ class _editProfilePage extends State<editProfilePage> {
                   
                   var profilePic = "";
                   
-                  try {
-                    CloudinaryResponse response = await cloudinary.uploadFile(
-                      CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
-                    );
-                    
-                    profilePic = response.secureUrl;
+                  if(newImage.path != "") {
+                    try {
+                      CloudinaryResponse response = await cloudinary.uploadFile(
+                        CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
+                      );
+                      
+                      profilePic = response.secureUrl;
 
-                    if (kDebugMode) {
-                      print("HA FUNCIONAT");
-                      print(response.secureUrl);
-                    }
-                  } on CloudinaryException catch (e) {
+                    } on CloudinaryException catch (e) {
 
-                    profilePic = widget.customer!.profilePic;
-
-                    if (kDebugMode) {
-                      print("NO HA FUNCIONAT");
-                      print(e.message);
-                      print(e.request);
+                      profilePic = widget.customer!.profilePic;
                     }
                   }
+                  else{ 
+                    profilePic = widget.customer!.profilePic;
+                  }
+
                   
                   Customer? newcustomer = Customer(
                       customerName: _customerNameController.text,
@@ -145,12 +162,17 @@ class _editProfilePage extends State<editProfilePage> {
                       email: _emailController.text,
                       password: widget.customer!.password,
                       profilePic: profilePic,
+                      ratingLog: widget.customer!.ratingLog
                       );
                   
                   newcustomer.id = widget.customer!.id;
+                  newcustomer.creationDate = widget.customer!.creationDate;
+                  newcustomer.listDiscounts = widget.customer!.listDiscounts;
+                  newcustomer.listReservations = widget.customer!.listReservations;
+                  newcustomer.role = widget.customer!.role;
                   
                     
-                  bool res = await customerService.update(newcustomer, widget.customer!.id);
+                  bool res = await customerService.update(newcustomer, newcustomer.id);
                   
                   setState(() {
                     buttonEnabled = true;

@@ -9,6 +9,7 @@ import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
 import 'package:flutter_tutorial/widgets/lateralRestaurantWidget.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
 
+import '../widgets/loadingCardsWidget.dart';
 import 'mainPage.dart';
 
 class ListRestaurantsPage extends StatefulWidget {
@@ -23,7 +24,8 @@ class ListRestaurantsPage extends StatefulWidget {
 class _RestaurantsPageState extends State<ListRestaurantsPage> {
   RestaurantService restaurantService = RestaurantService();
   List<Restaurant>? listRestaurants;
-  bool isLoading = true;
+  bool _isLoading = true;
+  bool _isEmpty = true;
 
 
   List<String> myTags = [];
@@ -35,174 +37,131 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         myTags.add(widget.newTags[i]);
       };
       }
-    //myTags.add("Pets allowed");
-    //myTags.add("Asiatic");
+
+    Future.delayed(const Duration(seconds: 1), () {
+      filterDishes();
+    });
+
     super.initState();
-    filterDishes();
   }
 
   Future<void> filterDishes() async {
+    
+    setState(() => _isLoading = true);
+
     listRestaurants = await restaurantService.filterRestaurants(myTags);
-    setState(() {
-      isLoading = false;
-    });
+
+    if(listRestaurants == null) {
+      _isEmpty = true;
+    } 
+    else {
+      _isEmpty = false;
+    }
+    
+    setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (listRestaurants == null){
-      return  Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).cardColor,
-          title: Text (translate('restaurants_page.filter')),
-        ),
-        drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
-        body: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column (
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget> [
-            SizedBox(
-              height: 47,
-              child: 
-                ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:  myTags.length,
-                  itemBuilder: (context, index){
-                    return Container(
-                          padding: const EdgeInsets.fromLTRB(10, 1.5, 0, 2),
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 149, 67, 63),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: 
-                            Row(
-                            children: 
-                            [
-                              Text(
-                                  myTags[index],
-                                  style: const TextStyle(
-                                  color: Colors.white),
-                              ),
-                              IconButton(
-                                iconSize: 25,
-                                color: Color.fromARGB(255, 234, 233, 233),
-                                padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  print(myTags[index]);
-                                  myTags.remove(myTags[index]);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
-                                  );
-                                },
-                                icon: const Icon(Icons.cancel)
-                              )
-                            ],
-                          )
-                    );
-                  }
-                )
-            ),
-            Text(
-              translate('restaurants_page.no_match'),
-              style: const TextStyle(
-                color: Colors.white
-              ),
-              )
-          ],
-        ),
-        )
-        
-        
-      );
-    }
     return Scaffold(
-        appBar: AppBar(
-          title: Text (translate('restaurants_page.filter')),
-          backgroundColor: Theme.of(context).cardColor,
-        ),
-        drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
-        body: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: Column (
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget> [
-            SizedBox(
-              height: 47,
-              child: 
-                ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:  myTags.length,
-                  itemBuilder: (context, index){
-                    return Container(
-                          padding: const EdgeInsets.fromLTRB(10, 1.5, 0, 2),
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 149, 67, 63),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: 
-                            Row(
-                            children: 
-                            [
-                              Text(
-                                  myTags[index],
-                                  style: const TextStyle(
-                                  color: Colors.white),
-                              ),
-                              IconButton(
-                                iconSize: 25,
-                                color: Color.fromARGB(255, 234, 233, 233),
-                                padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  print(myTags[index]);
-                                  myTags.remove(myTags[index]);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
-                                  );
-                                },
-                                icon: const Icon(Icons.cancel)
-                              )
-                            ],
-                          )
-                    );
-                  }
-                )
-            ),
-            Expanded(
-              child: 
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+        title: Text (translate('restaurants_page.filter')),
+      ),
+      drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
+      body: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Column (
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget> [
+          SizedBox(
+            height: 47,
+            child: 
               ListView.builder(
-                shrinkWrap: true,
-                itemCount: listRestaurants?.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    child: CardRestaurant(
-                      restaurantName: listRestaurants![index].restaurantName,
-                      city: listRestaurants![index].city,
-                      rating: listRestaurants![index].rating.toString(),
-                      imagesUrl: listRestaurants![index].photos),
-                    onTap: () {
-                      var routes = MaterialPageRoute(
-                        builder: (BuildContext context) => 
-                          InfoRestaurantPage(selectedRestaurant: listRestaurants?[index],)
-                      );
-                      Navigator.of(context).push(routes);
-                    },
+                scrollDirection: Axis.horizontal,
+                itemCount:  myTags.length,
+                itemBuilder: (context, index){
+                  return Container(
+                    padding: const EdgeInsets.fromLTRB(10, 1.5, 0, 2),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 149, 67, 63),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: 
+                      Row(
+                      children: 
+                      [
+                        Text(
+                            myTags[index],
+                            style: const TextStyle(
+                            color: Colors.white),
+                        ),
+                        IconButton(
+                          iconSize: 25,
+                          color: Color.fromARGB(255, 234, 233, 233),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            print(myTags[index]);
+                            myTags.remove(myTags[index]);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
+                            );
+                          },
+                          icon: const Icon(Icons.cancel)
+                        )
+                      ],
+                    )
                   );
                 }
               )
+            ),
+            _isLoading
+            ? Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => const LoadingCards(),
+                itemCount: 4
+              ),
             )
+            : _isEmpty 
+              ? Text(
+                  translate('restaurants_page.no_match'),
+                  style: TextStyle(
+                    color: Theme.of(context).highlightColor
+                  ),
+                )
+              : Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: listRestaurants?.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      child: CardRestaurant(
+                        restaurantName: listRestaurants![index].restaurantName,
+                        city: listRestaurants![index].city,
+                        rating: listRestaurants![index].rating.last['rating'].toDouble().toStringAsFixed(1),
+                        imagesUrl: listRestaurants![index].photos,
+                        occupation: listRestaurants![index].occupation,
+                        address: listRestaurants![index].address),
+                      onTap: () {
+                        var routes = MaterialPageRoute(
+                          builder: (BuildContext context) => 
+                            InfoRestaurantPage(
+                              selectedRestaurant: listRestaurants?[index],
+                              customer: widget.customer,
+                            ),                     
+                        );
+                        Navigator.of(context).push(routes);
+                      },
+                    );
+                  }
+                ),
+              ),
           ],
-        ) ,
-        )
-        
-        
-        
+        ),
+      ),   
     );
   }
 }

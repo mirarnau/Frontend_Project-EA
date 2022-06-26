@@ -17,11 +17,11 @@ import 'package:flutter_tutorial/services/ticketsService.dart';
 
 
 class TicketsPage extends StatefulWidget {
-  final Customer? myCustomer;
   final String userType; 
   final String myName;
   final String page;
-  const TicketsPage({Key? key, required this.userType, required this.myName, required this.myCustomer, required this.page}) : super(key: key);
+  final user;
+  const TicketsPage({Key? key, required this.userType, required this.myName, required this.user, required this.page}) : super(key: key);
 
   @override
   State<TicketsPage> createState() => _TicketsPageState();
@@ -32,12 +32,10 @@ class _TicketsPageState extends State<TicketsPage> {
   List<Ticket>? listTicketsReceived;
   List<Ticket>? listTicketsSent;
   bool isLoading = true;
+  late var user = widget.user;
 
   CustomerService customerService = CustomerService();
   OwnerService ownerService = OwnerService();
-
-  Customer? customer;
-  Owner? owner;
 
   @override
   void initState() {
@@ -52,11 +50,11 @@ class _TicketsPageState extends State<TicketsPage> {
   }
 
   Future<void> getInfoCustomer() async{
-    customer = await customerService.getCustomerByName(widget.myName);
+    user = await customerService.getCustomerByName(widget.myName);
   } 
 
   Future<void> getInfoOwner() async{
-    owner = await ownerService.getOwnerByName(widget.myName);
+    user = await ownerService.getOwnerByName(widget.myName);
   } 
 
   Future<void> getTicketsByCreator() async {
@@ -89,7 +87,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   color: Colors.white
                 ),),
             ),
-            drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
+            drawer: NavDrawerChat(myUser: user, currentPage: "Sent",),
             body: Text(translate('tickets_page.no_tickets')),
             floatingActionButton: Container(
               alignment: Alignment.bottomRight,
@@ -110,7 +108,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   onPressed: () {
                   var routes = MaterialPageRoute(
                         builder: (BuildContext context) => 
-                          CreateTicketPage(myCustomer: widget.myCustomer)
+                          CreateTicketPage(myCustomer: user)
                       );
                       Navigator.of(context).push(routes);
                 },
@@ -130,7 +128,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   color: Colors.white
                 ),),
             ),
-          drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Sent",),
+          drawer: NavDrawerChat(myUser: user,currentPage: "Sent",),
           body: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Column (
@@ -148,7 +146,7 @@ class _TicketsPageState extends State<TicketsPage> {
                         
                         var routes = MaterialPageRoute(
                         builder: (BuildContext context) => 
-                          ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsSent![index], listMessages: listMessagesTicket,)
+                          ChatPage(myCustomer: user, selectedTicket: listTicketsSent![index], listMessages: listMessagesTicket,)
                       );
                       Navigator.of(context).push(routes);
                       },
@@ -182,7 +180,7 @@ class _TicketsPageState extends State<TicketsPage> {
                 onPressed: () {
                   var routes = MaterialPageRoute(
                         builder: (BuildContext context) => 
-                          CreateTicketPage(myCustomer: widget.myCustomer)
+                          CreateTicketPage(myCustomer: user)
                       );
                       Navigator.of(context).push(routes);
                 },
@@ -205,7 +203,7 @@ class _TicketsPageState extends State<TicketsPage> {
                     color: Colors.white
                   ),),
               ),
-            drawer: NavDrawerChat(myCustomer: widget.myCustomer,currentPage: "Inbox",),
+            drawer: NavDrawerChat(myUser: widget.user,currentPage: "Inbox",),
             body: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -270,7 +268,7 @@ class _TicketsPageState extends State<TicketsPage> {
                       onPressed: () {
                         var routes = MaterialPageRoute(
                               builder: (BuildContext context) => 
-                                CreateTicketPage(myCustomer: widget.myCustomer)
+                                CreateTicketPage(myCustomer: widget.user)
                             );
                             Navigator.of(context).push(routes);
                       },
@@ -287,7 +285,7 @@ class _TicketsPageState extends State<TicketsPage> {
         child: Scaffold(
             appBar: AppBar(
             ),
-            drawer: NavDrawerChat(myCustomer: widget.myCustomer, currentPage: "Inbox",),
+            drawer: NavDrawerChat(myUser: widget.user, currentPage: "Inbox",),
             body: Container(
               color: Color.fromARGB(255, 30, 30, 30),
               child: Column (
@@ -304,7 +302,7 @@ class _TicketsPageState extends State<TicketsPage> {
                           List<MessageCustom>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
                           var routes = MaterialPageRoute(
                           builder: (BuildContext context) => 
-                            ChatPage(myCustomer: widget.myCustomer, selectedTicket: listTicketsReceived![index], listMessages: listMessages,)
+                            ChatPage(myCustomer: widget.user, selectedTicket: listTicketsReceived![index], listMessages: listMessages,)
                         );
                         Navigator.of(context).push(routes);
                         },
@@ -338,7 +336,7 @@ class _TicketsPageState extends State<TicketsPage> {
                           onPressed: () {
                             var routes = MaterialPageRoute(
                                   builder: (BuildContext context) => 
-                                    CreateTicketPage(myCustomer: widget.myCustomer)
+                                    CreateTicketPage(myCustomer: widget.user)
                                 );
                                 Navigator.of(context).push(routes);
                           },
@@ -365,7 +363,7 @@ class _TicketsPageState extends State<TicketsPage> {
                           onPressed: () {
                             var routes = MaterialPageRoute(
                                   builder: (BuildContext context) => 
-                                    CreateTicketPage(myCustomer: widget.myCustomer)
+                                    CreateTicketPage(myCustomer: widget.user)
                                 );
                                 Navigator.of(context).push(routes);
                           },

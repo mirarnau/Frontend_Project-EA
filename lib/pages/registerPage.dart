@@ -244,7 +244,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           fullName: fullnameController.text,
                           email: emailController.text,
                           profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
-                          password: passwordController.text);
+                          password: passwordController.text,
+                          ratingLog: []);
                       newCustomer.listReservations = [];
                       newCustomer.listDiscounts = [];
                       newCustomer.role = [];
@@ -276,7 +277,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           ownerName: customernameController.text,
                           fullName: fullnameController.text,
                           email: emailController.text,
+                          profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
                           password: passwordController.text);
+                      
+                      newOwner.role = [];
+                      newOwner.creationDate = "";
+                      newOwner.listRestaurants = [];
+
                       await ownerService.addOwner(newOwner);
 
                       List<String> voidListTags = [];
@@ -313,7 +320,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     isOwner = true;
                     print(isOwner);
                 },
-                child: const Text("Owner",style: TextStyle(color: Colors.black, fontSize: 25)),
+                child: Text(translate('owner'),style: const TextStyle(color: Colors.black, fontSize: 25)),
                 
               ),
             ),
@@ -329,7 +336,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     isOwner = false;
                     print(isOwner);
                 },
-                child: const Text("Customer",style: TextStyle(color: Colors.black, fontSize: 25)),
+                child: Text(translate('customer'),style: const TextStyle(color: Colors.black, fontSize: 25)),
                 
               ),
             ),

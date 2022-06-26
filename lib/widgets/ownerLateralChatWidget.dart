@@ -2,16 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
-import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 
 import '../pages/indexPage.dart';
+import '../pages/ownerMainPage.dart';
 
-class NavDrawerChat extends StatelessWidget {
-  final myUser;
+class OwnerNavDrawerChat extends StatelessWidget {
+  final Owner? myOwner;
   final String currentPage;
 
-  const NavDrawerChat({Key? key, required this.myUser, required this.currentPage}) : super(key: key);
+  const OwnerNavDrawerChat({Key? key, required this.myOwner, required this.currentPage}) : super(key: key);
 
   List<DropdownMenuItem<String>> get foodStylesTags{
     List<DropdownMenuItem<String>> foodStylesItems = [
@@ -65,7 +67,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
+                          OwnerMainPage(owner: myOwner, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
                     
                     Navigator.of(context).push(route);
                   }
@@ -92,7 +94,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
+                          OwnerMainPage(owner: myOwner, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
                     
                     Navigator.of(context).push(route);
                   }
@@ -100,7 +102,7 @@ class NavDrawerChat extends StatelessWidget {
             ],
           )
         ),
-        Card(
+         Card(
           child: 
           Column(
             children:  [

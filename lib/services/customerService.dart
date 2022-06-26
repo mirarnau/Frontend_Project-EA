@@ -51,9 +51,9 @@ class CustomerService {
         headers: {'content-type': 'application/json'},
         body: json.encode(Customer.toJson(customer)));
 
-    if (res.statusCode == 201) {
-      Customer newCustomer = Customer.fromJSON(res.body);
-      return newCustomer;
+    if (res.statusCode == 200) {
+      //Customer newCustomer = Customer.fromJSON(res.body);
+      return customer;
     }
     return null;
   }

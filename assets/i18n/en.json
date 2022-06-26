@@ -8,6 +8,8 @@
     "help": "Help",
     "skip": "Skip",
     "empty": "One of the fields is empty",
+    "rating": "Rating",
+    "occupation": "Occupation",
 
     "app_bar":
     {
@@ -19,7 +21,9 @@
         "restaurants": "Restaurants",
         "chat": "Chat",
         "agenda": "Agenda",
-        "profile": "Profile"
+        "profile": "Profile",
+        "home": "Home",
+        "call": "Calls"
     },
 
     "language": 
@@ -100,12 +104,13 @@
     {
         "filter": "Filter your search",
         "no_match": "Sorry, any restaurant matches your preferences",
-        "no_rest": "This user has no restaurants",
+        "no_rest": "There are no restaurants",
         "filter_style": "Filter by style",
         "select_style": "Select the style of food",
         "filter_pref": "Filter by preferences",
         "select_pref": "Select your preferences",
-        "make_res": "Make reservation"
+        "make_res": "Make reservation",
+        "search": "Search a restaurant"
     },
 
     "tickets_page":
@@ -128,6 +133,48 @@
         "send": "Send",
         "open": "Opening mail application...",
         "failed": "It seems you do not have any mail application installed"
+    },
+
+    "stats_page": 
+    {
+        "title": "Statistics",
+        "month": "Month",
+        "year": "Year",
+        "months":
+        {
+            "Jan": "January",
+            "Feb": "February",
+            "Mar": "March",
+            "Apr": "April",
+            "May": "May",
+            "Jun": "June",
+            "Jul": "July",
+            "Aug": "August",
+            "Sep": "September",
+            "Oct": "October",
+            "Nov": "November",
+            "Dec": "Desember"
+        },
+        "months_ab":
+        {
+            "Jan": "Jan",
+            "Feb": "Feb",
+            "Mar": "Mar",
+            "Apr": "Apr",
+            "May": "May",
+            "Jun": "Jun",
+            "Jul": "Jul",
+            "Aug": "Aug",
+            "Sep": "Sep",
+            "Oct": "Oct",
+            "Nov": "Nov",
+            "Dec": "Des"
+        }
+    },
+
+    "info_owner": 
+    {
+        "add": "Update ingoing/outgoing customers"
     },
 
     "food_tags":

@@ -5,11 +5,14 @@ class Restaurant {
   late final String owner;
   late final String restaurantName;
   late final String email;
+  late final String phone;
   late final String address;
   late final String description;
   late final String city;
   late final List<dynamic> photos;
-  late final int rating;
+  late final List<dynamic> rating;
+  late final int occupation;
+  late final List<dynamic> statsLog;
   late final List<dynamic> listTags;
   late final List<dynamic> listDishes;
   late final String creationDate;
@@ -21,33 +24,40 @@ class Restaurant {
     required this.owner, 
     required this.restaurantName, 
     required this.email, 
+    required this.phone,
     required this.address,
     required this.description,
     required this.city,
     required this.photos,
     required this.rating,
+    required this.occupation,
+    required this.statsLog,
     required this.listTags,
     required this.listDishes,
     required this.creationDate,
     required this.location
   });
 
-  factory Restaurant.fromJSON(dynamic json){
+  factory Restaurant.fromJSON(Map<String, dynamic> json) {
     Restaurant restaurant =  Restaurant(
       id: json['_id'] as String,
       owner: json['owner'] as String,
       restaurantName: json['restaurantName'] as String, 
       email: json['email'] as String,
+      phone: json['phone'] as String,
       address: json['address'] as String,
       description: json['description'] as String,
       city: json['city'] as String,
       photos: json['photos'] as List<dynamic>,
-      rating: json['rating'] as int,
+      rating: json['rating'] as List<dynamic>,
+      occupation: json['occupation'] as int,
+      statsLog: json['statsLog'] as List<dynamic>,
       listTags: json ['listTags'] as List<dynamic>,
       listDishes: json['listDishes'] as List <dynamic>,
       creationDate: json['creationDate'] as String,
       location : Location.fromJSON(json['location'])
       );
+      
       return restaurant;
   }
 
@@ -57,9 +67,13 @@ class Restaurant {
       'owner': restaurant.owner,
       'restaurantName': restaurant.restaurantName,
       'email': restaurant.email,
+      'phone': restaurant.phone,
       'address': restaurant.address,
       'description': restaurant.description,
-      'listTags': restaurant.listTags
+      'listTags': restaurant.listTags,
+      'occupation': restaurant.occupation,
+      'statsLog': restaurant.statsLog,
+      'rating': restaurant.rating
     };
   }
 
@@ -71,7 +85,6 @@ class Restaurant {
         }
       ]
     };
-    print(json);
     return json;
   }
   
@@ -96,5 +109,13 @@ class Location{
     );
     return location;
   }
+}
+
+class Stats {
+  Stats(this.date, this.rating, this.occupation);
+
+  late final double rating;
+  late final double occupation;
+  late final DateTime date;
 }
 

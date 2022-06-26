@@ -8,6 +8,7 @@ import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
+import 'package:flutter_tutorial/pages/indexPage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -28,16 +29,19 @@ class _MainPageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Restaurants',
+      'Index 1: Restaurants',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Agenda',
+      'Index 2: Agenda',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+     Text(
+      'Index 3: Chat',
+      style: optionStyle,
+    ),
     Text(
-      'Index 2: Profile',
+      'Index 4: Profile',
       style: optionStyle,
     )
   ];
@@ -50,7 +54,7 @@ class _MainPageState extends State<MainPage> {
 
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
+    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, page: widget.chatPage, user: widget.customer,),
     WallPage(customer: widget.customer),
     Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
     ProfilePage(customer: _customer),

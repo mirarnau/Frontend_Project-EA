@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
-import 'package:flutter/material.dart';
 
 class Customer {
   late final String id;
@@ -11,6 +7,7 @@ class Customer {
   late final String password;
   late final String profilePic;
   late final String creationDate;
+  late final List<dynamic> ratingLog;
   late final List<String> listReservations;
   late final List<Discount> listDiscounts;
   late final List<String> role;
@@ -20,7 +17,8 @@ class Customer {
     required this.fullName,
     required this.email,
     required this.password,
-    required this.profilePic
+    required this.profilePic,
+    required this.ratingLog
   });
 
   factory Customer.fromJSON(dynamic json) {
@@ -30,14 +28,15 @@ class Customer {
         fullName: json['fullName'],
         email: json['email'],
         password: json['password'],
-        profilePic:json['profilePic']);
-        //profilePic: Image.memory(base64Decode(json['profilePic'])));
+        profilePic:json['profilePic'],
+        ratingLog: json['ratingLog'] as List<dynamic>);
+        
     customer.role = json['role'].cast<String>();    
     customer.id = json['_id'];
     customer.listReservations =  json['listReservations'].cast<String>();
     customer.listDiscounts = json['listDiscounts'].cast<Discount>();
     customer.creationDate = json['creationDate'];
-
+    
     return customer;
   }
 
@@ -56,13 +55,14 @@ class Customer {
       'listReservations': customer.listReservations,
       'listDiscounts': customer.listDiscounts,
       'role': customer.role,
-      'creationDate': customer.creationDate
+      'creationDate': customer.creationDate,
+      'ratingLog': customer.ratingLog,
     };
   }
 }
 
 class Discount {
   late final String restaurantName;
-  late final Double amount;
+  late final double amount;
   late final String expirationDate;
 }

@@ -8,6 +8,8 @@
     "help": "Ayuda",
     "skip": "Omitir",
     "empty": "Uno de los campos está vacío",
+    "rating": "Puntuación",
+    "occupation": "Occupación",
 
     "app_bar":
     {
@@ -19,7 +21,9 @@
         "restaurants": "Restaurantes",
         "chat": "Chat",
         "agenda": "Agenda",
-        "profile": "Perfil"
+        "profile": "Perfil",
+        "home": "Casa",
+        "call": "Llamadas"
     },
 
     "language": 
@@ -100,12 +104,13 @@
     {
         "filter": "Filtre su búsqueda",
         "no_match": "Lo lamentamos, ningún restaurante coincide con sus preferencias",
-        "no_rest": "Este usuario no tiene restaurantes",
+        "no_rest": "No hay restaurantes",
         "filter_style": "Filtrar por estilo",
         "select_style": "Seleccione el estilo de la comida",
         "filter_pref": "Filtrar por preferencias",
         "select_pref": "Seleccione sus preferencias",
-        "make_res": "Haga una reserva"
+        "make_res": "Haga una reserva",
+        "search": "Busque un restaurante"
     },
 
     "tickets_page":
@@ -128,6 +133,48 @@
         "send": "Enviar",
         "open": "Abriendo aplicación de correo...",
         "failed": "Parece ser que no tiene ninguna aplicación de correo instalada"
+    },
+
+    "stats_page": 
+    {
+        "title": "Estadísticas",
+        "month": "Mes",
+        "year": "Año",
+        "months":
+        {
+            "Jan": "Enero",
+            "Feb": "Febrero",
+            "Mar": "Marzo",
+            "Apr": "Abril",
+            "May": "Mayo",
+            "Jun": "Junio",
+            "Jul": "Julio",
+            "Aug": "Agost0",
+            "Sep": "Septiembre",
+            "Oct": "Octubre",
+            "Nov": "Noviembre",
+            "Dec": "Diciembre"
+        },
+        "months_ab":
+        {
+            "Jan": "Ene",
+            "Feb": "Feb",
+            "Mar": "Mar",
+            "Apr": "Abr",
+            "May": "May",
+            "Jun": "Jun",
+            "Jul": "Jul",
+            "Aug": "Ago",
+            "Sep": "Sep",
+            "Oct": "Oct",
+            "Nov": "Nov",
+            "Dec": "Dic"
+        }
+    },
+
+    "info_owner": 
+    {
+        "add": "Actualice los clientes que entran/salen"
     },
 
     "food_tags":

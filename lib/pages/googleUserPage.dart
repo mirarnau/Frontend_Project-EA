@@ -211,7 +211,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           email: account!.email,
                           profilePic: account!.photoUrl!,
                           //profilePic: Image.asset("assets/images/userDefaultPic.png"),
-                          password: passwordController.text);
+                          password: passwordController.text,
+                          ratingLog: []);
                       await customerService.addCustomer(newCustomer);
 
                       List<String> voidListTags = [];
@@ -238,6 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Owner newOwner = Owner(
                           ownerName: customernameController.text,
                           fullName: account!.displayName!,
+                          profilePic: 'https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png',
                           email: account!.email,
                           password: passwordController.text);
                       await ownerService.addOwner(newOwner);

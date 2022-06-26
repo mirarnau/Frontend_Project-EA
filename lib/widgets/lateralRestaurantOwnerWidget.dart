@@ -1,74 +1,135 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 
 import '../models/owner.dart';
 import '../pages/ownerMainPage.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawer extends StatefulWidget {
   final Owner? owner;
   final List<String> previousTags;
   const NavDrawer({Key? key, required this.owner, required this.previousTags}) : super(key: key);
 
-  List<DropdownMenuItem<String>> get foodStylesTags{
+   @override
+  State<NavDrawer> createState() => _NavDrawer_State();
+}
+
+
+  class _NavDrawer_State extends State<NavDrawer>{
+
+    bool foodStyleVisible = false;
+    bool extrasVisible = false;
+
+    String selectedFoodStyle = "Italian";
+    String selectedExtras = "Live music";
+
+    List<DropdownMenuItem<String>> get foodStylesTags{
     List<DropdownMenuItem<String>> foodStylesItems = [
-      const DropdownMenuItem(child: Text("Italian"),value: "Italian"),
-      const DropdownMenuItem(child: Text("Asiatic"),value: "Asiatic"),
-      const DropdownMenuItem(child: Text("Vegan"),value: "Vegan"),
-      const DropdownMenuItem(child: Text("Mexican"),value: "Mexican"),
+      DropdownMenuItem(child: Text(translate('food_tags.italian')), value: "Italian"),
+      DropdownMenuItem(child: Text(translate('food_tags.asiatic')), value: "Asiatic"),
+      DropdownMenuItem(child: Text(translate('food_tags.vegan')), value: "Vegan"),
+      DropdownMenuItem(child: Text(translate('food_tags.mexican')), value: "Mexican"),
     ];
     return foodStylesItems;
   }
 
   List<DropdownMenuItem<String>> get extrasTags{
     List<DropdownMenuItem<String>> extrasTags = [
-      const DropdownMenuItem(child: Text("Pets allowed"),value: "Pets allowed"),
-      const DropdownMenuItem(child: Text("Live music"),value: "Live music"),
-      const DropdownMenuItem(child: Text("For kids"),value: "For kids")
+      DropdownMenuItem(child: Text(translate('food_tags.pets')), value: "Pets allowed"),
+      DropdownMenuItem(child: Text(translate('food_tags.live')), value: "Live music"),
+      DropdownMenuItem(child: Text(translate('food_tags.kids')), value: "For kids")
     ];
     return extrasTags;
   }
 
+   @override
+    void initState() {
+      super.initState();
+    }
+
   @override
   Widget build(BuildContext context) {
-    String selectedFoodStyle = "Italian";
-    String selectedExtras = "Live music";
+    
+
     return Drawer(
-      backgroundColor: const Color.fromARGB(255, 48, 48, 48),
+      backgroundColor: Theme.of(context).backgroundColor,
       child: ListView(
       children: <Widget>[
         Card(
           child: 
           Column(
             children: [
-              const ListTile(
-                leading: Icon (Icons.restaurant),
-                title: Text('Filter by style'),
-                subtitle: Text('Select the style of food'),
-                trailing: Icon(Icons.more_vert),
+               ListTile(
+                 tileColor: Theme.of(context).backgroundColor,
+                leading: Icon (
+                  Icons.restaurant,
+                  color: Theme.of(context).primaryColor),
+                title: Text(
+                  translate('restaurants_page.filter_style'),
+                  style: TextStyle(
+                    color: Theme.of(context).highlightColor,
+                  ),),
+                subtitle: Text(
+                  translate('restaurants_page.select_style'),
+                  style: TextStyle(
+                    color: Theme.of(context).shadowColor
+                  ),),
+                trailing: Icon(
+                  Icons.more_vert,
+                  color: Theme.of(context).primaryColor),
+                onTap: (){
+                  if (foodStyleVisible == false){
+                    foodStyleVisible = true;
+                  }
+                  else {
+                    foodStyleVisible = false;
+                  }
+                  setState(() {});
+                },
               ),
-              
-              DropdownButtonFormField(
-                value: selectedFoodStyle,
-                items: foodStylesTags, 
-                onChanged: (String? newValue) { 
-                  selectedFoodStyle = newValue!;
-                  previousTags.add(selectedFoodStyle);
-                 },
+              Visibility(
+                visible: foodStyleVisible == true ? true:false ,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        DropdownButtonFormField(
+                          style: TextStyle(
+                            color:Theme.of(context).highlightColor, 
+                          ),
+                          iconDisabledColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).hoverColor,
+                          borderRadius: BorderRadius.circular(20),
+                    value: selectedFoodStyle,
+                    items: foodStylesTags, 
+                    onChanged: (String? newValue) { 
+                      selectedFoodStyle = newValue!;
+                     },
               ),
               TextButton(
-                child: const Text(
-                  'ADD TAG',
-                  style: TextStyle(
-                    color: Colors.green
+                    child: Text(
+                      translate('food_tags.add').toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.green
+                      ),
+                    ),
+                    onPressed:() {
+                      widget.previousTags.add(selectedFoodStyle);
+                      {Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                        );}
+                     }
+              )
+
+                      ],
+                    ),
                   ),
                 ),
-                onPressed:() {
-                  {Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context)=> OwnerMainPage(owner: owner, selectedIndex: 0, transferRestaurantTags: previousTags))
-                    );}
-                 }
               )
+              
             ],
           )
         ),
@@ -76,38 +137,80 @@ class NavDrawer extends StatelessWidget {
           child: 
           Column(
             children: [
-              const ListTile(
-                leading: Icon (Icons.restaurant),
-                title: Text('Filter by preferences'),
-                subtitle: Text('Select your preferences'),
-                trailing: Icon(Icons.more_vert),
-              ),
-              DropdownButtonFormField(
-                value: selectedExtras,
-                items: extrasTags, 
-                onChanged: (String? newValue) { 
-                  selectedExtras = newValue!;
-                  previousTags.add(selectedExtras);
-                 },
-              ),
-              TextButton(
-                child: const Text(
-                  'ADD TAG',
+              ListTile(
+                tileColor: Theme.of(context).backgroundColor,
+                leading: Icon (
+                  Icons.family_restroom,
+                  color: Theme.of(context).primaryColor),
+                title: Text(
+                  translate('restaurants_page.filter_pref'),
                   style: TextStyle(
-                    color: Colors.white
+                    color: Theme.of(context).highlightColor,
+                  ),),
+                subtitle: Text(
+                  translate('restaurants_page.select_pref'),
+                  style: TextStyle(
+                    color: Theme.of(context).shadowColor,
+                  ),),
+                trailing: Icon(
+                  Icons.more_vert,
+                  color: Theme.of(context).primaryColor),
+                onTap: () {
+                  if (extrasVisible == false){
+                    extrasVisible = true;
+                  }
+                  else {
+                    extrasVisible = false;
+                  }
+                  setState(() {});
+                },
+              ),
+              Visibility(
+                visible: extrasVisible == true ? true:false ,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        DropdownButtonFormField(
+                          style: TextStyle(
+                            color:Theme.of(context).highlightColor, 
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          iconDisabledColor: Theme.of(context).backgroundColor,
+                          dropdownColor: Theme.of(context).hoverColor,
+                          value: selectedExtras,
+                          items: extrasTags, 
+                          onChanged: (String? newValue) { 
+                            selectedExtras = newValue!;
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            translate('food_tags.add').toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.green
+                            ),
+                          ),
+                          onPressed:() {
+                            widget.previousTags.add(selectedExtras);
+                            {Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context)=> OwnerMainPage(owner: widget.owner, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                              );}
+                          }
+                        ), 
+                      ],
+                    ),
                   ),
                 ),
-                onPressed:() {
-                  {Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context)=> OwnerMainPage(owner: owner, selectedIndex: 0, transferRestaurantTags: previousTags))
-                    );}
-                 }
               )
+              
             ],
           )
         ),
       ],
 )
     );
-  }
+}
 }

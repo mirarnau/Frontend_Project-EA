@@ -8,10 +8,12 @@
     "help": "Ajuda",
     "skip": "Ometre",
     "empty": "Un dels camps és buit",
+    "rating": "Puntuació",
+    "occupation": "Occupació",
 
     "app_bar":
     {
-        "title": "Ajusts del Compte"
+        "title": "Ajustaments del Compte"
     },
 
     "nav_bar":
@@ -19,7 +21,9 @@
         "restaurants": "Restaurants",
         "chat": "Xat",
         "agenda": "Agenda",
-        "profile": "Perfil"
+        "profile": "Perfil",
+        "home": "Casa",
+        "call": "Trucades"
     },
 
     "language":
@@ -39,7 +43,7 @@
         "configuration": "CONFIGURACIÓ",
         "account_settings": 
         {
-            "title": "Ajusts del Compte",
+            "title": "Ajustaments del Compte",
             "sub_title": "Idioma"
         },
         "notifications": "Notificacions",
@@ -57,7 +61,7 @@
             "username": "Aquí pot observar el seu nom d'usuari, correu electrònic i el nom del seu compte",
             "dark_mode": "Canviï entre Mode Clar i Mode Fosc, pot canviar tants cops com vulgui",
             "account_settings": "Aquí pot canviar les preferències del compte",
-            "notifications":  "Configuri els ajusts de les notificacions",
+            "notifications":  "Configuri els ajustaments de les notificacions",
             "logout": "Si desitja tancar la sessió pulsi aquí",
             "delete": "En cas de no estar satisfet amb l'aplicació o si ja no li veu cap ús, pot eliminar la seva informació personal",
             "contact": "Té algun dubte, problema o opinió? Deixi'ns-ho saber enviant un correu"
@@ -100,12 +104,13 @@
     {
         "filter": "Filtri la seva cerca",
         "no_match": "Ho sentim, cap restaurant coincideix amb les seves preferències",
-        "no_rest": "Aquest usuari no té restaurants",
+        "no_rest": "No hi ha restaurants",
         "filter_style": "Filtrar per estil",
         "select_style": "Seleccioni l'estil del menjar",
         "filter_pref": "Filtrar per preferencies",
         "select_pref": "Seleccioni les seves preferencies",
-        "make_res": "Faci una reserva"
+        "make_res": "Faci una reserva",
+        "search": "Busqui un restaurant"
     },
 
     "tickets_page":
@@ -130,6 +135,48 @@
         "failed": "Sembla que no té cap aplicació de correu instal·lada"
     },
 
+    "stats_page": 
+    {
+        "title": "Estadístiques",
+        "month": "Mes",
+        "year": "Any",
+        "months":
+        {
+            "Jan": "Gener",
+            "Feb": "Febrer",
+            "Mar": "Març",
+            "Apr": "Abril",
+            "May": "Maig",
+            "Jun": "Juny",
+            "Jul": "Juliol",
+            "Aug": "Agost",
+            "Sep": "Setembre",
+            "Oct": "Octubre",
+            "Nov": "Novembre",
+            "Dec": "Desembre"
+        },
+        "months_ab":
+        {
+            "Jan": "Gen",
+            "Feb": "Feb",
+            "Mar": "Mar",
+            "Apr": "Abr",
+            "May": "Mai",
+            "Jun": "Jun",
+            "Jul": "Jul",
+            "Aug": "Ago",
+            "Sep": "Set",
+            "Oct": "Oct",
+            "Nov": "Nov",
+            "Dec": "Des"
+        }
+    },
+
+    "info_owner": 
+    {
+        "add": "Actualitzi els clientes que entren/surten"
+    },
+
     "food_tags":
     {
         "add": "Afegir Tag",
@@ -140,5 +187,5 @@
         "pets": "Mascotes permeses",
         "live": "Música en directe",
         "kids": "Per a nens"
-    }
+    } 
 }
