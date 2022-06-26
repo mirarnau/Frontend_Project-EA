@@ -68,6 +68,18 @@
         }
     },
 
+    "info_page": 
+    {
+        "empty": "Hi ha camps buits",
+        "empty_large": "Alguns camps són buits, si us plau, emleni'ls"
+    },
+
+    "edit_page":
+    {
+        "alert": "Nom d'usuari existent",
+        "alert_user": "El nom d'usuari introduït ja existeix, si us plau, canviï'l"
+    },
+
     "login_page":
     {
         "credentials": "Credencials Incorrectes",
@@ -89,6 +101,8 @@
         "new_email": "Nou Correu Electrònic",
         "email_empty": "El camp del correu electrònic no pot estar buit",
         "email_invalid": "Correu Electrònic Invàlid",
+        "user_empty": "El camp del nom d'usuari no pot estar buit",
+        "user_repeated": "El nom d'usuari ha de ser diferent de l'actual",
         "password_match": "Les contrasenyes no coincideixen",
         "password_repeat": "Repeteixi la contrasenya",
         "password_again": "Introdueixi la seva contrasenya un altre cop"

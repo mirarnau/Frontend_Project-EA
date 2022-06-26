@@ -68,6 +68,18 @@
         }
     },
 
+    "info_page": 
+    {
+        "empty": "There empty fields",
+        "empty_large": "Some fields are empty, please, fill them"
+    },
+    
+    "edit_page":
+    {
+        "alert": "Username already exists",
+        "alert_user": "The username already exists, please, change it"
+    },
+
     "login_page":
     {
         "credentials": "Incorrect credentials",
@@ -89,6 +101,8 @@
         "new_email": "New Email",
         "email_empty": "Email cannot be empty",
         "email_invalid": "Invalid Email Address",
+        "user_empty": "Username field cannot be empty",
+        "user_repeated": "The username should be different than the actual",
         "password_match": "Passwords do not match",
         "password_repeat": "Repeat password",
         "password_again": "Enter you password again"

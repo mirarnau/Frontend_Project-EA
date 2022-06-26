@@ -104,6 +104,9 @@ class _editProfilePage extends State<editProfilePage> {
                   border: OutlineInputBorder(),
                   labelText: translate('login_page.username'),
                   hintText: translate('login_page.new_username')),
+              onChanged: (val) {
+                validateUser(val);
+              }
             ),
           ),
           Padding(
@@ -135,7 +138,7 @@ class _editProfilePage extends State<editProfilePage> {
             child: TextButton(
               onPressed: () async {
                 if ((_customerNameController.text.isNotEmpty) &&
-                    (_emailController.text.isNotEmpty)) {
+                    (_emailController.text.isNotEmpty) && buttonEnabled) {
                   
                   var profilePic = "";
                   
@@ -174,27 +177,29 @@ class _editProfilePage extends State<editProfilePage> {
                   
                     
                   bool res = await customerService.update(newcustomer, newcustomer.id);
+
+                  print(res);
                   
-                  setState(() {
-                    buttonEnabled = true;
-                  });
-
                   if (res == false) {
-                    //Codi de que hi ha hagut un error.
-                    return;
+                    showAlertDialog(context);
+                    setState(() {
+                      buttonEnabled = false;
+                    });
                   }
-
-                  List<String> voidListTags = [];
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MainPage(
-                        customer: newcustomer,
-                        selectedIndex: 3,
-                        transferRestaurantTags: voidListTags,
-                        chatPage: "Inbox",
-                      )),
-                  );
+                  else {
+                    List<String> voidListTags = [];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          customer: newcustomer,
+                          selectedIndex: 3,
+                          transferRestaurantTags: voidListTags,
+                          chatPage: "Inbox",
+                        )
+                      ),
+                    );
+                  }
                 }
               },
               child: Text(
@@ -292,7 +297,57 @@ class _editProfilePage extends State<editProfilePage> {
     } else {
       setState(() {
         _errorMessage = "";
+        buttonEnabled = true;
       });
     }
+  }
+
+  void validateUser(String val) {
+    if (val.isEmpty) {
+      setState(() {
+        _errorMessage = translate('login_page.user_empty');
+        buttonEnabled = false;
+      });
+    } else if (val == widget.customer!.customerName) {
+      setState(() {
+        _errorMessage = translate('login_page.user_repeated');
+        buttonEnabled = false;
+      });
+    }
+    else {
+      setState(() {
+        _errorMessage = "";
+        buttonEnabled = true;
+      });
+    }
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  
+    AlertDialog alert = AlertDialog(
+      title: Text(
+        translate('edit_page.alert'),
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text(translate('edit_page.alert_user')),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

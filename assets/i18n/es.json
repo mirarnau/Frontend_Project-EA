@@ -68,6 +68,18 @@
         }
     },
 
+    "info_page": 
+    {
+        "empty": "Hay campos vacíos",
+        "empty_large": "Algunos campos están vaciós, por favor, rellénelos"
+    },
+
+    "edit_page":
+    {
+        "alert": "Nombre de usuario existente",
+        "alert_user": "El nombre de usuario introducido ya existe, por favor, cámbielo"
+    },
+
     "login_page":
     {
         "credentials": "Credenciales Incorrectas",
@@ -89,6 +101,8 @@
         "new_email": "Nuevo Correo Electrónico",
         "email_empty": "El campo del correo electrónico no puede estar vacío",
         "email_invalid": "Correo Electrónico Inválido",
+        "user_empty": "El campo del nombre de usuario no puede estar vacío",
+        "user_repeated": "El nombre de usuario tiene que ser diferente al actual",
         "password_match": "Las contraseñas no coinciden",
         "password_repeat": "Repita la contraseña",
         "password_again": "Introduzca su contraseña otra vez"

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,6 +41,11 @@ class _editOwnerPageState extends State<editOwnerPage> {
   bool buttonEnabled = false;
 
   final cloudinary = CloudinaryPublic('eduardferrecloud', 'oqpjo8a2', cache: false);
+
+  final XTypeGroup typeGroup = XTypeGroup(
+    label: 'images',
+    extensions: <String>['jpg', 'png'],
+  );
   
   @override
   void initState() {
@@ -67,14 +73,24 @@ class _editOwnerPageState extends State<editOwnerPage> {
             imagePath: widget.owner!.profilePic,
             isEdit: true,
             onClicked: () async {
-              var image =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
-              if (image == null) return;
+              if(!kIsWeb) {
+                var image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image == null) return;
 
-              var directory = await getApplicationDocumentsDirectory();
-              var name = basename(image.path);
-              var imageFile = File('${directory.path}/$name');
-              newImage = await File(image.path).copy(imageFile.path);
+                var directory = await getApplicationDocumentsDirectory();
+                var name = basename(image.path);
+                var imageFile = File('${directory.path}/$name');
+                newImage = await File(image.path).copy(imageFile.path);
+              }
+              else {
+                final XFile? image =
+                  await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+
+                if (image == null) return;
+
+                newImage = File(image.path);
+              }
             },
           ),
           const SizedBox(height: 24),
@@ -86,6 +102,9 @@ class _editOwnerPageState extends State<editOwnerPage> {
                   border: OutlineInputBorder(),
                   labelText: translate('login_page.username'),
                   hintText: translate('login_page.new_username')),
+              onChanged: (val) {
+                validateUser(val);
+              }
             ),
           ),
           Padding(
@@ -147,30 +166,35 @@ class _editOwnerPageState extends State<editOwnerPage> {
                   );
 
                   newowner.id = widget.owner!.id;
+                  newowner.role = widget.owner!.role;
+                  newowner.creationDate = widget.owner!.creationDate;
                   newowner.listRestaurants = widget.owner!.listRestaurants;
 
-                  var res = await ownerService.update(newowner, newowner.id);
-
-                  setState(() {
-                    buttonEnabled = true;
-                  });
+                  bool res = await ownerService.update(newowner, newowner.id);
 
                   if (res == false) {
-                    //Codi de que hi ha hagut un error.
-                    return;
+                    setState(() {
+                      buttonEnabled = false;
+                    });
+                    showAlertDialog(context);
                   }
-
-                  List<String> voidListTags = [];
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OwnerMainPage(
-                        owner: newowner,
-                        selectedIndex: 3,
-                        transferRestaurantTags: voidListTags,
-                        chatPage: "Inbox",
-                      )),
-                  );
+                  else {
+                    setState(() {
+                      buttonEnabled = true;
+                    });
+                    List<String> voidListTags = [];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OwnerMainPage(
+                          owner: newowner,
+                          selectedIndex: 4,
+                          transferRestaurantTags: voidListTags,
+                          chatPage: "Inbox",
+                        )
+                      ),
+                    );
+                  }
                 }
               },
               child: Text(
@@ -270,5 +294,54 @@ class _editOwnerPageState extends State<editOwnerPage> {
         _errorMessage = "";
       });
     }
+  }
+
+  void validateUser(String val) {
+    if (val.isEmpty) {
+      setState(() {
+        _errorMessage = translate('login_page.user_empty');
+        buttonEnabled = false;
+      });
+    } else if (val == widget.owner!.ownerName) {
+      setState(() {
+        _errorMessage = translate('login_page.user_repeated');
+        buttonEnabled = false;
+      });
+    }
+    else {
+      setState(() {
+        _errorMessage = "";
+        buttonEnabled = true;
+      });
+    }
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  
+    AlertDialog alert = AlertDialog(
+      title: Text(
+        translate('edit_page.alert'),
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text(translate('edit_page.alert_user')),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

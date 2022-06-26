@@ -247,10 +247,10 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
 
   AlertDialog alert = AlertDialog(
       title: Text(
-        "Empty fields",
+        translate('info_page.empty'),
         style: TextStyle(color: Colors.red),
       ),
-      content: Text('Some fields are empty, please fill them'),
+      content: Text(translate('info_page.empty_large')),
       actions: [
         okButton,
       ],
