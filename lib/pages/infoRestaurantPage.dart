@@ -226,6 +226,35 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                       ),
                     ),
                   ),
+                  Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  child: Row(
+                    children: [
+                      Icon(Icons.picture_as_pdf),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'menu.pdf'
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    final file = await pdfService.pickFile();
+                    print ('aaaaaaaaaaaa ${file!.path}');
+                    if (file != null){
+                      pdfService.openPDF(context, file);
+                    }
+                  },
+                )
+              ),
+            ),
+          )
                 ],
               ),
             ],

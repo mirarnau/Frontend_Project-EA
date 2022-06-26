@@ -36,7 +36,7 @@ class Customer {
     customer.listReservations =  json['listReservations'].cast<String>();
     customer.listDiscounts = json['listDiscounts'].cast<Discount>();
     customer.creationDate = json['creationDate'];
-
+    
     return customer;
   }
 

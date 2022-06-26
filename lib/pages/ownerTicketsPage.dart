@@ -113,7 +113,7 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () async {
-                      List<Message>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
+                      List<MessageCustom>? listMessages = await ticketService.getMessagesFromTicket(listTicketsReceived![index]);
                       var routes = MaterialPageRoute(
                       builder: (BuildContext context) => 
                         OwnerChatPage(myOwner

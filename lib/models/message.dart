@@ -1,4 +1,4 @@
-class Message {
+class MessageCustom {
   late final String id;
   late final String senderName;
   late final String receiverName;
@@ -6,7 +6,7 @@ class Message {
   late final String profilePicSender;
   late final String creationDate;
 
-  Message(
+  MessageCustom(
     {
       required this.senderName,
       required this.receiverName,
@@ -15,8 +15,8 @@ class Message {
     }
   );
 
-  factory Message.fromJSON(dynamic json) {
-    Message message = Message(
+  factory MessageCustom.fromJSON(dynamic json) {
+    MessageCustom message = MessageCustom(
       senderName: json['senderName'] as String,
       receiverName: json['receiverName'],
       message: json['message'],
@@ -26,7 +26,7 @@ class Message {
     return message;
   }
 
-  static Map<String, dynamic> toJson (Message message) {
+  static Map<String, dynamic> toJson (MessageCustom message) {
     return {
       'senderName': message.senderName,
       'receiverName': message.receiverName,

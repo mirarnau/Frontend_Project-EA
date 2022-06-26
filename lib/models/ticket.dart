@@ -5,7 +5,7 @@ class Ticket {
   late final String creatorName;
   late final String recipientName;
   late final String subject;
-  late final List<Message> messages;
+  late final List<MessageCustom> messages;
   late final bool status;
   late final String creationDate;
 
@@ -21,7 +21,7 @@ class Ticket {
         subject: json['subject']);
 
     ticket.id = json['_id'];
-    ticket.messages = json['messages'].cast<Message>();
+    ticket.messages = json['messages'].cast<MessageCustom>();
     ticket.status = json['status'];
     ticket.creationDate = json['creationDate'];
     return ticket;

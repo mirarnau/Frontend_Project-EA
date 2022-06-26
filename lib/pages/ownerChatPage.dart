@@ -15,7 +15,7 @@ import 'package:flutter_tutorial/services/ticketsService.dart';
 class OwnerChatPage extends StatefulWidget {
   final Owner? myOwner;
   final Ticket selectedTicket;
-  final List<Message>? listMessages;
+  final List<MessageCustom>? listMessages;
   const OwnerChatPage({Key? key,required this.myOwner, required this.selectedTicket, required this.listMessages}) : super(key: key);
 
   @override

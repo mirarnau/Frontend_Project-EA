@@ -142,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextStyle(color: Theme.of(context).highlightColor)),
                 ),
               ),
+              
               Padding(
                 padding: const EdgeInsets.only(bottom: 50),
                 child: TextButton(
@@ -184,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   var route = MaterialPageRoute(
                       builder: (BuildContext context) => MainPage(
                             customer: customer,
-                            selectedIndex: 0,
+                            selectedIndex: 1,
                             transferRestaurantTags: voidListTags,
                             chatPage: "Inbox",
                           ));
@@ -234,9 +235,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 0),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: TextButton(
                     onPressed: () async {
                       Navigator.push(
@@ -255,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   child: TextButton(
                     onPressed: () {
                       stratrSignIn();
