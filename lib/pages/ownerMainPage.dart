@@ -97,6 +97,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
             label: translate('nav_bar.home'),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.video_call),
+            label: translate('nav_bar.call'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: translate('nav_bar.profile'),
           ),
