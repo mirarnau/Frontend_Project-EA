@@ -135,8 +135,8 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(100.0),
-                          onTap: () {
-                            openRatingDialog(context);
+                          onTap: () async {
+                            await openRatingDialog(context);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -261,7 +261,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
     showDialog(
       context: context,
       builder:(context) {
-        return Dialog(
+        return Dialog (
           child: RatingWidget(
             customer: widget.customer,
             restaurant: widget.selectedRestaurant,

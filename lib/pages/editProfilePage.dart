@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,13 @@ import 'package:flutter_tutorial/widgets/TextFieldWidget.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:path/path.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as Path;
+import 'package:mime_type/mime_type.dart';
+
 
 class editProfilePage extends StatefulWidget {
   final Customer? customer;
@@ -38,6 +43,11 @@ class _editProfilePage extends State<editProfilePage> {
   bool buttonEnabled = false;
 
   final cloudinary = CloudinaryPublic('eduardferrecloud', 'oqpjo8a2', cache: false);
+
+  final XTypeGroup typeGroup = XTypeGroup(
+    label: 'images',
+    extensions: <String>['jpg', 'png'],
+  );
   
   @override
   void initState() {
@@ -53,7 +63,9 @@ class _editProfilePage extends State<editProfilePage> {
     CustomerService customerService = CustomerService();
 
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
@@ -63,14 +75,24 @@ class _editProfilePage extends State<editProfilePage> {
             imagePath: widget.customer!.profilePic,
             isEdit: true,
             onClicked: () async {
-              var image =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
-              if (image == null) return;
+              if(!kIsWeb) {
+                var image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image == null) return;
 
-              var directory = await getApplicationDocumentsDirectory();
-              var name = basename(image.path);
-              var imageFile = File('${directory.path}/$name');
-              newImage = await File(image.path).copy(imageFile.path);
+                var directory = await getApplicationDocumentsDirectory();
+                var name = basename(image.path);
+                var imageFile = File('${directory.path}/$name');
+                newImage = await File(image.path).copy(imageFile.path);
+              }
+              else {
+                final XFile? image =
+                  await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+
+                if (image == null) return;
+
+                newImage = File(image.path);
+              }
             },
           ),
           const SizedBox(height: 24),
@@ -109,7 +131,7 @@ class _editProfilePage extends State<editProfilePage> {
             height: 50,
             width: 250,
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)),
             child: TextButton(
               onPressed: () async {
                 if ((_customerNameController.text.isNotEmpty) &&
