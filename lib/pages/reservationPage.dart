@@ -3,6 +3,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
+import 'package:flutter_tutorial/pages/createReservationPage.dart';
+import 'package:flutter_tutorial/pages/createTicketPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/reservationService.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
@@ -77,17 +79,13 @@ class _ReservationPageState extends State<ReservationPage> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).cardColor,
-              title: Text('null'),
+              title: Text(''),
             ),
-            body: Text('null'),
+            body: Text(''),
           ));
     } else {
       if (listReservations == null) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).cardColor,
-            title: Text(''),
-          ),
           body: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -103,9 +101,8 @@ class _ReservationPageState extends State<ReservationPage> {
         );
       }
       return Scaffold(
-        appBar: AppBar(),
         body: Container(
-          color: Color.fromARGB(255, 30, 30, 30),
+          color: Theme.of(context).backgroundColor,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -129,6 +126,28 @@ class _ReservationPageState extends State<ReservationPage> {
                         }
                       })),
             ],
+          ),
+        ),
+        floatingActionButton: Container(
+          alignment: Alignment.bottomRight,
+          height: 200.0,
+          width: 100.0,
+          child: FittedBox(
+            child: FloatingActionButton.extended(
+              backgroundColor: Theme.of(context).cardColor,
+              icon:
+                  Icon(Icons.add_comment, color: Theme.of(context).focusColor),
+              label: Text(
+                translate('tickets_page.create'),
+                style: TextStyle(color: Theme.of(context).focusColor),
+              ),
+              onPressed: () {
+                var routes = MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        CreateRestaurantPage(myCustomer: widget.myCustomer));
+                Navigator.of(context).push(routes);
+              },
+            ),
           ),
         ),
       );

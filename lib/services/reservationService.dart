@@ -33,16 +33,17 @@ class ReservationApi {
     }
   }
 
-  /*
-   Future <Dish?> addUser(Dish user) async{
+  Future<Reservation?> addReservation(Reservation reservation) async {
     var res = await http.post(Uri.parse(baseUrl),
-       headers: {'content-type': 'application/json'},
-       body: json.encode(Dish.toJson(user)));
-    if (res.statusCode == 201){
-      Dish newUser = Dish.fromJSON(res.body);
-      return newUser;
+        headers: {
+          'authorization': LocalStorage('key').getItem('token'),
+          'content-type': 'application/json'
+        },
+        body: json.encode(Reservation.toJson(reservation)));
+    if (res.statusCode == 201) {
+      //Reservation newReservation = Reservation.fromJSON(json.decode(res.body));
+      //return newReservation;
     }
     return null;
   }
-  */
 }
