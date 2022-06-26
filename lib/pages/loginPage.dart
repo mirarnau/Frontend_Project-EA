@@ -18,6 +18,7 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -268,39 +269,27 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Container(
-                height: 50,
-                width: 250,
-                padding: const EdgeInsets.only(left: 0, bottom: 0),
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(20)),
-                child: TextButton(
-                  onPressed: () async {
+              ToggleSwitch(
+                minWidth: 90.0,
+                initialLabelIndex: 0,
+                cornerRadius: 20.0,
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.grey,
+                inactiveFgColor: Colors.white,
+                totalSwitches: 2,
+                labels: ['Customer', 'Owner'],
+                activeBgColors: [[Colors.blue],[Colors.red]],
+                onToggle: (index) {
+                  if (index == 0){
+                    isOwner = false;
+                    print(isOwner);
+                  }
+                  else{
                     isOwner = true;
                     print(isOwner);
-                  },
-                  child: Text(translate('owner'),
-                      style: TextStyle(color: Colors.black, fontSize: 25)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 50,
-                  width: 250,
-                  padding: const EdgeInsets.only(right: 0, bottom: 0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: TextButton(
-                    onPressed: () async {
-                      isOwner = false;
-                      print(isOwner);
-                    },
-                    child: Text(translate('customer'),
-                        style: TextStyle(color: Colors.black, fontSize: 25)),
-                  ),
-                ),
+                  }
+                  print('switched to: $index');
+                },
               ),
             ],
           ),

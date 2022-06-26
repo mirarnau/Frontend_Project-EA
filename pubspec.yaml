@@ -64,6 +64,7 @@ dependencies:
 
   dialog_flowtter: any 
   syncfusion_flutter_pdfviewer: ^20.1.61-beta
+  toggle_switch: ^2.0.1
 
 
 
