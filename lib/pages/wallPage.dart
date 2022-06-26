@@ -22,6 +22,8 @@ class _WallPageState extends State<WallPage> {
   List<Post>? listPosts = [];
   bool isLoading = true;
 
+  bool _refreshed  = false;
+
   @override
   void initState() {
     super.initState();
@@ -31,13 +33,12 @@ class _WallPageState extends State<WallPage> {
   Future<void> getAllPosts() async {
     listPosts = await postService.getAllPosts();
     setState(() {
-      isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (listPosts!.length == 0){
+    if (listPosts!.isEmpty){
       return Scaffold(
         body: Text('No posts yet'),
       );
@@ -49,10 +50,14 @@ class _WallPageState extends State<WallPage> {
           itemCount:  listPosts!.length,
           itemBuilder: (context, index){
             return PostWidget(
+              idPost: listPosts![index].id,
               ownerName: listPosts![index].creator,
               profileImage: listPosts![index].profileImage,
               description: listPosts![index].description,
               postImageUrl: listPosts![index].postImageUrl,
+              likes: listPosts![index].likes,
+              comments: listPosts![index].comments,
+              customer: widget.customer!,
             );
           }
         ),

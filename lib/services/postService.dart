@@ -68,6 +68,17 @@ class PostService {
     return null;
   }
 
+  Future<bool> likePost (Like like, String postId) async {
+    var res = await http.post(Uri.parse(baseUrl + '/addLike/' + postId),
+        headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
+        body: json.encode(Like.toJson(like)));
+
+    if (res.statusCode == 201) {
+      return true;
+    }
+    return false; //Meaning now we have a dislike
+  }
+
   Future<bool> deletePost (String postId) async {
     var res = await http.delete(Uri.parse(baseUrl + '/' + postId),
       headers: {'authorization': LocalStorage('key').getItem('token')});

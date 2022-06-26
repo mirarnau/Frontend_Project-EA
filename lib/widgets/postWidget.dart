@@ -1,20 +1,38 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/models/post.dart';
+import 'package:flutter_tutorial/pages/commentsPage.dart';
+import 'package:flutter_tutorial/services/postService.dart';
 import 'package:path/path.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
+  final String idPost;
   final String ownerName;
   final String profileImage;
   final String description;
   final String postImageUrl;
+  final List<Like> likes;
+  final List<Comment> comments;
+  final Customer customer;
 
-  PostWidget({
-    required this.ownerName,
-    required this.profileImage,
-    required this.description,
-    required this.postImageUrl,
-  });
+  const PostWidget({Key? key, required this.idPost, required this.ownerName, required this.profileImage,
+    required this.description, required this.postImageUrl, required this.likes, required this.comments, required this.customer}) : super(key: key);
+
+   @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+  class _PostWidgetState extends State<PostWidget> {
+    PostService postService = PostService();
+
+    late int _currentLikes = widget.likes.length;
+
+    @override
+    void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +47,14 @@ class PostWidget extends StatelessWidget {
                   child: Image(
                   width: 30,
                   height: 30,
-                  image: NetworkImage(profileImage)
+                  image: NetworkImage(widget.profileImage)
                 ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Text(
-                  ownerName,
+                  widget.ownerName,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold
@@ -48,100 +66,81 @@ class PostWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
             child: Image(
-              image: NetworkImage(postImageUrl)
+              image: NetworkImage(widget.postImageUrl)
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 5.0, 0.0, 5.0),
             child: Row(
               children: [
-                Icon(
-                  Icons.favorite,
-                  size: 30.0,
-                  color: Colors.red),
-                SizedBox(
-                  width: 10.0,
+                GestureDetector(
+                  child: Icon(
+                    Icons.favorite,
+                    size: 30.0,
+                    color: Colors.red),
+                    onTap: () async {
+                      Like newLike = Like(customerName: widget.customer.customerName, number: widget.likes.length);
+                      bool like = await postService.likePost(newLike, widget.idPost);
+                      if (like == true){
+                        setState(() {
+                          _currentLikes = _currentLikes + 1;
+                        });
+                      }
+                      if (like == false){
+                        setState(() {
+                          _currentLikes = _currentLikes - 1;
+                        });
+                      }
+                    },
                 ),
-                Icon(
-                  Icons.comment,
-                  size: 30.0,
-
-                )
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 0.0, 15.0, 0.0),
+                  child: Text(
+                    _currentLikes.toString()
+                  ),
+                ),
+                GestureDetector(
+                  child: Icon(
+                    Icons.comment,
+                    size: 30.0,
+                  ),
+                  onTap: (){
+                    var route =
+                      MaterialPageRoute(builder: (BuildContext context) => CommentsPage(customer: widget.customer, idPost: widget.idPost, comments: widget.comments, description: widget.description,));
+                      Navigator.of(context).push(route);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                  child: Text(
+                    widget.comments.length.toString(),
+                  ),
+                ),
+                
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              description,
-              style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
-          )
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                  widget.description,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),),
+                )
+              ],
+            ),
+          ),
+          Divider(
+                color: Color.fromARGB(255, 160, 160, 160),
+              ),
         ],
       ),
     );
-
-
-
-
-
-
-    /*
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: 
-      Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 161, 90, 85),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: <Widget> [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget> [
-                      Row(
-                        children: <Widget> [
-                          Text(
-                            ownerName,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Image(
-                        image: NetworkImage(postImageUrl)
-                        ),
-                      Text(
-                        description,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 14
-                        ),
-                      ),
-                    ],
-                  ),
-
-                )
-              )
-            
-            ]
-          ),
-        ),
-      ),
-
-    );
-    */
+  }
 
 
   }
-}

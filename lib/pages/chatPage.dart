@@ -2,13 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/message.dart';
-import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/ticket.dart';
 import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/pages/createTicketPage.dart';
-import 'package:flutter_tutorial/services/customerService.dart';
-import 'package:flutter_tutorial/services/ownerService.dart';
-import 'package:flutter_tutorial/widgets/ticketWidget.dart';
 import 'package:flutter_tutorial/services/ticketsService.dart';
 
 
@@ -107,7 +102,6 @@ class _ChatPageState extends State<ChatPage> {
                       itemCount: widget.listMessages!.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.only(top: 10,bottom: 10),
-                      physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index){
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
