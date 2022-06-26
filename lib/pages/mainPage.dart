@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
+import 'package:flutter_tutorial/pages/reservationPage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
 
@@ -13,7 +14,13 @@ class MainPage extends StatefulWidget {
   late final int selectedIndex;
   late final String chatPage;
   final List<String> transferRestaurantTags;
-  MainPage({Key? key, required this.customer, required this.selectedIndex, required this.transferRestaurantTags, required this.chatPage}) : super(key: key);
+  MainPage(
+      {Key? key,
+      required this.customer,
+      required this.selectedIndex,
+      required this.transferRestaurantTags,
+      required this.chatPage})
+      : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -48,10 +55,18 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
-    TicketsPage(userType: "Customer", myName: widget.customer!.customerName, myCustomer: widget.customer, page: widget.chatPage),
+    ListRestaurantsPage(
+        newTags: widget.transferRestaurantTags, customer: _customer),
+    TicketsPage(
+        userType: "Customer",
+        myName: widget.customer!.customerName,
+        myCustomer: widget.customer,
+        page: widget.chatPage),
     //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
-    Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
+    ReservationPage(
+        userType: "Customer",
+        myName: widget.customer!.customerName,
+        myCustomer: widget.customer),
     ProfilePage(customer: _customer),
   ];
 
@@ -59,7 +74,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var localizationDelegate = LocalizedApp.of(context).delegate;
     changeLocale(context, localizationDelegate.currentLocale.languageCode);
-    
+
     return Scaffold(
       body: Center(
         child: screens.elementAt(_selectedIndex),
