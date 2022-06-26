@@ -107,7 +107,9 @@
         "select_style": "Select the style of food",
         "filter_pref": "Filter by preferences",
         "select_pref": "Select your preferences",
-        "make_res": "Make reservation"
+        "make_res": "Make reservation",
+        "phone": "Phone Num.",
+        "num": "Customers"
     },
 
     "tickets_page":

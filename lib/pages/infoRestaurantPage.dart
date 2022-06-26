@@ -18,8 +18,10 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/pdfService.dart';
+import 'package:flutter_tutorial/widgets/doReservationWidget.dart';
 import 'package:flutter_tutorial/widgets/mapWidget.dart';
 import 'package:flutter_tutorial/widgets/ratingWidget.dart';
+import 'package:flutter_tutorial/widgets/reservationWidget.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/mirror_animation.dart';
@@ -204,7 +206,9 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
 
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          openReservationDialog(context);
+                        },
                         child: Text (
                           translate('restaurants_page.make_res'),
                           style: TextStyle(
@@ -263,6 +267,20 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
       builder:(context) {
         return Dialog(
           child: RatingWidget(
+            customer: widget.customer,
+            restaurant: widget.selectedRestaurant,
+          ),
+        );
+      },
+    );
+  }
+
+  openReservationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder:(context) {
+        return Dialog(
+          child: DoReservationWidget(
             customer: widget.customer,
             restaurant: widget.selectedRestaurant,
           ),

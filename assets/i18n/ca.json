@@ -107,7 +107,9 @@
         "select_style": "Seleccioni l'estil del menjar",
         "filter_pref": "Filtrar per preferencies",
         "select_pref": "Seleccioni les seves preferencies",
-        "make_res": "Faci una reserva"
+        "make_res": "Faci una reserva",
+        "phone": "Número tlf.",
+        "num": "Comensals"
     },
 
     "tickets_page":

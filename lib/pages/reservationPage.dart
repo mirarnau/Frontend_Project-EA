@@ -27,7 +27,7 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
-  ReservationApi reservationApi = ReservationApi();
+  ReservationService _reservationService = ReservationService();
   List<Reservation>? listReservations;
   CustomerService customerService = CustomerService();
   RestaurantService restaurantService = RestaurantService();
@@ -51,14 +51,14 @@ class _ReservationPageState extends State<ReservationPage> {
 
   Future<void> getReservationsById() async {
     listReservations =
-        await reservationApi.getReservationById(widget.myCustomer!.id);
+        await _reservationService.getReservationById(widget.myCustomer!.id);
     setState(() {
       isLoading = false;
     });
   }
 
   Future<void> getAllReservations() async {
-    listReservations = await reservationApi.getAllReservations();
+    listReservations = await _reservationService.getAllReservations();
     setState(() {
       isLoading = false;
     });

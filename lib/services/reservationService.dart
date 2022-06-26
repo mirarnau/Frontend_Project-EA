@@ -4,7 +4,7 @@ import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
-class ReservationApi {
+class ReservationService {
   var baseUrl = apiURL + "/api/reservations";
 
   Future<List<Reservation>> getAllReservations() async {

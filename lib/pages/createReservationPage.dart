@@ -36,7 +36,7 @@ class _CreateRestaurantPageState extends State<CreateRestaurantPage> {
   CustomerService customerService = CustomerService();
   OwnerService ownerService = OwnerService();
   RestaurantService restaurantService = RestaurantService();
-  ReservationApi reservationApi = ReservationApi();
+  ReservationService _reservationService = ReservationService();
 
   Customer? customer;
   Owner? owner;
@@ -169,7 +169,7 @@ class _CreateRestaurantPageState extends State<CreateRestaurantPage> {
                 );
 
                 Reservation? reservationAdded =
-                    await reservationApi.addReservation(newReservation);
+                    await _reservationService.addReservation(newReservation);
                 //print(reservationAdded!.restaurantName);
 
                 List<String> voidListTags = [];
