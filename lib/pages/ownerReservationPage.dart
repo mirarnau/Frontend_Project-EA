@@ -24,7 +24,7 @@ class OwnerReservationPage extends StatefulWidget {
 }
 
 class _OwnerReservationPageState extends State<OwnerReservationPage> {
-  ReservationApi reservationApi = ReservationApi();
+  ReservationService _reservationService = ReservationService();
   List<Reservation>? listReservations;
   CustomerService customerService = CustomerService();
   RestaurantService restaurantService = RestaurantService();
@@ -48,7 +48,7 @@ class _OwnerReservationPageState extends State<OwnerReservationPage> {
   }
 
   Future<void> getAllReservations() async {
-    listReservations = await reservationApi.getAllReservations();
+    listReservations = await _reservationService.getAllReservations();
     setState(() {
       isLoading = false;
     });

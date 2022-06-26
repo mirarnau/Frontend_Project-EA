@@ -36,8 +36,8 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
   late TextEditingController _numController;
   late TextEditingController _phoneController;
   
-  late DateTime _hourTime;
-  late DateTime _dayTime;
+  late DateTime _hourTime = DateTime.now();
+  late DateTime _dayTime = DateTime.now();
   late int _numCustomers;
   late String _phoneRes;
 
@@ -148,7 +148,7 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
                       width: 140,
                       height: 50,
                       child: TextField(
-                        controller: _numController,
+                        controller: _phoneController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: translate('restaurants_page.phone'),
