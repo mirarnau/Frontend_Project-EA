@@ -1,35 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/pages/createReservationPage.dart';
-import 'package:flutter_tutorial/pages/createTicketPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/reservationService.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
 import 'package:flutter_tutorial/widgets/reservationWidget.dart';
-import 'package:provider/provider.dart';
 
-class ReservationPage extends StatefulWidget {
-  final Customer? myCustomer;
-  final String myName;
-  final String userType;
-  const ReservationPage(
-      {Key? key,
-      required this.myCustomer,
-      required this.myName,
-      required this.userType})
+class OwnerReservationPage extends StatefulWidget {
+  final Restaurant? selectedRestaurant;
+  final Owner? customer;
+  const OwnerReservationPage(
+      {Key? key, required this.selectedRestaurant, required this.customer})
       : super(key: key);
 
   @override
-  State<ReservationPage> createState() => _ReservationPageState();
+  State<OwnerReservationPage> createState() => _OwnerReservationPageState();
 }
 
-class _ReservationPageState extends State<ReservationPage> {
-  ReservationService _reservationService = ReservationService();
+class _OwnerReservationPageState extends State<OwnerReservationPage> {
+  ReservationApi reservationApi = ReservationApi();
   List<Reservation>? listReservations;
   CustomerService customerService = CustomerService();
   RestaurantService restaurantService = RestaurantService();
@@ -38,49 +33,25 @@ class _ReservationPageState extends State<ReservationPage> {
   Customer? customer;
   Restaurant? restaurant;
   Owner? owner;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.userType == "Customer") {
-      getInfoCustomer();
-    }
-    if (widget.userType == "Owner") {
-      getInfoOwner();
-    }
-
-    //getReservationsById();
+    getInfoCustomer();
     getAllReservations();
   }
 
   Future<void> getInfoCustomer() async {
-    customer = await customerService.getCustomerByName(widget.myName);
-  }
-
-  Future<void> getInfoOwner() async {
-    owner = await ownerService.getOwnerByName(widget.myName);
-  }
-
-  Future<void> getReservationsById() async {
-    listReservations =
-        await _reservationService.getReservationById(widget.myCustomer!.id);
-    setState(() {
-      isLoading = false;
-    });
+    customer =
+        await customerService.getCustomerByName(widget.customer!.ownerName);
   }
 
   Future<void> getAllReservations() async {
-    listReservations = await _reservationService.getAllReservations();
+    listReservations = await reservationApi.getAllReservations();
     setState(() {
       isLoading = false;
     });
-  }
-
-  bool isThisCustomer(int index) {
-    if (listReservations![index].idCustomer != widget.myCustomer!.id) {
-      return true;
-    }
-    return false;
   }
 
   @override
@@ -123,8 +94,8 @@ class _ReservationPageState extends State<ReservationPage> {
                       shrinkWrap: true,
                       itemCount: listReservations?.length,
                       itemBuilder: (context, index) {
-                        if (listReservations![index].idCustomer ==
-                            widget.myCustomer!.id) {
+                        if (listReservations![index].restaurantName ==
+                            widget.selectedRestaurant!.restaurantName) {
                           return GestureDetector(
                               child: ReservationWidget(
                                   creatorName:
@@ -138,28 +109,6 @@ class _ReservationPageState extends State<ReservationPage> {
                         }
                       })),
             ],
-          ),
-        ),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomRight,
-          height: 200.0,
-          width: 100.0,
-          child: FittedBox(
-            child: FloatingActionButton.extended(
-              backgroundColor: Theme.of(context).cardColor,
-              icon:
-                  Icon(Icons.add_comment, color: Theme.of(context).focusColor),
-              label: Text(
-                translate('tickets_page.create'),
-                style: TextStyle(color: Theme.of(context).focusColor),
-              ),
-              onPressed: () {
-                var routes = MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        CreateRestaurantPage(myCustomer: widget.myCustomer));
-                Navigator.of(context).push(routes);
-              },
-            ),
           ),
         ),
       );
