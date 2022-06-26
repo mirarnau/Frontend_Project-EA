@@ -188,7 +188,7 @@ class _editOwnerPageState extends State<editOwnerPage> {
                       MaterialPageRoute(
                         builder: (context) => OwnerMainPage(
                           owner: newowner,
-                          selectedIndex: 4,
+                          selectedIndex: 3,
                           transferRestaurantTags: voidListTags,
                           chatPage: "Inbox",
                         )

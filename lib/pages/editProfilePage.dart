@@ -13,7 +13,6 @@ import 'package:flutter_tutorial/widgets/TextFieldWidget.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:path/path.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:path_provider/path_provider.dart';
