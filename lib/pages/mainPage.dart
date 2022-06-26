@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/pages/agendaPage.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
+import 'package:flutter_tutorial/widgets/calendarWidget.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -62,9 +64,7 @@ class _MainPageState extends State<MainPage> {
         myCustomer: widget.customer,
         page: widget.chatPage),
     //Center(child: Text('Wall', style: TextStyle(fontSize: 60))),
-    Center(
-        child:
-            Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
+    Agenda(),
     ProfilePage(customer: _customer),
   ];
 
