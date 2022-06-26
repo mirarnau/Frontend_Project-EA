@@ -1,16 +1,5 @@
-# flutter_tutorial
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Actualment, quan un usuari entra a la pàgina de video trucada pot seleccionar
+si la vol generar ell o si es vol unir a una existent. En les dues opcions 
+l'usuari ha d'introduir el nom del canal. Un cop dins de la truada l'usuari
+pot mutejar el micro, canviar entre càmares i penjar. Cada cop que un ususari
+entra a la trucada apareix una notificació.

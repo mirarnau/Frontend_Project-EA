@@ -9,10 +9,11 @@ import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsOwnerPage.dart';
 import 'package:meta/meta.dart';
-
+import 'package:flutter_tutorial/pages/indexPage.dart';
 import '../models/customer.dart';
 import 'listRestaurantsOwnerPage.dart';
 import 'ownerRestaurantsPage.dart';
+import 'ownerTicketsPage.dart';
 
 class OwnerMainPage extends StatefulWidget {
   final Owner? owner;
@@ -40,16 +41,19 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Dashboard',
+      'Index 1: Dashboard',
       style: optionStyle,
     ),
     Text(
-      'Index 1: My Restaurants',
+      'Index 2: My Restaurants',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+     Text(
+      'Index 3: Chat',
+      style: optionStyle,
+    ),
     Text(
-      'Index 2: Profile',
+      'Index 4: Profile',
       style: optionStyle,
     )
   ];
@@ -64,6 +68,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
     TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
+    OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
     OwnerProfilePage(owner: _owner)
   ];
 

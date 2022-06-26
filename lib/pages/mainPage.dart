@@ -7,6 +7,7 @@ import 'package:flutter_tutorial/pages/listRestaurantsPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
 import 'package:flutter_tutorial/pages/wallPageCustomer.dart';
+import 'package:flutter_tutorial/pages/indexPage.dart';
 
 class MainPage extends StatefulWidget {
   final Customer? customer;
@@ -27,16 +28,19 @@ class _MainPageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Restaurants',
+      'Index 1: Restaurants',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Agenda',
+      'Index 2: Agenda',
       style: optionStyle,
     ),
-    //ProfilePage(customer: widget.customer),
+     Text(
+      'Index 3: Chat',
+      style: optionStyle,
+    ),
     Text(
-      'Index 2: Profile',
+      'Index 4: Profile',
       style: optionStyle,
     )
   ];

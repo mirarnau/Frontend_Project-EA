@@ -57,10 +57,8 @@ class _SearchPageState extends State<SearchPage>{
    
            
       
-      )
-
+      ),
       
-      ,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(

@@ -33,7 +33,7 @@ class OwnerService {
       listRestaurants.forEach((restaurant) => listRestaurantsParsed.add(Restaurant.fromJSON(restaurant)));
       
       //print(listRestaurantsParsed.length);
-      //print(listRestaurantsParsed);
+      print(listRestaurantsParsed);
 
       return listRestaurantsParsed;
     }
