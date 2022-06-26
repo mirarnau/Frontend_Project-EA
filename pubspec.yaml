@@ -23,7 +23,8 @@ dependencies:
   
   tutorial_coach_mark: ^1.2.3
 
-  agora_rtc_engine: 
+  agora_rtc_engine: ^5.2.0 
+  permission_handler: ^9.2.0
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -51,7 +52,6 @@ dependencies:
   geolocator: ^8.2.0
 
   flutter_pdfview: ^1.0.4
-  permission_handler: 
 
   file_picker: any
   path: ^1.7.0

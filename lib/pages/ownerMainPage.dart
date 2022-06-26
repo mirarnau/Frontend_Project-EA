@@ -65,6 +65,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
+    VideocallPage(),
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
     TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),

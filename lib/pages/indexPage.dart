@@ -127,8 +127,8 @@ class VideocallState extends State<VideocallPage> {
     });
     if (_channelController.text.isNotEmpty) {
       // await for camera and mic permissions before pushing video page
-      await _handleCameraAndMic(Permission.camera);
-      await _handleCameraAndMic(Permission.microphone);
+      //await _handleCameraAndMic(Permission.camera);
+      //await _handleCameraAndMic(Permission.microphone);
       // push video page with given channel name
       await Navigator.push(
         context,
