@@ -10,7 +10,7 @@ import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/widgets/appbarWidget.dart';
 import 'package:flutter_tutorial/widgets/profileWidget.dart';
 import 'package:flutter_tutorial/widgets/TextFieldWidget.dart';
-import 'package:flutter_tutorial/services/OwnerService.dart';
+import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:path/path.dart';
@@ -55,7 +55,9 @@ class _editOwnerPageState extends State<editOwnerPage> {
     OwnerService ownerService = OwnerService();
 
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
@@ -111,7 +113,7 @@ class _editOwnerPageState extends State<editOwnerPage> {
             height: 50,
             width: 250,
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)),
             child: TextButton(
               onPressed: () async {
                 if ((_customerNameController.text.isNotEmpty) &&
@@ -137,12 +139,12 @@ class _editOwnerPageState extends State<editOwnerPage> {
                   }
                   
                   Owner? newowner = Owner(
-                      ownerName: _customerNameController.text,
-                      fullName: widget.owner!.fullName,
-                      email: _emailController.text,
-                      password: widget.owner!.password,
-                      profilePic: profilePic,
-                      );
+                    ownerName: _customerNameController.text,
+                    fullName: widget.owner!.fullName,
+                    email: _emailController.text,
+                    password: widget.owner!.password,
+                    profilePic: profilePic,
+                  );
 
                   newowner.id = widget.owner!.id;
                   newowner.listRestaurants = widget.owner!.listRestaurants;

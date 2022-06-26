@@ -150,7 +150,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                           builder: (BuildContext context) => 
                             InfoRestaurantPage(
                               selectedRestaurant: listRestaurants?[index],
-                              customer: null,
+                              customer: widget.customer,
                             ),                     
                         );
                         Navigator.of(context).push(routes);

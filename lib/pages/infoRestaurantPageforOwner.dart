@@ -25,18 +25,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/mirror_animation.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
-class InfoRestaurantPage extends StatefulWidget {
+class InfoRestaurantPageForOwner extends StatefulWidget {
   final Restaurant? selectedRestaurant;
-  final Customer? customer;
-  const InfoRestaurantPage({Key? key, required this.selectedRestaurant, required this.customer}) : super(key: key);
+  const InfoRestaurantPageForOwner({ Key? key, required this.selectedRestaurant }) : super(key: key);
 
   @override
-  _InfoRestaurantPageState createState() => _InfoRestaurantPageState();
+  _InfoRestaurantPageForOwnerState createState() => _InfoRestaurantPageForOwnerState();
 }
 
-class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
+class _InfoRestaurantPageForOwnerState extends State<InfoRestaurantPageForOwner> {
 
-  PDFService pdfService = PDFService();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -131,58 +129,6 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(100.0),
-                          onTap: () async {
-                            await openRatingDialog(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.0),
-                              border: Border.all(
-                                color: Colors.amber,
-                              )
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                        child: 
-                        InkWell(
-                          borderRadius: BorderRadius.circular(100.0),
-                          onTap:() async {
-                            UrlLauncher.launchUrl(Uri(
-                              scheme: 'tel',
-                              path: widget.selectedRestaurant!.phone,
-                            ));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.0),
-                              border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                              )
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Icon(
-                                Icons.call,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   Padding(
@@ -191,26 +137,6 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                       widget.selectedRestaurant!.description,
                       style: TextStyle(
                         fontStyle: FontStyle.italic
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(20)
-
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text (
-                          translate('restaurants_page.make_res'),
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        )
                       ),
                     ),
                   ),
@@ -254,20 +180,6 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
       actions: [
         okButton,
       ],
-    );
-  }
-
-  openRatingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder:(context) {
-        return Dialog (
-          child: RatingWidget(
-            customer: widget.customer,
-            restaurant: widget.selectedRestaurant,
-          ),
-        );
-      },
     );
   }
 }

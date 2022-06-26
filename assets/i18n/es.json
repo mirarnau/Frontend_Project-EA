@@ -22,7 +22,8 @@
         "chat": "Chat",
         "agenda": "Agenda",
         "profile": "Perfil",
-        "home": "Casa"
+        "home": "Casa",
+        "call": "Llamadas"
     },
 
     "language": 
