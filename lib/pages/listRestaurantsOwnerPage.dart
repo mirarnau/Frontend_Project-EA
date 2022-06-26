@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/owner.dart';
+import 'package:flutter_tutorial/pages/infoRestaurantPageforOwner.dart';
 import 'package:flutter_tutorial/pages/statsPage.dart';
 import 'package:flutter_tutorial/widgets/loadingCardsWidget.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
@@ -153,9 +154,8 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
                       onTap: () {
                         var routes = MaterialPageRoute(
                           builder: (BuildContext context) => 
-                            InfoRestaurantPage(
+                            InfoRestaurantPageForOwner(
                               selectedRestaurant: listRestaurants?[index],
-                              customer: null,
                             ),                     
                         );
                         Navigator.of(context).push(routes);
