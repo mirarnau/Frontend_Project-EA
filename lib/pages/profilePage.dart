@@ -432,6 +432,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 var route = MaterialPageRoute(
                   builder: (BuildContext context) => editProfilePage(
                     customer: widget.customer,
+                    photo: widget.customer!.profilePic,
                   ),
                 );
                 Navigator.of(context).push(route);

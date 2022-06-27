@@ -178,6 +178,8 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
                   _selectedTime = "$hour:$minute";
                   _selectedDay = "$day/$month/$year";
 
+                  print(_selectedDay + " " + _selectedTime);
+
                   Reservation newReservation = Reservation(
                     idCustomer: _customer!.id,
                     idRestaurant: _restaurant!.id,
@@ -249,7 +251,9 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
       spacing: 15,
       itemHeight: 40,
       onTimeChange: (time) {
-        _hourTime = time;
+        setState(() {
+          _hourTime = time;
+        });
       },
     );
   }

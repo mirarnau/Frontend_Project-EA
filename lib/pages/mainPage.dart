@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
   late final screens = [
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer, maxDistance: widget.maxDistance, filterType: widget.filterType,),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, page: widget.chatPage, user: widget.customer,),
-    WallPage(customer: widget.customer),
+    WallPage(customer: widget.customer!),
     ReservationPage(myCustomer: widget.customer!, myName: widget.customer!.customerName, userType: "Customer"), //
     ProfilePage(customer: _customer),
   ];
