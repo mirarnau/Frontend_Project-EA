@@ -47,6 +47,7 @@ class _CallPageState extends State<CallPage> {
     await getToken();
     _engine = await RtcEngine.create(APP_ID);
     //print(token);
+    await _engine.enableWebSdkInteroperability(true);
     await _engine.enableAudio();
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
@@ -102,20 +103,25 @@ class _CallPageState extends State<CallPage> {
 
   _switchCamera() async {
     if (!switchCamera) _engine.enableLocalVideo(false);
+    else _engine.enableLocalVideo(true);
 
-    /*setState(() {
+    setState(() {
         switchCamera = !switchCamera;
-      });*/
+      });
   }
 
   _switchMicrophone() async {
-    // await _engine.muteLocalAudioStream(!openMicrophone);
+    //await _engine.muteLocalAudioStream(!openMicrophone);
     if (!openMicrophone) _engine.enableLocalAudio(false);
+    else _engine.enableLocalAudio(true);
+    setState(() {
+      openMicrophone = !openMicrophone;
+    });
     /*await _engine.enableLocalAudio(!openMicrophone).then((value) {
       _engine.disableAudio();
-      /*setState(() {
+      setState(() {
         openMicrophone = !openMicrophone;
-      });*/
+      });
     }).catchError((err) {
       //logSink.log('enableLocalAudio $err');
     });*/
@@ -153,9 +159,9 @@ class _CallPageState extends State<CallPage> {
                 width: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(255, 255, 58, 58)),
+                        primary: Colors.black),
                     onPressed: _switchMicrophone,
-                    child: const Icon(Icons.mic_none_outlined, size: 20)),
+                    child: const Icon(Icons.mic_off_outlined, size: 25)),
               ),
             ),
             SizedBox(width: 50), // give it width
@@ -174,7 +180,7 @@ class _CallPageState extends State<CallPage> {
                       Navigator.push(context, route);
                     },
                     mini: true,
-                    child: const Icon(Icons.phone_disabled_outlined, size: 20)),
+                    child: const Icon(Icons.call_end, size: 30)),
               ),
             ),
             SizedBox(width: 50), // give it width
@@ -184,10 +190,10 @@ class _CallPageState extends State<CallPage> {
                 height: 50,
                 width: 50,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                    style: ElevatedButton.styleFrom(primary: Colors.black),
                     onPressed: _switchCamera,
-                    child: const Icon(Icons.video_camera_front_outlined,
-                        size: 20)),
+                    child: const Icon(Icons.videocam_off_sharp,
+                        size: 25)),
               ),
             ),
           ])
