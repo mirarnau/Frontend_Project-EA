@@ -68,8 +68,6 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return MirrorAnimation<double> ( // <-- changed to "MirrorAnimation"
