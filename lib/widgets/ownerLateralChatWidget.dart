@@ -75,33 +75,7 @@ class OwnerNavDrawerChat extends StatelessWidget {
             ],
           )
         ),
-        Card(
-          child: 
-          Column(
-            children:  [
-              ListTile(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Theme.of(context).backgroundColor
-                  )
-                ),
-                tileColor: tileColorSent,
-                iconColor: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).shadowColor,
-                leading: Icon (Icons.send),
-                title: Text(translate('tickets_page.sent')),
-                onTap:() {
-                    List<String> voidListTags = [];
-                    var route = MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          OwnerMainPage(owner: myOwner, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
-                    
-                    Navigator.of(context).push(route);
-                  }
-              ),
-            ],
-          )
-        ),
+        
          Card(
           child: 
           Column(

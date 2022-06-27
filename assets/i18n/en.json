@@ -124,7 +124,9 @@
         "filter_pref": "Filter by preferences",
         "select_pref": "Select your preferences",
         "make_res": "Make reservation",
-        "search": "Search a restaurant"
+        "search": "Search a restaurant",
+        "phone": "Phone Num.",
+        "num": "Customers"
     },
 
     "tickets_page":

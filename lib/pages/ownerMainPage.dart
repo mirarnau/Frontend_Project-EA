@@ -42,19 +42,19 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 1: Dashboard',
+      'Index 0: Dashboard',
       style: optionStyle,
     ),
     Text(
-      'Index 2: My Restaurants',
+      'Index 1: My Restaurants',
       style: optionStyle,
     ),
      Text(
-      'Index 3: Chat',
+      'Index 2: Chat',
       style: optionStyle,
     ),
     Text(
-      'Index 4: Profile',
+      'Index 3: Profile',
       style: optionStyle,
     )
   ];
@@ -67,7 +67,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
 
   late final screens = [
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
-    TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
+    OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
     WallPageOwner(owner: widget.owner),
     OwnerProfilePage(owner: _owner)

@@ -14,11 +14,14 @@ import 'package:flutter_tutorial/widgets/ownerLateralChatWidget.dart';
 import 'package:flutter_tutorial/widgets/ticketWidget.dart';
 import 'package:flutter_tutorial/services/ticketsService.dart';
 
+import '../models/restaurant.dart';
+import '../services/restaurantService.dart';
+import '../widgets/ownerTicketWidget.dart';
 import 'indexPage.dart';
 
 
 class OwnerTicketsPage extends StatefulWidget {
-  final Owner? myOwner;
+  final myOwner;
   final String myName;
   final String page;
   const OwnerTicketsPage({Key? key, required this.myName, required this.myOwner, required this.page}) : super(key: key);
@@ -29,11 +32,16 @@ class OwnerTicketsPage extends StatefulWidget {
 
 class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
   TicketService ticketService = TicketService();
-  List<Ticket>? listTicketsReceived;
+  List<Ticket>? listTicketsReceived = [];
+  List<Ticket>? listTicketsReceivedA = [];
+  List<Ticket>? listTicketsReceivedB = [];
   List<Ticket>? listTicketsSent;
+  List<Restaurant>? listRest = [];
   bool isLoading = true;
+  late var myOwner = widget.myOwner;
 
-  OwnerService ownerService = OwnerService();
+  OwnerService ownerService = OwnerService(); 
+  RestaurantService restaurantService = RestaurantService();
 
   Owner? owner;
 
@@ -45,13 +53,26 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
 
   Future<void> getInfoOwner() async{
     owner = await ownerService.getOwnerByName(widget.myName);
-  }
-
-  Future<void> getTicketsByRecipient() async {
-    listTicketsReceived = await ticketService.getTicketsByRecipient(widget.myName);
+    print (owner!.id);   
+    listRest = await restaurantService.getRestaurantByOwner(owner!.id);
+    for (int i = 0; i < listRest!.length; i++){
+      listTicketsReceivedA = await ticketService.getTicketsByRecipient(listRest![i].restaurantName.toString());
+      print(listRest![i].restaurantName);
+      print (listTicketsReceivedA);
+      for (int j = 0; j < listTicketsReceivedA!.length; j++){
+        listTicketsReceivedB!.add(listTicketsReceivedA![j]);
+      }
+    }
+    listTicketsReceived = listTicketsReceivedB; 
+    print (listTicketsReceived);
     setState(() {
       isLoading = false;
     });
+  }
+
+  Future<void> getTicketsByRecipient() async {
+    
+    
   }
 
   @override
@@ -63,7 +84,7 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
             title: Text(
               widget.page,
               style: TextStyle(
-                color: Colors.white
+              color: Color.fromARGB(255, 30, 30, 30),
               ),),
           ),
         drawer: OwnerNavDrawerChat(myOwner
@@ -79,7 +100,7 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
               translate('tickets_page.no_tickets'),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+              color: Color.fromARGB(255, 30, 30, 30),
               ),),
           )),
           
@@ -101,7 +122,6 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
     : widget.myOwner
     , currentPage: "Inbox",),
         body: Container(
-          color: Color.fromARGB(255, 30, 30, 30),
           child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
@@ -122,8 +142,9 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
                     );
                     Navigator.of(context).push(routes);
                     },
-                    child: TicketWidget (
+                    child: OwnerTicketWidget (
                       creatorName: listTicketsReceived![index].creatorName,
+                      restaurantName: listTicketsReceived![index].recipientName,
                       subject: listTicketsReceived![index].subject,
                       status: listTicketsReceived![index].status.toString())
                   );
@@ -133,15 +154,6 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
           ],
         ),
         ),
-        floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context)=> VideocallPage()
-          )
-          );
-        },
-        child: const Icon(Icons.video_call_outlined),
-    ),
         
     );
   }

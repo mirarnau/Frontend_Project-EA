@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_this
+// ignore_for_file: prefer_const_constructors, unnecessary_this, deprecated_member_use
 
 import 'dart:convert';
 
