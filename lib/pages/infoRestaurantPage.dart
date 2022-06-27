@@ -114,40 +114,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Icon(
-                          Icons.people,
-                          color: Color.fromARGB(255, value.toInt(), 0, 0),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:3.0),
-                        child: Text(
-                          widget.selectedRestaurant!.occupation.toString(),
-                          style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 3.0),
-                        child: Text(
-                          widget.selectedRestaurant!.rating.last['rating'].toDouble().toStringAsFixed(1),
-                          style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
+                      
                       Padding(
                         padding: const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
                         child: InkWell(
@@ -203,12 +170,54 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 30.0),
                     child: Text(
                       widget.selectedRestaurant!.description,
                       style: TextStyle(
                         fontStyle: FontStyle.italic
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Icon(
+                            Icons.people,
+                            color: Color.fromARGB(255, value.toInt(), 0, 0),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:3.0),
+                          child: Text(
+                            widget.selectedRestaurant!.occupation.toString(),
+                            style: TextStyle(
+                              color: Theme.of(context).highlightColor,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Text(
+                            widget.selectedRestaurant!.rating.last['rating'].toDouble().toStringAsFixed(1),
+                            style: TextStyle(
+                              color: Theme.of(context).highlightColor,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -234,7 +243,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 5.0),
+                    padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                     child: Container(
                       color: Theme.of(context).primaryColor,
                       child: Padding(

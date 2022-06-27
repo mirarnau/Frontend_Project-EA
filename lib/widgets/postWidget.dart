@@ -38,10 +38,19 @@ class PostWidget extends StatefulWidget {
   }
 
   void checkLikeStatus ()  {
-    for (int i = 0; i < widget.likes.length; i++){
-      if (widget.likes[i].customerName == widget.customer.customerName){
+    if (widget.role == "customer"){
+      for (int i = 0; i < widget.likes.length; i++){
+        if (widget.likes[i].customerName == widget.customer.customerName){
+          _isLiked = true;
+        }
+      }
+    }
+    else{
+      for (int i = 0; i < widget.likes.length; i++){
+      if (widget.likes[i].customerName == widget.customer.ownerName){
         _isLiked = true;
       }
+    }
     }
   }
 

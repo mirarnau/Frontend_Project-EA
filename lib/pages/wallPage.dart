@@ -38,7 +38,7 @@ class _WallPageState extends State<WallPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (listPosts!.isEmpty){
+    if (listPosts!.length == 0){
       return Scaffold(
         body: Text('No posts yet'),
       );

@@ -127,115 +127,114 @@ class _CreatePostPageState extends State<CreatePostPage> {
         centerTitle: true,
         title: Text('New post')
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: GestureDetector(
-              child: Image(
-                image: NetworkImage(urlImage)
-                ),
-                onTap: () async {
-                  if(!kIsWeb) {
-                  var image =
-                      await ImagePicker().pickImage(source: ImageSource.gallery);
-                  if (image == null) return;
+      body: SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: GestureDetector(
+                child: Image(
+                  image: NetworkImage(urlImage)
+                  ),
+                  onTap: () async {
+                    if(!kIsWeb) {
+                    var image =
+                        await ImagePicker().pickImage(source: ImageSource.gallery);
+                    if (image == null) return;
 
-                  var directory = await getApplicationDocumentsDirectory();
-                  var name = basename(image.path);
-                  var imageFile = File('${directory.path}/$name');
-                  newImage = await File(image.path).copy(imageFile.path);
-                }
-                else {
-                  final XFile? image =
-                    await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                    var directory = await getApplicationDocumentsDirectory();
+                    var name = basename(image.path);
+                    var imageFile = File('${directory.path}/$name');
+                    newImage = await File(image.path).copy(imageFile.path);
+                  }
+                  else {
+                    final XFile? image =
+                      await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
 
-                  if (image == null) return;
+                    if (image == null) return;
 
-                  newImage = File(image.path);
-                }
-                  
-                if(newImage.path != "") {
-                  try {
-                    CloudinaryResponse response = await cloudinary.uploadFile(
-                      CloudinaryFile.fromFile(newImage.path, folder: 'posts', resourceType: CloudinaryResourceType.Image),
-                    );
+                    newImage = File(image.path);
+                  }
                     
-                    urlImage = response.secureUrl;
+                  if(newImage.path != "") {
+                    try {
+                      CloudinaryResponse response = await cloudinary.uploadFile(
+                        CloudinaryFile.fromFile(newImage.path, folder: 'posts', resourceType: CloudinaryResourceType.Image),
+                      );
+                      
+                      urlImage = response.secureUrl;
 
-                  } on CloudinaryException catch (e) {
-                    if (kDebugMode) {
-                      print(e);
+                    } on CloudinaryException catch (e) {
+                      if (kDebugMode) {
+                        print(e);
+                      }
                     }
                   }
-                }
 
-                setState(() {
-                  
-                });
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
-            child: Text(
-              'From which restaurant profile you want to upload the photo?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold
+                  setState(() {
+                    
+                  });
+                },
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-            child: DropdownButtonFormField(
-              style: TextStyle(
-                color:Theme.of(context).highlightColor, 
-              ),
-              iconDisabledColor: Theme.of(context).backgroundColor,
-              dropdownColor: Theme.of(context).hoverColor,
-              borderRadius: BorderRadius.circular(20),
-              value: selectedRestaurant,
-              items: listRestaurants, 
-              onChanged: (String? newValue) { 
-                selectedRestaurant = newValue!;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12.0, 30.0, 15.0, 0.0),
-            child: Text(
-              'Add a description for this post',
-              style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-          Expanded(
-            child:
             Padding(
-              padding: const EdgeInsets.fromLTRB(12.0, 10.0, 15.0, 0.0),
-              child: TextFormField(
-                controller: descriptionController,
+              padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
+              child: Text(
+                'From which restaurant profile you want to upload the photo?',
                 style: TextStyle(
-                  color: Theme.of(context).shadowColor,
-                ),
-                expands: true,
-                maxLines: null,
-                minLines: null,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 0.2),
-                ),
-                  hintText: 'Write here whatever you want',
-                  hintStyle: TextStyle(
-                    color: Theme.of(context).shadowColor
-                  )
+                  fontWeight: FontWeight.bold
                 ),
               ),
-            )
-          ),
-        ],
-      ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+              child: DropdownButtonFormField(
+                style: TextStyle(
+                  color:Theme.of(context).highlightColor, 
+                ),
+                iconDisabledColor: Theme.of(context).backgroundColor,
+                dropdownColor: Theme.of(context).hoverColor,
+                borderRadius: BorderRadius.circular(20),
+                value: selectedRestaurant,
+                items: listRestaurants, 
+                onChanged: (String? newValue) { 
+                  selectedRestaurant = newValue!;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12.0, 30.0, 15.0, 0.0),
+              child: Text(
+                'Add a description for this post',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 10.0, 15.0, 0.0),
+                child: TextFormField(
+                  controller: descriptionController,
+                  style: TextStyle(
+                    color: Theme.of(context).shadowColor,
+                  ),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 0.2),
+                  ),
+                    hintText: 'Write here whatever you want',
+                    hintStyle: TextStyle(
+                      color: Theme.of(context).shadowColor
+                    )
+                  ),
+                ),
+              )
+          ],
+        ),
+      )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.send),
         backgroundColor: Theme.of(context).primaryColor,
