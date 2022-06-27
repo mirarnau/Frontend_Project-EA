@@ -283,13 +283,10 @@ class _LoginPageState extends State<LoginPage> {
                 onToggle: (index) {
                   if (index == 0){
                     isOwner = false;
-                    print(isOwner);
                   }
                   else{
                     isOwner = true;
-                    print(isOwner);
                   }
-                  print('switched to: $index');
                 },
               ),
             ],
