@@ -1,29 +1,13 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_local_variable, prefer_const_declarations
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/pages/mainPage.dart';
-import 'package:flutter_tutorial/pages/ownerMainPage.dart';
-
-import 'package:flutter_tutorial/pages/profilePage.dart';
-
-import 'package:flutter_tutorial/pages/registerPage.dart';
-
-import 'package:flutter_tutorial/services/customerService.dart';
-import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/models/owner.dart';
-import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/pdfService.dart';
 import 'package:flutter_tutorial/widgets/doReservationWidget.dart';
 import 'package:flutter_tutorial/widgets/mapWidget.dart';
 import 'package:flutter_tutorial/widgets/ratingWidget.dart';
-import 'package:flutter_tutorial/widgets/reservationWidget.dart';
-import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/mirror_animation.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
@@ -49,6 +33,39 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
   void initState() {
     print(widget.selectedRestaurant!.location.coordinates[1]);
     super.initState();
+  }
+
+   
+
+  showDownloadDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Theme.of(context).canvasColor,
+      title: Text(
+        'Download completed!',
+        style: TextStyle(color: Colors.red),
+      ),
+      content: Text('You can see the menu in PDF format in your downloads folder'),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
 
@@ -219,6 +236,33 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 5.0),
+                    child: Container(
+                      color: Theme.of(context).primaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          child: Row(
+                            children: [
+                              Icon(Icons.picture_as_pdf),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'menu.pdf'
+                              )
+                            ],
+                          ),
+                          onTap: () async {
+                            final url = widget.selectedRestaurant!.menuPdf;
+                            final file = await pdfService.loadFromNetwork(url);
+                            showDownloadDialog(context);
+                          },
+                        )
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -230,35 +274,7 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
                       ),
                     ),
                   ),
-                  Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  child: Row(
-                    children: [
-                      Icon(Icons.picture_as_pdf),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'menu.pdf'
-                      )
-                    ],
-                  ),
-                  onTap: () async {
-                    final file = await pdfService.pickFile();
-                    print ('aaaaaaaaaaaa ${file!.path}');
-                    if (file != null){
-                      pdfService.openPDF(context, file);
-                    }
-                  },
-                )
-              ),
-            ),
-          )
+
                 ],
               ),
             ],
@@ -289,6 +305,8 @@ class _InfoRestaurantPageState extends State<InfoRestaurantPage> {
       ],
     );
   }
+
+ 
 
   openRatingDialog(BuildContext context) {
     showDialog(

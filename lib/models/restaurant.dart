@@ -9,6 +9,7 @@ class Restaurant {
   late final String address;
   late final String description;
   late final String city;
+  late final String menuPdf;
   late final List<dynamic> photos;
   late final List<dynamic> rating;
   late final int occupation;
@@ -57,6 +58,7 @@ class Restaurant {
       creationDate: json['creationDate'] as String,
       location : Location.fromJSON(json['location'])
       );
+      restaurant.menuPdf = json['menuPdf'] as String;
       
       return restaurant;
   }
@@ -73,7 +75,7 @@ class Restaurant {
       'listTags': restaurant.listTags,
       'occupation': restaurant.occupation,
       'statsLog': restaurant.statsLog,
-      'rating': restaurant.rating
+      'rating': restaurant.rating,
     };
   }
 

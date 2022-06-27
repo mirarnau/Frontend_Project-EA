@@ -1,21 +1,13 @@
 
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/services/ownerService.dart';
-import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
-import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:path/path.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 
 
 class PDFViewerPage extends StatefulWidget {
-    final File pdfFile;
+    final String pdfFile;
 
   const PDFViewerPage({Key? key,  required this.pdfFile}) : super(key: key);
 
@@ -32,10 +24,12 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   void initState() { 
   }
 
+
   @override
   Widget build(BuildContext context) { 
-    final name = basename(widget.pdfFile.path);
+    final name = basename(widget.pdfFile);
     final text = '${indexPage + 1} of $pages';
+    String errorMessage = "";
     return Scaffold(
       appBar: AppBar(
         title: Text (name),
@@ -44,23 +38,22 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
         ],
       ),
       body: 
-      
-      /*
+    
       PDFView(
-          filePath: widget.pdfFile.path,
+          filePath: widget.pdfFile,
           onRender: (pages) => setState(() => this.pages = pages!),
           onViewCreated: (controller) =>
             setState(() => this.controller = controller),
           onPageChanged: (indexPage, _) =>
             setState(() => this.indexPage = indexPage!),
-        ),
-        */
-    
-      
-      Container(
-        child: SfPdfViewer.network('http://udltreball.udl.cat/export/sites/UdLTreball/ca/.galleries/Documents/p80.pdf')
-      )
-      
+          onError: (error) {
+              setState(() {
+                errorMessage = error.toString();
+              });
+              print(error.toString());
+            },
+          
+        ),      
     );
   }
   
