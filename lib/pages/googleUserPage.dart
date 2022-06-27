@@ -35,7 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool gotProfile = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getProfile();
   }
@@ -84,36 +83,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     CustomerService customerService = CustomerService();
     OwnerService ownerService = OwnerService();
-    /*return gotProfile
-        ? Scaffold(
-            appBar: AppBar(
-              title: Text(" Welcome to Appetit " + account!.displayName! + "!"),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    await googleSignIn.signOut();
-                    var route = MaterialPageRoute(
-                        builder: (BuildContext context) => SplashScreen());
-                    Navigator.of(context).push(route);
-                  },
-                  icon: Icon(Icons.exit_to_app),
-                ),
-              ],
-            ),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.network(
-                  account!.photoUrl!,
-                  height: 150,
-                ),
-                Text(account!.displayName!),
-                Text(account!.email),
-              ],
-            ),
-          )
-        : LinearProgressIndicator();*/
     return Scaffold(
       appBar: AppBar(
         title: Row(
