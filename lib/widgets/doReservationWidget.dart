@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/reservationService.dart';
@@ -139,7 +140,7 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
                           labelText: translate('restaurants_page.num'),
                           hintText: translate('restaurants_page.num')),
                         onChanged: (val) {
-                          
+                          _numCustomers = int.parse(val);;
                         },
                       ),
                     ),
@@ -154,7 +155,7 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
                           labelText: translate('restaurants_page.phone'),
                           hintText: translate('restaurants_page.phone')),
                         onChanged: (val) {
-
+                          _phoneRes = val;
                         },
                       ),
                     ),
@@ -185,6 +186,9 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
               color: Theme.of(context).primaryColor,
               child: MaterialButton(
                 onPressed: _isDisabled ? null : () async {
+                  if (_numController.text.isNotEmpty &&
+                  _phoneController.text.isNotEmpty) {
+
                   String _selectedTime;
                   String _selectedDay;
 
@@ -197,9 +201,24 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
                   _selectedTime = "$hour:$minute";
                   _selectedDay = "$day/$month/$year";
 
-                  print(_selectedDay + " " + _selectedTime);
-
+                  Reservation newReservation = Reservation(
+                    idCustomer: _customer!.id,
+                    idRestaurant: _restaurant!.id,
+                    dateReservation: _selectedDay,
+                    timeReservation: _selectedTime,
+                    numCustomers: _numCustomers,
+                    phone: _phoneRes, 
+                    nameCustomer: _customer!.fullName,
+                    nameRestaurant: _restaurant!.restaurantName
+                  );
+                  
+                  await _reservationService.addReservation(newReservation);
+                  
                   _hideDialog();
+                } 
+                else {
+                  return;
+                }
                 }, 
                 child: Text(translate('done')),
               ),

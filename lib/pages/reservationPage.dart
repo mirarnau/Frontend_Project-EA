@@ -4,7 +4,6 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/pages/createReservationPage.dart';
 import 'package:flutter_tutorial/pages/createTicketPage.dart';
 import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
@@ -132,34 +131,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   subject:
                                       listReservations![index].timeReservation,
                                   status:
-                                      listReservations![index].restaurantName));
+                                      listReservations![index].nameRestaurant));
                         } else {
                           return GestureDetector(child: Text(''));
                         }
                       })),
             ],
-          ),
-        ),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomRight,
-          height: 200.0,
-          width: 100.0,
-          child: FittedBox(
-            child: FloatingActionButton.extended(
-              backgroundColor: Theme.of(context).cardColor,
-              icon:
-                  Icon(Icons.add_comment, color: Theme.of(context).focusColor),
-              label: Text(
-                translate('tickets_page.create'),
-                style: TextStyle(color: Theme.of(context).focusColor),
-              ),
-              onPressed: () {
-                var routes = MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        CreateRestaurantPage(myCustomer: widget.myCustomer));
-                Navigator.of(context).push(routes);
-              },
-            ),
           ),
         ),
       );

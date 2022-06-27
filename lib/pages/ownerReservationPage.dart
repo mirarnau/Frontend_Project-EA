@@ -94,8 +94,8 @@ class _OwnerReservationPageState extends State<OwnerReservationPage> {
                       shrinkWrap: true,
                       itemCount: listReservations?.length,
                       itemBuilder: (context, index) {
-                        if (listReservations![index].restaurantName ==
-                            widget.selectedRestaurant!.restaurantName) {
+                        if (listReservations![index].idRestaurant ==
+                            widget.selectedRestaurant!.id) {
                           return GestureDetector(
                               child: ReservationWidget(
                                   creatorName:
@@ -103,7 +103,7 @@ class _OwnerReservationPageState extends State<OwnerReservationPage> {
                                   subject:
                                       listReservations![index].timeReservation,
                                   status:
-                                      listReservations![index].restaurantName));
+                                      listReservations![index].nameRestaurant));
                         } else {
                           return GestureDetector(child: Text(''));
                         }
