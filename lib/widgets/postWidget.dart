@@ -5,7 +5,6 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/post.dart';
 import 'package:flutter_tutorial/pages/commentsPage.dart';
 import 'package:flutter_tutorial/services/postService.dart';
-import 'package:path/path.dart';
 
 class PostWidget extends StatefulWidget {
   final String idPost;
@@ -15,10 +14,11 @@ class PostWidget extends StatefulWidget {
   final String postImageUrl;
   final List<Like> likes;
   final List<Comment> comments;
-  final Customer customer;
+  final customer;
+  final String role;
 
   const PostWidget({Key? key, required this.idPost, required this.ownerName, required this.profileImage,
-    required this.description, required this.postImageUrl, required this.likes, required this.comments, required this.customer}) : super(key: key);
+    required this.description, required this.postImageUrl, required this.likes, required this.comments, required this.customer, required this.role}) : super(key: key);
 
    @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -79,17 +79,33 @@ class PostWidget extends StatefulWidget {
                     size: 30.0,
                     color: Colors.red),
                     onTap: () async {
-                      Like newLike = Like(customerName: widget.customer.customerName, number: widget.likes.length);
-                      bool like = await postService.likePost(newLike, widget.idPost);
-                      if (like == true){
-                        setState(() {
-                          _currentLikes = _currentLikes + 1;
-                        });
+                      if (widget.role == "customer"){
+                        Like newLike = Like(customerName: widget.customer.customerName, number: widget.likes.length);
+                        bool like = await postService.likePost(newLike, widget.idPost);
+                        if (like == true){
+                          setState(() {
+                            _currentLikes = _currentLikes + 1;
+                          });
+                        }
+                        if (like == false){
+                          setState(() {
+                            _currentLikes = _currentLikes - 1;
+                          });
+                        }
                       }
-                      if (like == false){
-                        setState(() {
-                          _currentLikes = _currentLikes - 1;
-                        });
+                      if (widget.role == "owner"){
+                        Like newLike = Like(customerName: widget.customer.ownerName, number: widget.likes.length);
+                        bool like = await postService.likePost(newLike, widget.idPost);
+                        if (like == true){
+                          setState(() {
+                            _currentLikes = _currentLikes + 1;
+                          });
+                        }
+                        if (like == false){
+                          setState(() {
+                            _currentLikes = _currentLikes - 1;
+                          });
+                        }
                       }
                     },
                 ),
@@ -106,7 +122,7 @@ class PostWidget extends StatefulWidget {
                   ),
                   onTap: (){
                     var route =
-                      MaterialPageRoute(builder: (BuildContext context) => CommentsPage(customer: widget.customer, idPost: widget.idPost, comments: widget.comments, description: widget.description,));
+                      MaterialPageRoute(builder: (BuildContext context) => CommentsPage(customer: widget.customer, idPost: widget.idPost, comments: widget.comments, description: widget.description,role: widget.role,));
                       Navigator.of(context).push(route);
                   },
                 ),

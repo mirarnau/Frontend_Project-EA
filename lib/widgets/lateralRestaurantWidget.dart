@@ -25,14 +25,14 @@ class NavDrawer extends StatefulWidget {
     String selectedExtras = "Live music";
 
     List<DropdownMenuItem<String>> get foodStylesTags{
-    List<DropdownMenuItem<String>> foodStylesItems = [
-      DropdownMenuItem(child: Text(translate('food_tags.italian')), value: "Italian"),
-      DropdownMenuItem(child: Text(translate('food_tags.asiatic')), value: "Asiatic"),
-      DropdownMenuItem(child: Text(translate('food_tags.vegan')), value: "Vegan"),
-      DropdownMenuItem(child: Text(translate('food_tags.mexican')), value: "Mexican"),
-    ];
-    return foodStylesItems;
-  }
+      List<DropdownMenuItem<String>> foodStylesItems = [
+        DropdownMenuItem(child: Text(translate('food_tags.italian')), value: "Italian"),
+        DropdownMenuItem(child: Text(translate('food_tags.asiatic')), value: "Asiatic"),
+        DropdownMenuItem(child: Text(translate('food_tags.vegan')), value: "Vegan"),
+        DropdownMenuItem(child: Text(translate('food_tags.mexican')), value: "Mexican"),
+      ];
+      return foodStylesItems;
+    }
 
   List<DropdownMenuItem<String>> get extrasTags{
     List<DropdownMenuItem<String>> extrasTags = [
@@ -103,12 +103,12 @@ class NavDrawer extends StatefulWidget {
                           iconDisabledColor: Theme.of(context).backgroundColor,
                           dropdownColor: Theme.of(context).hoverColor,
                           borderRadius: BorderRadius.circular(20),
-                    value: selectedFoodStyle,
-                    items: foodStylesTags, 
-                    onChanged: (String? newValue) { 
-                      selectedFoodStyle = newValue!;
-                     },
-              ),
+                          value: selectedFoodStyle,
+                          items: foodStylesTags, 
+                          onChanged: (String? newValue) { 
+                            selectedFoodStyle = newValue!;
+                          },
+                        ),
               TextButton(
                     child: Text(
                       translate('food_tags.add').toUpperCase(),

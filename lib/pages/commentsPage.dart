@@ -1,23 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/post.dart';
-import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
-import 'package:flutter_tutorial/pages/wallPage.dart';
-import 'package:flutter_tutorial/services/pdfService.dart';
+import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 import 'package:flutter_tutorial/services/postService.dart';
-import 'package:flutter_tutorial/widgets/mapWidget.dart';
-import 'package:flutter_tutorial/widgets/postWidget.dart';
 
 class CommentsPage extends StatefulWidget {
   final List<Comment> comments;
   final String idPost;
   final String description;
-  final Customer customer;
-  const CommentsPage({Key? key, required this.idPost, required this.description, required this.comments, required this.customer}) : super(key: key);
+  final customer;
+  final role;
+  const CommentsPage({Key? key, required this.idPost, required this.description, required this.comments, required this.customer, required this.role}) : super(key: key);
 
   @override
   _CommentsPageState createState() => _CommentsPageState();
@@ -163,10 +159,19 @@ class _CommentsPageState extends State<CommentsPage> {
           leading:  IconButton(
           icon:  Icon(Icons.arrow_back),
           onPressed: (){
-            var route =
-              MaterialPageRoute(builder: (BuildContext context) => MainPage(customer: widget.customer, selectedIndex: 2, transferRestaurantTags: [], chatPage: "Received"));
-              Navigator.of(context).push(route);
+            if (widget.role == "customer"){
+              var route =
+                MaterialPageRoute(builder: (BuildContext context) => MainPage(customer: widget.customer, selectedIndex: 2, transferRestaurantTags: [], chatPage: "Received"));
+                Navigator.of(context).push(route);
             }
+            if (widget.role == "owner"){
+              var route =
+                MaterialPageRoute(builder: (BuildContext context) => OwnerMainPage(owner: widget.customer, selectedIndex: 3, transferRestaurantTags: [], chatPage: "Received"));
+                Navigator.of(context).push(route);
+            }
+            
+          }
+            
           ),
           centerTitle: true,
           title: Text('Comments'),
@@ -252,10 +257,19 @@ class _CommentsPageState extends State<CommentsPage> {
                     SizedBox(width: 15,),
                     FloatingActionButton(
                       onPressed: () async {
-                        Comment newComment = Comment(creatorName: widget.customer.customerName, message: messageController.text );
-                        await postService.addComment(newComment, widget.idPost);
-                        widget.comments.add(newComment);
-                        setState(() {});
+                        if (widget.role == "customer"){
+                          Comment newComment = Comment(creatorName: widget.customer.customerName, message: messageController.text );
+                          await postService.addComment(newComment, widget.idPost);
+                          widget.comments.add(newComment);
+                          setState(() {});
+                        }
+                        if (widget.role == "owner"){
+                          Comment newComment = Comment(creatorName: widget.customer.ownerName, message: messageController.text );
+                          await postService.addComment(newComment, widget.idPost);
+                          widget.comments.add(newComment);
+                          setState(() {});
+                        } 
+                      
                       },
                       child: Icon(Icons.send,color: Colors.white,size: 18,),
                       backgroundColor: Color.fromARGB(255, 213, 94, 85),

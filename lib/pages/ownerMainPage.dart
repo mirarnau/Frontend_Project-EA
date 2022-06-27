@@ -6,6 +6,7 @@ import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/ownerProfilePage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/ticketsPage.dart';
+import 'package:flutter_tutorial/pages/wallPageOwner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/pages/listRestaurantsOwnerPage.dart';
 import 'package:meta/meta.dart';
@@ -65,11 +66,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    VideocallPage(),
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
     TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
-    OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
+    WallPageOwner(owner: widget.owner),
     OwnerProfilePage(owner: _owner)
   ];
 
@@ -98,8 +98,8 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
             label: translate('nav_bar.home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_call),
-            label: translate('nav_bar.call'),
+            icon: Icon(Icons.photo_camera),
+            label: 'Posts',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

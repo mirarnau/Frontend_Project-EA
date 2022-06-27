@@ -2,22 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/post.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/pages/createPostPage.dart';
 import 'package:flutter_tutorial/services/postService.dart';
 import 'package:flutter_tutorial/widgets/postWidget.dart';
 
 import 'mainPage.dart';
 
-class WallPage extends StatefulWidget {
-  final Customer? customer;
-  const WallPage({Key? key, required this.customer}) : super(key: key);
+class WallPageOwner extends StatefulWidget {
+  final Owner? owner;
+  const WallPageOwner({Key? key, required this.owner}) : super(key: key);
 
   @override
-  State<WallPage> createState() => _WallPageState();
+  State<WallPageOwner> createState() => _WallPageOwnerState();
 }
 
-class _WallPageState extends State<WallPage> {
+class _WallPageOwnerState extends State<WallPageOwner> {
   PostService postService = PostService();
   List<Post>? listPosts = [];
   bool isLoading = true;
@@ -57,11 +59,22 @@ class _WallPageState extends State<WallPage> {
               postImageUrl: listPosts![index].postImageUrl,
               likes: listPosts![index].likes,
               comments: listPosts![index].comments,
-              customer: widget.customer!,
-              role: "customer",
+              customer: widget.owner!,
+              role: "owner",
             );
           }
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add),
+        onPressed: (){
+          var routes = MaterialPageRoute(
+            builder: (BuildContext context) => 
+              CreatePostPage(owner: widget.owner)
+          );
+          Navigator.of(context).push(routes);
+        },
       ),
 
       

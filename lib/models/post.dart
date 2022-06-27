@@ -42,8 +42,8 @@ class Post {
     return {
       'creator': post.creator,
       'description': post.description,
+      'profileImage': post.profileImage,
       'postImageUrl': post.postImageUrl,
-      'likes': post.likes
     };
   }
 }
