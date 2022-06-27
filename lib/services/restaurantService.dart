@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +16,6 @@ class RestaurantService {
 
     if (res.statusCode == 200) {
       Restaurant rest = Restaurant.fromJSON(jsonDecode(res.body));
-      print('searched rest');
-      print(rest);
       return rest;
     }
     return null;
@@ -29,8 +26,6 @@ class RestaurantService {
         headers: {'authorization': LocalStorage('key').getItem('token')});
     if (res.statusCode == 200) {
       Restaurant rest = Restaurant.fromJSON(jsonDecode(res.body));
-      print('searched rest');
-      print(rest);
       return rest;
     }
     return null;
