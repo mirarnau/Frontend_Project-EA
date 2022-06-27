@@ -16,6 +16,7 @@ import 'package:flutter_tutorial/services/ticketsService.dart';
 
 import '../models/restaurant.dart';
 import '../services/restaurantService.dart';
+import '../widgets/ownerTicketWidget.dart';
 import 'indexPage.dart';
 
 
@@ -141,8 +142,9 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
                     );
                     Navigator.of(context).push(routes);
                     },
-                    child: TicketWidget (
+                    child: OwnerTicketWidget (
                       creatorName: listTicketsReceived![index].creatorName,
+                      restaurantName: listTicketsReceived![index].recipientName,
                       subject: listTicketsReceived![index].subject,
                       status: listTicketsReceived![index].status.toString())
                   );
