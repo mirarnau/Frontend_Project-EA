@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
     ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, page: widget.chatPage, user: widget.customer,),
     WallPage(customer: widget.customer),
-    Center(child: Text(translate('nav_bar.agenda'), style: TextStyle(fontSize: 60))),
+    ReservationPage(myCustomer: widget.customer, myName: widget.customer!.customerName, userType: "Customer"),
     ProfilePage(customer: _customer),
   ];
 

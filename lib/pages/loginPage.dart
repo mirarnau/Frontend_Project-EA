@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                   var route = MaterialPageRoute(
                       builder: (BuildContext context) => MainPage(
                             customer: customer,
-                            selectedIndex: 1,
+                            selectedIndex: 0,
                             transferRestaurantTags: voidListTags,
                             chatPage: "Inbox",
                           ));
@@ -282,13 +282,10 @@ class _LoginPageState extends State<LoginPage> {
                 onToggle: (index) {
                   if (index == 0){
                     isOwner = false;
-                    print(isOwner);
                   }
                   else{
                     isOwner = true;
-                    print(isOwner);
                   }
-                  print('switched to: $index');
                 },
               ),
             ],

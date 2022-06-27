@@ -139,7 +139,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                       onTap: () {
                         var routes = MaterialPageRoute(
                           builder: (BuildContext context) => 
-                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
+                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index], owner: _owner)
                         );
                         Navigator.of(context).push(routes);
                       },);
@@ -203,7 +203,7 @@ class _OwnerRestaurnats extends State<OwnerRestaurantPage> {
                       onTap: () {
                         var routes = MaterialPageRoute(
                           builder: (BuildContext context) => 
-                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index],)
+                            InfoOwnerRestaurantPage(selectedRestaurant: myRestaurants?[index], owner: _owner)
                         );
                         Navigator.of(context).push(routes);
                       },

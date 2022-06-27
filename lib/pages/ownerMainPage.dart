@@ -65,11 +65,9 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    VideocallPage(),
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
     TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
-    OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
     OwnerProfilePage(owner: _owner)
   ];
 
@@ -96,10 +94,6 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.house),
             label: translate('nav_bar.home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_call),
-            label: translate('nav_bar.call'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

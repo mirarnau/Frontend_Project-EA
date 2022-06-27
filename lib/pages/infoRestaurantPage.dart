@@ -5,25 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/pages/mainPage.dart';
-import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 
-import 'package:flutter_tutorial/pages/profilePage.dart';
 
-import 'package:flutter_tutorial/pages/registerPage.dart';
 
-import 'package:flutter_tutorial/services/customerService.dart';
-import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
-import 'package:flutter_tutorial/models/owner.dart';
-import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/pdfService.dart';
 import 'package:flutter_tutorial/widgets/doReservationWidget.dart';
 import 'package:flutter_tutorial/widgets/mapWidget.dart';
 import 'package:flutter_tutorial/widgets/ratingWidget.dart';
-import 'package:flutter_tutorial/widgets/reservationWidget.dart';
-import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/mirror_animation.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 

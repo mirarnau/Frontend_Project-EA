@@ -1,4 +1,5 @@
 class Reservation {
+  late final String id;
   late final String idCustomer;
   late final String idRestaurant;
   late final String nameCustomer;
@@ -22,7 +23,7 @@ class Reservation {
       });
 
   factory Reservation.fromJSON(dynamic json) {
-    return Reservation(
+    Reservation reservation = Reservation(
       idCustomer: json['_idCustomer'],
       idRestaurant: json['_idRestaurant'],
       nameCustomer: json['nameCustomer'],
@@ -32,6 +33,10 @@ class Reservation {
       numCustomers: json['numCustomers'],
       phone: json['phone']
     );
+
+    reservation.id = json['_id'];
+
+    return reservation;
   }
   @override
   String toString() {
