@@ -103,30 +103,7 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  children: [
-                    TimePickerSpinner(
-                      time: DateTime.now(),
-                      normalTextStyle: TextStyle(
-                        fontSize: 18,
-                        color: Theme.of(context).highlightColor,
-                      ),
-                      highlightedTextStyle: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      spacing: 15,
-                      itemHeight: 40,
-                      isForce2Digits: true,
-                      onTimeChange: (time) {
-                        setState(() {
-                          _hourTime = time;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                timePicker(),
                 const SizedBox(width: 10),
                 Column(
                   children: [
@@ -254,5 +231,26 @@ class _DoReservationWidgetState extends State<DoReservationWidget> {
 
   _hideDialog() {
     if(Navigator.canPop(context)) Navigator.pop(context);
+  }
+
+  Widget timePicker() {
+    return TimePickerSpinner(
+      time: DateTime.now(),
+      minutesInterval: 15,
+      normalTextStyle: TextStyle(
+        fontSize: 18,
+        color: Theme.of(context).highlightColor,
+      ),
+      highlightedTextStyle: TextStyle(
+        fontSize: 24,
+        color: Theme.of(context).primaryColor,
+      ),
+      alignment: Alignment.center,
+      spacing: 15,
+      itemHeight: 40,
+      onTimeChange: (time) {
+        _hourTime = time;
+      },
+    );
   }
 }
