@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ReservationWidget extends StatelessWidget {
-  final String creatorName;
-  final String subject;
-  final String status;
+  final String dateDay;
+  final String dateTime;
+  final String nameCust;
+  final String nameRest;
+  final String phone;
 
   ReservationWidget({
-    required this.creatorName,
-    required this.subject,
-    required this.status,
+    required this.dateDay,
+    required this.dateTime,
+    required this.nameCust,
+    required this.nameRest,
+    required this.phone
   });
 
   @override
@@ -16,27 +20,15 @@ class ReservationWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 111.0,
+        height: 145.0,
         width: 350.0,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 161, 90, 85),
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(children: <Widget>[
-            /*
-              Container(
-                width: 60,
-                height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: NetworkImage(imageURL),
-                    )
-                  ),
-                ),
-                */
             Expanded(
                 flex: 2,
                 child: Padding(
@@ -47,7 +39,7 @@ class ReservationWidget extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            creatorName,
+                            nameCust,
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -63,12 +55,22 @@ class ReservationWidget extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        subject,
+                        "Phone: " + phone,
                         style:
                             const TextStyle(color: Colors.black, fontSize: 14),
                       ),
                       Text(
-                        status,
+                        "Day: " + dateDay,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                      Text(
+                        "Hour: " + dateTime,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                      Text(
+                        "Restaurant: " + nameRest,
                         style:
                             const TextStyle(color: Colors.black, fontSize: 14),
                       ),
@@ -76,12 +78,11 @@ class ReservationWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const [
                           Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                            size: 24.0,
+                            Icons.remove_circle_outline,
+                            color: Colors.redAccent,
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ))

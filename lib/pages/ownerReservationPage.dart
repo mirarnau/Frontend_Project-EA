@@ -6,17 +6,17 @@ import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/reservation.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
-import 'package:flutter_tutorial/services/customerService.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
 import 'package:flutter_tutorial/services/reservationService.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
+import 'package:flutter_tutorial/widgets/loadingCardsWidget.dart';
 import 'package:flutter_tutorial/widgets/reservationWidget.dart';
 
 class OwnerReservationPage extends StatefulWidget {
   final Restaurant? selectedRestaurant;
-  final Owner? customer;
+  final Owner? owner;
   const OwnerReservationPage(
-      {Key? key, required this.selectedRestaurant, required this.customer})
+      {Key? key, required this.selectedRestaurant, required this.owner})
       : super(key: key);
 
   @override
@@ -26,92 +26,109 @@ class OwnerReservationPage extends StatefulWidget {
 class _OwnerReservationPageState extends State<OwnerReservationPage> {
   ReservationService _reservationService = ReservationService();
   List<Reservation>? listReservations;
-  CustomerService customerService = CustomerService();
+  OwnerService _ownerService = OwnerService();
   RestaurantService restaurantService = RestaurantService();
-  bool isLoading = true;
   OwnerService ownerService = OwnerService();
-  Customer? customer;
   Restaurant? restaurant;
-  Owner? owner;
+  Owner? _owner;
+
+  bool _isLoading = true;
+  bool _isEmpty = true;
+  bool _isReload = false;
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    getInfoCustomer();
-    getAllReservations();
-  }
 
-  Future<void> getInfoCustomer() async {
-    customer =
-        await customerService.getCustomerByName(widget.customer!.ownerName);
+    _owner = widget.owner;
+
+    Future.delayed(const Duration(seconds: 2), () {
+
+      getAllReservations();
+
+    });
+
+    super.initState();
   }
 
   Future<void> getAllReservations() async {
+    
+    setState(() => _isLoading = true);
+
     listReservations = await _reservationService.getAllReservations();
-    setState(() {
-      isLoading = false;
-    });
+
+    if(listReservations!.isEmpty) {
+      _isEmpty = true;
+    }
+    else {
+      _isEmpty = false;
+    }
+
+    _isReload = false;
+
+    setState(() => _isLoading = false);
+
   }
 
   @override
   Widget build(BuildContext context) {
-    if (listReservations == null) {
-      return Container(
-          color: Theme.of(context).canvasColor,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).cardColor,
-              title: Text(''),
-            ),
-            body: Text(''),
-          ));
-    } else {
-      if (listReservations == null) {
-        return Scaffold(
-          body: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Theme.of(context).canvasColor,
-              child: Padding(
-                padding: EdgeInsets.all(50),
-                child: Text(
-                  '',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
-                ),
-              )),
-        );
-      }
-      return Scaffold(
-        body: Container(
-          color: Theme.of(context).backgroundColor,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Expanded(
+    if(_isReload) getAllReservations();
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+        title: const Text ("Your reservations"),
+      ),
+      body: Container(
+        color: Theme.of(context).backgroundColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _isLoading
+            ? Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => const LoadingCards(),
+                itemCount: 8
+              ),
+            )
+            : _isEmpty
+              ? Text(
+                  "There are no reservations",
+                  style: TextStyle(
+                    color: Theme.of(context).highlightColor
+                  ),
+                )
+              : Expanded(
                   child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listReservations?.length,
-                      itemBuilder: (context, index) {
-                        if (listReservations![index].idRestaurant ==
-                            widget.selectedRestaurant!.id) {
-                          return GestureDetector(
-                              child: ReservationWidget(
-                                  creatorName:
-                                      listReservations![index].dateReservation,
-                                  subject:
-                                      listReservations![index].timeReservation,
-                                  status:
-                                      listReservations![index].nameRestaurant));
-                        } else {
-                          return GestureDetector(child: Text(''));
-                        }
-                      })),
-            ],
-          ),
+                    shrinkWrap: true,
+                    itemCount: listReservations?.length,
+                    itemBuilder: (context, index) {
+                      if (listReservations![index].idRestaurant ==
+                          widget.selectedRestaurant!.id) {
+                        return GestureDetector(
+                            child: ReservationWidget(
+                            dateDay: listReservations![index].dateReservation,
+                            dateTime: listReservations![index].timeReservation,
+                            nameRest: listReservations![index].nameRestaurant, 
+                            nameCust: listReservations![index].nameCustomer,
+                            phone: listReservations![index].phone,
+                          ),
+                          onTap: () async { 
+                            await _reservationService.deleteReservation(listReservations![index].id);
+                            setState(() {
+                              _isReload = true;
+                            });
+                          }
+                        );
+                      } else {
+                        return GestureDetector(child: Text(''));
+                      }
+                    }
+                  ),
+              ),
+          ],
         ),
-      );
-    }
+      ),
+    );
   }
 }

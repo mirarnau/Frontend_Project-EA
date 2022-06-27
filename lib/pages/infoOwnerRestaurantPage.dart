@@ -7,6 +7,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/pages/ownerMainPage.dart';
+import 'package:flutter_tutorial/pages/ownerReservationPage.dart';
 
 import 'package:flutter_tutorial/pages/profilePage.dart';
 import 'package:flutter_tutorial/pages/registerPage.dart';
@@ -24,7 +25,8 @@ import 'package:simple_animations/stateless_animation/mirror_animation.dart';
 
 class InfoOwnerRestaurantPage extends StatefulWidget {
   final Restaurant? selectedRestaurant;
-  const InfoOwnerRestaurantPage({Key? key, required this.selectedRestaurant}) : super(key: key);
+  final Owner? owner;
+  const InfoOwnerRestaurantPage({ Key? key, required this.selectedRestaurant, required this.owner }) : super(key: key);
 
   @override
   _InfoOwnerRestaurantPageState createState() => _InfoOwnerRestaurantPageState();
@@ -279,6 +281,29 @@ class _InfoOwnerRestaurantPageState extends State<InfoOwnerRestaurantPage> {
                             }
                           }
                         },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Container(
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: TextButton(
+                        child: Text (
+                          "Pending Reservations",
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                        ),
+                        onPressed: () async {
+                          var route =
+                            MaterialPageRoute(builder: (BuildContext context) => OwnerReservationPage(owner: widget.owner, selectedRestaurant: widget.selectedRestaurant));
+                            Navigator.of(context).push(route);
+                        }
                       ),
                     ),
                   ),

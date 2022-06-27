@@ -1,5 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
+import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/models/post.dart';
@@ -9,6 +14,9 @@ import 'package:flutter_tutorial/pages/ownerMainPage.dart';
 import 'package:flutter_tutorial/pages/wallPageOwner.dart';
 import 'package:flutter_tutorial/services/postService.dart';
 import 'package:flutter_tutorial/services/restaurantService.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class CreatePostPage extends StatefulWidget {
@@ -32,6 +40,17 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   final restaurantController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  var urlImage = "https://www.pngitem.com/pimgs/m/33-330111_album-icon-png-transparent-png.png";
+
+  late File newImage = File("");
+
+  final cloudinary = CloudinaryPublic('eduardferrecloud', 'oqpjo8a2', cache: false);
+
+  final XTypeGroup typeGroup = XTypeGroup(
+    label: 'images',
+    extensions: <String>['jpg', 'png'],
+  );
 
   @override
   void dispose() {
@@ -104,6 +123,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
         centerTitle: true,
         title: Text('New post')
       ),
@@ -111,8 +131,49 @@ class _CreatePostPageState extends State<CreatePostPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(40.0),
-            child: Image(
-              image: NetworkImage('https://www.pngitem.com/pimgs/m/33-330111_album-icon-png-transparent-png.png')
+            child: GestureDetector(
+              child: Image(
+                image: NetworkImage(urlImage)
+                ),
+                onTap: () async {
+                  if(!kIsWeb) {
+                  var image =
+                      await ImagePicker().pickImage(source: ImageSource.gallery);
+                  if (image == null) return;
+
+                  var directory = await getApplicationDocumentsDirectory();
+                  var name = basename(image.path);
+                  var imageFile = File('${directory.path}/$name');
+                  newImage = await File(image.path).copy(imageFile.path);
+                }
+                else {
+                  final XFile? image =
+                    await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+
+                  if (image == null) return;
+
+                  newImage = File(image.path);
+                }
+                  
+                if(newImage.path != "") {
+                  try {
+                    CloudinaryResponse response = await cloudinary.uploadFile(
+                      CloudinaryFile.fromFile(newImage.path, folder: 'posts', resourceType: CloudinaryResourceType.Image),
+                    );
+                    
+                    urlImage = response.secureUrl;
+
+                  } on CloudinaryException catch (e) {
+                    if (kDebugMode) {
+                      print(e);
+                    }
+                  }
+                }
+
+                setState(() {
+                  
+                });
+              },
             ),
           ),
           Padding(
@@ -180,13 +241,15 @@ class _CreatePostPageState extends State<CreatePostPage> {
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           late Restaurant selected;
+
           for (var i = 0; i < myRestaurants!.length; i++){
             if (myRestaurants![i].restaurantName == selectedRestaurant){
               selected = myRestaurants![i];
             }
           }
-          print(selected.photos[0]);
-          Post newPost = Post(creator: selectedRestaurant, profileImage: selected.photos[0], description: descriptionController.text, postImageUrl: "https://fastly.4sqi.net/img/general/600x600/87934174_fYCFEYx2RyfNan0T3vKz67cf54y5JvDpx2E1GrycxE4.jpg");
+
+          Post newPost = Post(creator: selectedRestaurant, profileImage: selected.photos[0], 
+                              description: descriptionController.text, postImageUrl: urlImage);
           await postService.addPost(newPost);
           var routes = MaterialPageRoute(
             builder: (BuildContext context) => 

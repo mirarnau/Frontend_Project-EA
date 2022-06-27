@@ -46,4 +46,13 @@ class ReservationService {
     }
     return null;
   }
+
+  Future<bool> deleteReservation(String _id) async {
+    var res = await http.delete(Uri.parse(baseUrl + '/' + _id),
+      headers: {'authorization': LocalStorage('key').getItem('token')});
+      
+    int statusCode = res.statusCode;
+    if (statusCode == 200) return true;
+    return false;
+  }
 }

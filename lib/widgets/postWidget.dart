@@ -29,6 +29,8 @@ class PostWidget extends StatefulWidget {
 
     late int _currentLikes = widget.likes.length;
 
+    bool _isLiked = false;
+
     @override
     void initState() {
     super.initState();
@@ -75,7 +77,9 @@ class PostWidget extends StatefulWidget {
               children: [
                 GestureDetector(
                   child: Icon(
-                    Icons.favorite,
+                    _isLiked
+                    ? Icons.favorite
+                    : Icons.favorite_border,
                     size: 30.0,
                     color: Colors.red),
                     onTap: () async {
@@ -85,11 +89,13 @@ class PostWidget extends StatefulWidget {
                         if (like == true){
                           setState(() {
                             _currentLikes = _currentLikes + 1;
+                            _isLiked = true;
                           });
                         }
                         if (like == false){
                           setState(() {
                             _currentLikes = _currentLikes - 1;
+                            _isLiked = false;
                           });
                         }
                       }
@@ -99,11 +105,13 @@ class PostWidget extends StatefulWidget {
                         if (like == true){
                           setState(() {
                             _currentLikes = _currentLikes + 1;
+                            _isLiked = true;
                           });
                         }
                         if (like == false){
                           setState(() {
                             _currentLikes = _currentLikes - 1;
+                            _isLiked = false;
                           });
                         }
                       }
