@@ -17,6 +17,7 @@ import 'package:flutter_tutorial/services/loginService.dart';
 import 'package:flutter_tutorial/models/customer.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/services/ownerService.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -37,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   var text = translate('customer');
 
   bool buttonEnabled = false;
+  bool _isDarkMode = false;
 
   @override
   void dispose() {
@@ -47,8 +49,9 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  
+
   showAlertDialog(BuildContext context) {
-    // set up the button
     Widget okButton = TextButton(
       child: const Text("OK"),
       onPressed: () {
@@ -76,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     CustomerService customerService = CustomerService();
@@ -90,26 +92,25 @@ class _LoginPageState extends State<LoginPage> {
         color: Theme.of(context).canvasColor,
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 100.0),
+            children: <Widget>[Padding(
+                padding: EdgeInsets.only(top: 70.0),
                 child: Center(
-                  child: SizedBox(
-                      width: 200,
-                      height: 150,
-                      child: Text(
-                        'Appétit',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
-                      )
+                  child: Container(
+                    height: 200.0,
+                    width: 200.0,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/images/appetit.png'),
+                        fit: BoxFit.fill,
+                      ),
+                      shape: BoxShape.rectangle,
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: TextField(
                   controller: customernameController,
                   decoration: InputDecoration(
@@ -186,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                   var route = MaterialPageRoute(
                       builder: (BuildContext context) => MainPage(
                             customer: customer,
-                            selectedIndex: 1,
+                            selectedIndex: 0,
                             transferRestaurantTags: voidListTags,
                             chatPage: "Inbox",
                           ));

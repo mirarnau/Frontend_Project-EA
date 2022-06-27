@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Center(
                 child: SizedBox(
                     width: 300,
-                    height: 80,
+                    height: 60,
                     child: Text(
                       translate('login_page.register').toUpperCase(),
                       textAlign: TextAlign.center,
@@ -219,11 +219,11 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 10.0, bottom: 40.0),
+                left: 15.0, right: 15.0, top: 0.0, bottom: 20.0),
               child: buildLanguage(context: context),
             ),
             Container(
-              height: 50,
+              height: 45,
               width: 250,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20)),
@@ -304,9 +304,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 130,
-            ),
+            SizedBox(height: 10),
             ToggleSwitch(
                 minWidth: 90.0,
                 initialLabelIndex: 0,
@@ -320,13 +318,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 onToggle: (index) {
                   if (index == 0){
                     isOwner = false;
-                    print(isOwner);
                   }
                   else{
                     isOwner = true;
-                    print(isOwner);
                   }
-                  print('switched to: $index');
                 },
               ),
           ],
