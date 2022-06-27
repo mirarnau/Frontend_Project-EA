@@ -171,12 +171,12 @@ class _OwnerChatPageState extends State<OwnerChatPage> {
                       ),
                     ),
                     SizedBox(width: 15,),
-                    /*FloatingActionButton(
+                    FloatingActionButton(
                       onPressed: () async {
-                        Message newMessage = Message(senderName: widget.myOwner!.ownerName, 
+                        MessageCustom newMessage = MessageCustom(senderName: widget.myOwner!.ownerName, 
                             receiverName: widget.selectedTicket.recipientName, 
                             message: messageController.text, 
-                            profilePicSender:widget.myOwner!..);
+                            profilePicSender:widget.myOwner!.profilePic);
                             
                         await ticketService.addMessageToTicket(newMessage, widget.selectedTicket);
                         widget.listMessages!.add(newMessage);
@@ -185,7 +185,7 @@ class _OwnerChatPageState extends State<OwnerChatPage> {
                       child: Icon(Icons.send,color: Colors.white,size: 18,),
                       backgroundColor: Color.fromARGB(255, 213, 94, 85),
                       elevation: 0,
-                    ),*/
+                    ),
                   ],
                   
                 ),

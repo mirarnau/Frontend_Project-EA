@@ -41,19 +41,19 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 1: Dashboard',
+      'Index 0: Dashboard',
       style: optionStyle,
     ),
     Text(
-      'Index 2: My Restaurants',
+      'Index 1: My Restaurants',
       style: optionStyle,
     ),
      Text(
-      'Index 3: Chat',
+      'Index 2: Chat',
       style: optionStyle,
     ),
     Text(
-      'Index 4: Profile',
+      'Index 3: Profile',
       style: optionStyle,
     )
   ];
@@ -65,9 +65,7 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
   }
 
   late final screens = [
-    VideocallPage(),
     ListRestaurantsOwnerPage(newTags: widget.transferRestaurantTags, owner: _owner),
-    TicketsPage(userType: "Owner", myName: widget.owner!.ownerName, page: widget.chatPage, user: widget.owner,),
     OwnerRestaurantPage(owner: _owner, nameRestaurant: nameRestaurant),
     OwnerTicketsPage(myName: widget.owner!.ownerName, myOwner: widget.owner, page: widget.chatPage),
     OwnerProfilePage(owner: _owner)
@@ -90,16 +88,12 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
             label: translate('nav_bar.restaurants'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            label: translate('nav_bar.chat'),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.house),
             label: translate('nav_bar.home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_call),
-            label: translate('nav_bar.call'),
+            icon: Icon(Icons.chat_bubble),
+            label: translate('nav_bar.chat'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
