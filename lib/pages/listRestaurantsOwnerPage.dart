@@ -7,6 +7,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:flutter_tutorial/models/owner.dart';
 import 'package:flutter_tutorial/pages/infoRestaurantPageforOwner.dart';
+import 'package:flutter_tutorial/pages/ownerReservationPage.dart';
 import 'package:flutter_tutorial/pages/statsPage.dart';
 import 'package:flutter_tutorial/widgets/loadingCardsWidget.dart';
 import 'package:flutter_tutorial/widgets/restaurantWidget.dart';
@@ -20,7 +21,9 @@ import 'ownerMainPage.dart';
 class ListRestaurantsOwnerPage extends StatefulWidget {
   final List<String> newTags;
   final Owner? owner;
-  const ListRestaurantsOwnerPage({Key? key, required this.newTags, required this.owner}) : super(key: key);
+  const ListRestaurantsOwnerPage(
+      {Key? key, required this.newTags, required this.owner})
+      : super(key: key);
 
   @override
   State<ListRestaurantsOwnerPage> createState() => _RestaurantsOwnerPageState();
@@ -32,13 +35,12 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
   bool _isLoading = true;
   bool _isEmpty = true;
 
-
   List<String> myTags = [];
 
   @override
   void initState() {
-    if (widget.newTags.length != 0){
-      for (var i = 0; i < widget.newTags.length; i++){
+    if (widget.newTags.length != 0) {
+      for (var i = 0; i < widget.newTags.length; i++) {
         myTags.add(widget.newTags[i]);
       }
     }
@@ -166,7 +168,7 @@ class _RestaurantsOwnerPageState extends State<ListRestaurantsOwnerPage> {
               ),
           ],
         ),
-      ),   
+      ),
     );
   }
 }

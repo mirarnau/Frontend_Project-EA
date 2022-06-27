@@ -124,7 +124,9 @@
         "filter_pref": "Filtrar per preferencies",
         "select_pref": "Seleccioni les seves preferencies",
         "make_res": "Faci una reserva",
-        "search": "Busqui un restaurant"
+        "search": "Busqui un restaurant",
+        "phone": "Número tlf.",
+        "num": "Comensals"
     },
 
     "tickets_page":

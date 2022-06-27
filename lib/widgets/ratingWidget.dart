@@ -25,7 +25,7 @@ class _RatingWidgetState extends State<RatingWidget> {
   var _ratingPageController = PageController();
   int _ratingStatic = 0;
   int _rating = 0;
-  bool _idDisabled = false;
+  bool _isDisabled = false;
   bool _voted = false;
   
   searchRating() {
@@ -33,7 +33,7 @@ class _RatingWidgetState extends State<RatingWidget> {
       if(log['restaurant'] == _restaurant!.restaurantName) {
         _rating = log['rating'].toInt();
         _ratingStatic = log['rating'].toInt();
-        _idDisabled = true;
+        _isDisabled = true;
         _voted = true;
         break;
       }
@@ -93,7 +93,7 @@ class _RatingWidgetState extends State<RatingWidget> {
             child: Container(
               color: Theme.of(context).primaryColor,
               child: MaterialButton(
-                onPressed: _idDisabled ? null : () async {
+                onPressed: _isDisabled ? null : () async {
                   if (_voted) {
                     _restaurant!.rating.last['total'] -= _ratingStatic;
                     _restaurant!.rating.last['total'] += _rating;
@@ -148,10 +148,10 @@ class _RatingWidgetState extends State<RatingWidget> {
                     setState(() {
                       _rating = index + 1;
                       if(_ratingStatic == _rating) {
-                        _idDisabled = true;
+                        _isDisabled = true;
                       }
                       else {
-                        _idDisabled = false;
+                        _isDisabled = false;
                       }
                     });
                   },
