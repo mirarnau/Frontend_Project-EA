@@ -53,18 +53,21 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
 
   Future<void> getInfoOwner() async{
     owner = await ownerService.getOwnerByName(widget.myName);
-    print (owner!.id);   
     listRest = await restaurantService.getRestaurantByOwner(owner!.id);
-    for (int i = 0; i < listRest!.length; i++){
-      listTicketsReceivedA = await ticketService.getTicketsByRecipient(listRest![i].restaurantName.toString());
-      print(listRest![i].restaurantName);
-      print (listTicketsReceivedA);
-      for (int j = 0; j < listTicketsReceivedA!.length; j++){
-        listTicketsReceivedB!.add(listTicketsReceivedA![j]);
+
+    if(listRest != null) {
+      for (int i = 0; i < listRest!.length; i++){
+        listTicketsReceivedA = await ticketService.getTicketsByRecipient(listRest![i].restaurantName.toString());
+        for (int j = 0; j < listTicketsReceivedA!.length; j++){
+          listTicketsReceivedB!.add(listTicketsReceivedA![j]);
+        }
       }
+      listTicketsReceived = listTicketsReceivedB; 
     }
-    listTicketsReceived = listTicketsReceivedB; 
-    print (listTicketsReceived);
+    else {
+      listTicketsReceived = null;
+    }
+
     setState(() {
       isLoading = false;
     });
@@ -87,9 +90,7 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
               color: Color.fromARGB(255, 30, 30, 30),
               ),),
           ),
-        drawer: OwnerNavDrawerChat(myOwner
-    : widget.myOwner
-    ,currentPage: "Inbox",),
+        drawer: OwnerNavDrawerChat(myOwner: widget.myOwner, currentPage: "Inbox",),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -105,18 +106,23 @@ class _OwnerTicketsPageState extends State<OwnerTicketsPage> {
           )),
           
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).cardColor,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context)=> VideocallPage()
           )
           );
         },
-        child: const Icon(Icons.video_call_outlined),
+        child: Icon(
+          Icons.video_call_outlined,
+          color: Theme.of(context).focusColor,
+        ),
     ),
       );
     }
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).cardColor,
         ),
         drawer: OwnerNavDrawerChat(myOwner
     : widget.myOwner

@@ -115,7 +115,8 @@ class _RatingWidgetState extends State<RatingWidget> {
                     };
                     _customer!.ratingLog.add(newLog);
                   }
-                  await _customerService.update(_customer!, _customer!.id);
+                  
+                  await _customerService.updateRating(_customer!, _customer!.id);
                   await _restaurantService.updateRestaurant(_restaurant!, _restaurant!.id);
                   _hideDialog();
                 }, 

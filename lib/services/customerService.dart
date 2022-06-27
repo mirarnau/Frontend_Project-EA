@@ -32,6 +32,18 @@ class CustomerService {
     return false;
   }
 
+  Future<bool> updateRating(Customer customer, String id) async {
+    var res = await http.put(Uri.parse(baseUrl + '/rating/' + id),
+        headers: {'authorization': LocalStorage('key').getItem('token'), 'content-type': 'application/json'},
+        body: json.encode(Customer.toJson(customer)));
+
+    if (res.statusCode == 201) {
+      return true;
+    }
+    
+    return false;
+  }
+
   Future<List<Customer>?> getAllCustomers() async {
     var res = await http.get(Uri.parse(baseUrl),
       headers: {'authorization': LocalStorage('key').getItem('token')});

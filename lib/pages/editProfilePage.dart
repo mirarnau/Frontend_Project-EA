@@ -22,7 +22,8 @@ import 'package:mime_type/mime_type.dart';
 
 class editProfilePage extends StatefulWidget {
   final Customer? customer;
-  const editProfilePage({Key? key, required this.customer}) : super(key: key);
+  final String? photo;
+  const editProfilePage({Key? key, required this.customer, required this.photo}) : super(key: key);
 
 
   @override
@@ -40,6 +41,8 @@ class _editProfilePage extends State<editProfilePage> {
   late TextEditingController _customerNameController;
   late TextEditingController _emailController;
   bool buttonEnabled = false;
+
+  var urlImage = "https://res.cloudinary.com/eduardferrecloud/image/upload/v1653992797/profilePics/avatarDefault_txnyzu.png";
 
   final cloudinary = CloudinaryPublic('eduardferrecloud', 'oqpjo8a2', cache: false);
 
@@ -71,12 +74,12 @@ class _editProfilePage extends State<editProfilePage> {
         children: [
           const SizedBox(height: 24),
           ProfileWidget(
-            imagePath: widget.customer!.profilePic,
+            imagePath: urlImage,
             isEdit: true,
             onClicked: () async {
               if(!kIsWeb) {
                 var image =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
                 if (image == null) return;
 
                 var directory = await getApplicationDocumentsDirectory();
@@ -92,6 +95,31 @@ class _editProfilePage extends State<editProfilePage> {
 
                 newImage = File(image.path);
               }
+                  
+              if(newImage.path != "") {
+                try {
+                  CloudinaryResponse response = await cloudinary.uploadFile(
+                    CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
+                  );
+                  
+                  urlImage = response.secureUrl;
+
+                } on CloudinaryException catch (e) {
+                  if (kDebugMode) {
+                    print("Same Pic");
+                  }
+                }
+              }
+              else{ 
+                if (kDebugMode) {
+                  print("Same Pic");
+                }
+              }
+
+              setState(() {
+
+              });
+              
             },
           ),
           const SizedBox(height: 24),
@@ -139,32 +167,12 @@ class _editProfilePage extends State<editProfilePage> {
                 if ((_customerNameController.text.isNotEmpty) &&
                     (_emailController.text.isNotEmpty) && buttonEnabled) {
                   
-                  var profilePic = "";
-                  
-                  if(newImage.path != "") {
-                    try {
-                      CloudinaryResponse response = await cloudinary.uploadFile(
-                        CloudinaryFile.fromFile(newImage.path, folder: 'profilePics', resourceType: CloudinaryResourceType.Image),
-                      );
-                      
-                      profilePic = response.secureUrl;
-
-                    } on CloudinaryException catch (e) {
-
-                      profilePic = widget.customer!.profilePic;
-                    }
-                  }
-                  else{ 
-                    profilePic = widget.customer!.profilePic;
-                  }
-
-                  
                   Customer? newcustomer = Customer(
                       customerName: _customerNameController.text,
                       fullName: widget.customer!.fullName,
                       email: _emailController.text,
                       password: widget.customer!.password,
-                      profilePic: profilePic,
+                      profilePic: urlImage,
                       ratingLog: widget.customer!.ratingLog
                       );
                   
@@ -174,11 +182,8 @@ class _editProfilePage extends State<editProfilePage> {
                   newcustomer.listReservations = widget.customer!.listReservations;
                   newcustomer.role = widget.customer!.role;
                   
-                    
                   bool res = await customerService.update(newcustomer, newcustomer.id);
 
-                  print(res);
-                  
                   if (res == false) {
                     showAlertDialog(context);
                     setState(() {
@@ -192,7 +197,7 @@ class _editProfilePage extends State<editProfilePage> {
                       MaterialPageRoute(
                         builder: (context) => MainPage(
                           customer: newcustomer,
-                          selectedIndex: 3,
+                          selectedIndex: 4,
                           transferRestaurantTags: voidListTags,
                           chatPage: "Inbox",
                           maxDistance: 99999.0,
