@@ -7,26 +7,22 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/loginPage.dart';
 import 'package:flutter_tutorial/pages/profilePage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   await Settings.init(cacheProvider: SharePreferenceCache());
 
   var delegate = await LocalizationDelegate.create(
-    fallbackLocale: 'en',
-    supportedLocales: ['en', 'es', 'ca']);
+          fallbackLocale: 'en',
+          supportedLocales: ['en', 'es', 'ca']);
 
-    runApp(LocalizedApp(delegate, MyApp()));
-
+  runApp(LocalizedApp(delegate, MyApp()));
 }
-
 
 //MyApp is the root widget
 class MyApp extends StatelessWidget {
   //The fact that it's a statless widget ENABLES HOT RELOAD
-
   const MyApp({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
 
@@ -36,6 +32,7 @@ class MyApp extends StatelessWidget {
       //MaterialApp is another widget, and it allows us to make the designs, it acts as a wrapper for the other widgets.
       state: LocalizationProvider.of(context).state,
       child: ValueChangeObserver<bool>(
+    //return ValueChangeObserver<bool>(
         cacheKey: ProfilePage.keyDarkMode,
         defaultValue: false,
         builder: (_, isDarkMode, __) => MaterialApp(
@@ -87,8 +84,9 @@ class MyApp extends StatelessWidget {
                 ),
               )
             ),
+            
           
-          home: LoginPage()
+          home: LoginPage(),
         ),
       ),
     );
