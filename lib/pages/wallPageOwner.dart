@@ -40,9 +40,20 @@ class _WallPageOwnerState extends State<WallPageOwner> {
 
   @override
   Widget build(BuildContext context) {
-    if (listPosts!.isEmpty){
+    if (listPosts == null) {
       return Scaffold(
         body: Text('No posts yet'),
+        floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add),
+        onPressed: () {
+          var routes = MaterialPageRoute(
+            builder: (BuildContext context) => 
+              CreatePostPage(owner: widget.owner)
+          );
+          Navigator.of(context).push(routes);
+        },
+        ),
       );
     }
     return Scaffold(
@@ -68,7 +79,7 @@ class _WallPageOwnerState extends State<WallPageOwner> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(Icons.add),
-        onPressed: (){
+        onPressed: () {
           var routes = MaterialPageRoute(
             builder: (BuildContext context) => 
               CreatePostPage(owner: widget.owner)
