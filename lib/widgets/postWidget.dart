@@ -29,11 +29,20 @@ class PostWidget extends StatefulWidget {
 
     late int _currentLikes = widget.likes.length;
 
-    bool _isLiked = false;
+    late bool _isLiked = false;
 
     @override
     void initState() {
+    checkLikeStatus();
     super.initState();
+  }
+
+  void checkLikeStatus ()  {
+    for (int i = 0; i < widget.likes.length; i++){
+      if (widget.likes[i].customerName == widget.customer.customerName){
+        _isLiked = true;
+      }
+    }
   }
 
   @override

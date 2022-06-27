@@ -161,7 +161,7 @@ class _CommentsPageState extends State<CommentsPage> {
           onPressed: (){
             if (widget.role == "customer"){
               var route =
-                MaterialPageRoute(builder: (BuildContext context) => MainPage(customer: widget.customer, selectedIndex: 2, transferRestaurantTags: [], chatPage: "Received"));
+                MaterialPageRoute(builder: (BuildContext context) => MainPage(customer: widget.customer, selectedIndex: 2, transferRestaurantTags: [], chatPage: "Received", maxDistance: 99999.0, filterType: "tags",));
                 Navigator.of(context).push(route);
             }
             if (widget.role == "owner"){

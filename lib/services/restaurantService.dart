@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter_tutorial/config.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
 import 'package:http/http.dart' as http;
@@ -86,5 +87,28 @@ class RestaurantService {
       return true;
     }
     return false;
+  }
+
+
+  Future<List<Restaurant>?> getRestaurantsFromDistance (double longitude, double latitude, double maxDistance) async {
+    
+    var res = await http.post(Uri.parse(baseUrl + '/geo/nearsphere'),
+        headers: {
+          'content-type': 'application/json',
+          'authorization': LocalStorage('key').getItem('token')
+        },
+        body: json.encode(Coordinates.toJson(Coordinates(longitude: longitude, latitude: latitude, maxDistance: maxDistance)))
+      );
+
+    if (res.statusCode == 404) {
+      return null;
+    }
+
+    List<Restaurant> listFiltered = [];
+    var decoded = jsonDecode(res.body);
+    decoded.forEach(
+        (restaurant) => listFiltered.add(Restaurant.fromJSON(restaurant)));
+
+    return listFiltered;
   }
 }

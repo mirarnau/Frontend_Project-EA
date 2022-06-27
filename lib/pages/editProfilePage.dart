@@ -195,6 +195,8 @@ class _editProfilePage extends State<editProfilePage> {
                           selectedIndex: 3,
                           transferRestaurantTags: voidListTags,
                           chatPage: "Inbox",
+                          maxDistance: 99999.0,
+                          filterType: "tags"
                         )
                       ),
                     );

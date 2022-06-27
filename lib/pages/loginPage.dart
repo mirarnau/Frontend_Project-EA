@@ -190,6 +190,8 @@ class _LoginPageState extends State<LoginPage> {
                             selectedIndex: 0,
                             transferRestaurantTags: voidListTags,
                             chatPage: "Inbox",
+                            maxDistance: 99999.0,
+                            filterType: "tags"
                           ));
 
                   if (customer == null) {

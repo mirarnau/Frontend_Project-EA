@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/pages/mainPage.dart';
 import 'package:flutter_tutorial/models/customer.dart';
+import 'package:flutter_tutorial/widgets/mapWidget.dart';
 
 
 class NavDrawer extends StatefulWidget {
   final Customer? customer;
   final List<String> previousTags;
-  const NavDrawer({Key? key, required this.customer, required this.previousTags}) : super(key: key);
+  final double previousMaxDistance;
+  const NavDrawer({Key? key, required this.customer, required this.previousTags, required this.previousMaxDistance}) : super(key: key);
 
   @override
   State<NavDrawer> createState() => _NavDrawer_State();
@@ -17,9 +19,13 @@ class NavDrawer extends StatefulWidget {
 
 
   class _NavDrawer_State extends State<NavDrawer>{
+    double newMaxDist = 0.0;
+
+    final distanceController = TextEditingController();
 
     bool foodStyleVisible = false;
     bool extrasVisible = false;
+    bool distanceVisible = false;
 
     String selectedFoodStyle = "Italian";
     String selectedExtras = "Live music";
@@ -35,6 +41,8 @@ class NavDrawer extends StatefulWidget {
     }
 
   List<DropdownMenuItem<String>> get extrasTags{
+
+    
     List<DropdownMenuItem<String>> extrasTags = [
       DropdownMenuItem(child: Text(translate('food_tags.pets')), value: "Pets allowed"),
       DropdownMenuItem(child: Text(translate('food_tags.live')), value: "Live music"),
@@ -50,7 +58,6 @@ class NavDrawer extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-    
 
     return Drawer(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -119,7 +126,7 @@ class NavDrawer extends StatefulWidget {
                     onPressed:() {
                       widget.previousTags.add(selectedFoodStyle);
                       {Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                        builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox", maxDistance: 99999.0, filterType: "tags"))
                         );}
                      }
               )
@@ -196,7 +203,7 @@ class NavDrawer extends StatefulWidget {
                           onPressed:() {
                             widget.previousTags.add(selectedExtras);
                             {Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox",))
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: widget.previousTags, chatPage: "Inbox", maxDistance: 99999.0, filterType: "tags"))
                               );}
                           }
                         ), 
@@ -204,7 +211,87 @@ class NavDrawer extends StatefulWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+            ],
+          )
+        ),
+        Card(
+          child: 
+          Column(
+            children: [
+              ListTile(
+                tileColor: Theme.of(context).backgroundColor,
+                leading: Icon (
+                  Icons.loupe,
+                  color: Theme.of(context).primaryColor),
+                title: Text(
+                  'Filter by distance',
+                  style: TextStyle(
+                    color: Theme.of(context).highlightColor,
+                  ),),
+                subtitle: Text(
+                  'Select distance (Km)',
+                  style: TextStyle(
+                    color: Theme.of(context).shadowColor,
+                  ),),
+                trailing: Icon(
+                  Icons.more_vert,
+                  color: Theme.of(context).primaryColor),
+                onTap: () {
+                  if (extrasVisible == false){
+                    distanceVisible = true;
+                  }
+                  else {
+                    distanceVisible = false;
+                  }
+                  setState(() {});
+                },
+              ),
+              Visibility(
+                visible: distanceVisible == true ? true:false ,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                            controller: distanceController,
+                            style: TextStyle(
+                                color: Theme.of(context).shadowColor,
+                              ),
+                            decoration: InputDecoration(
+                              hintText: 'Distance in km',
+                              hintStyle: TextStyle(
+                                color: Theme.of(context).shadowColor
+                              )
+                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5.0, 13.0, 5.9, 0.0),
+                          child: Text(
+                            'Current distance: ${widget.previousMaxDistance/1000} km'
+                          ),
+                        ),
+                        TextButton(
+                          child: Text(
+                            'DONE',
+                            style: TextStyle(
+                              color: Colors.green
+                            ),
+                          ),
+                          onPressed:() {
+                            {Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: const [], chatPage: "Inbox", maxDistance: (double.parse(distanceController.text))*1000, filterType: "distance"))
+                              );}
+                          }
+                        ), 
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              
               
             ],
           )

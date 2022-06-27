@@ -173,7 +173,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
                 List<String> voidListTags = [];
                 var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: widget.myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
+                          MainPage(customer: widget.myCustomer, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox", maxDistance: 99999.0, filterType: "tags"));
                     
                 Navigator.of(context).push(route);
                 }

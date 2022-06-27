@@ -65,7 +65,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox",));
+                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Inbox", maxDistance: 99999.0, filterType: "tags"));
                     
                     Navigator.of(context).push(route);
                   }
@@ -92,7 +92,7 @@ class NavDrawerChat extends StatelessWidget {
                     List<String> voidListTags = [];
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent",));
+                          MainPage(customer: myUser, selectedIndex: 1, transferRestaurantTags: voidListTags, chatPage: "Sent", maxDistance: 99999.0, filterType: "tags"));
                     
                     Navigator.of(context).push(route);
                   }

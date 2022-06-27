@@ -1,4 +1,5 @@
 import 'package:flutter_tutorial/models/dish.dart';
+import 'package:meta/meta.dart';
 
 class Restaurant {
   late final String id;
@@ -119,5 +120,26 @@ class Stats {
   late final double rating;
   late final double occupation;
   late final DateTime date;
+}
+
+class Coordinates {
+  late final double longitude;
+  late final double latitude;
+  late final double maxDistance;
+
+  Coordinates({
+    required this.longitude,
+    required this.latitude,
+    required this.maxDistance
+  });
+
+  static Map<String, dynamic> toJson(Coordinates coordinates) {
+    return {
+      'longitude': coordinates.longitude,
+      'latitude': coordinates.latitude,
+      'maxDistance': coordinates.maxDistance,
+    };
+  }
+
 }
 

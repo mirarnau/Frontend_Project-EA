@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_tutorial/models/restaurant.dart';
@@ -15,7 +13,9 @@ import 'mainPage.dart';
 class ListRestaurantsPage extends StatefulWidget {
   final List<String> newTags;
   final Customer? customer;
-  const ListRestaurantsPage({Key? key, required this.newTags, required this.customer}) : super(key: key);
+  final double maxDistance; 
+  final String filterType;
+  const ListRestaurantsPage({Key? key, required this.newTags, required this.customer, required this.maxDistance, required this.filterType}) : super(key: key);
 
   @override
   State<ListRestaurantsPage> createState() => _RestaurantsPageState();
@@ -39,18 +39,23 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
       }
 
     Future.delayed(const Duration(seconds: 1), () {
-      filterDishes();
+      filterRestaurants();
     });
 
     super.initState();
   }
 
-  Future<void> filterDishes() async {
-    
+  Future<void> filterRestaurants() async {
+  
     setState(() => _isLoading = true);
-
-    listRestaurants = await restaurantService.filterRestaurants(myTags);
-
+    if (widget.filterType == "tags"){
+      listRestaurants = await restaurantService.filterRestaurants(myTags);
+    }
+   
+    if (widget.filterType == "distance"){
+      listRestaurants = await restaurantService.getRestaurantsFromDistance(41.51643, 0.87135, widget.maxDistance);
+    }
+    
     if(listRestaurants == null) {
       _isEmpty = true;
     } 
@@ -68,7 +73,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
         backgroundColor: Theme.of(context).cardColor,
         title: Text (translate('restaurants_page.filter')),
       ),
-      drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags),
+      drawer: NavDrawer(customer: widget.customer, previousTags: widget.newTags, previousMaxDistance: widget.maxDistance,),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Column (
@@ -106,7 +111,7 @@ class _RestaurantsPageState extends State<ListRestaurantsPage> {
                             print(myTags[index]);
                             myTags.remove(myTags[index]);
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox",))
+                              builder: (BuildContext context)=> MainPage(customer: widget.customer, selectedIndex: 0, transferRestaurantTags: myTags, chatPage: "Inbox", maxDistance: widget.maxDistance, filterType: "tags"))
                             );
                           },
                           icon: const Icon(Icons.cancel)

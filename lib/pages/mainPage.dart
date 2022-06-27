@@ -16,12 +16,16 @@ class MainPage extends StatefulWidget {
   final Customer? customer;
   late final int selectedIndex;
   late final String chatPage;
+  late final double maxDistance;
+  late final String filterType;
   final List<String> transferRestaurantTags;
   MainPage(
       {Key? key,
       required this.customer,
       required this.selectedIndex,
       required this.transferRestaurantTags,
+      required this.maxDistance,
+      required this.filterType,
       required this.chatPage})
       : super(key: key);
 
@@ -61,7 +65,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   late final screens = [
-    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer),
+    ListRestaurantsPage(newTags: widget.transferRestaurantTags, customer: _customer, maxDistance: widget.maxDistance, filterType: widget.filterType,),
     TicketsPage(userType: "Customer", myName: widget.customer!.customerName, page: widget.chatPage, user: widget.customer,),
     WallPage(customer: widget.customer),
     ReservationPage(myCustomer: widget.customer!, myName: widget.customer!.customerName, userType: "Customer"),
